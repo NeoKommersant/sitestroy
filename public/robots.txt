@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Блокируем служебное (пригодится на будущее)
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
+Disallow: /*?*
+
+# Укажи хост и сайтмап
+Host: https://example.com
+Sitemap: https://example.com/sitemap.xml

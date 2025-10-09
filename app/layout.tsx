@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 export const metadata = {
   title: "Стройальянс — Коммерция",
   description: "Промышленные стройматериалы для B2B и B2G",
+  alternates: { canonical: "https://example.com" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
