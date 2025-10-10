@@ -1,0 +1,5 @@
+﻿<svg width='160' height='160' viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'>
+  <circle cx='80' cy='80' r='72' fill='' opacity='0.85'/>
+  <circle cx='80' cy='80' r='70' fill='none' stroke='#f8fafc' stroke-width='4' opacity='0.6'/>
+  <text x='80' y='96' text-anchor='middle' fill='#f8fafc' font-family='Segoe UI, Arial, sans-serif' font-size='40' font-weight='700'></text>
+</svg>
