@@ -425,14 +425,15 @@ export default function HomePage() {
     };
   }, [selectedClient, selectedCertificate]);
 
-  const scrollBy = (ref: RefObject<HTMLDivElement>, direction: "prev" | "next") => {
-    const node = ref.current;
-    if (!node) {
-      return;
-    }
-    const offset = direction === "next" ? node.clientWidth : -node.clientWidth;
-    node.scrollBy({ left: offset, behavior: "smooth" });
-  };
+const scrollBy = (
+  ref: React.RefObject<HTMLDivElement | null>,
+  dir: "prev" | "next",
+  amount = 320
+) => {
+  const el = ref.current;
+  if (!el) return;
+  el.scrollBy({ left: dir === "prev" ? -amount : amount, behavior: "smooth" });
+};
   return (
     <div className="mx-auto max-w-7xl space-y-24 px-4 pb-24 pt-6 sm:px-6 lg:px-8">
       <section className="pt-4" aria-label="Промо-блок компании">
