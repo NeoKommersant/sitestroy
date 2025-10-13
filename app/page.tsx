@@ -179,7 +179,7 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
     slug: "stroitelnye-raboty",
     title: "Строительно-монтажные работы",
     description: "От подготовительного периода до ввода объекта. Собственные бригады, ПТО и спецтехника.",
-    image: "/img/services/stroitelnye-raboty.svg",
+    image: "/img/services/stroitelnye-raboty.jpeg",
     alt: "Монтаж инженерных сетей на объекте",
     href: "/services/stroitelnye-montazhnye",
   },
@@ -187,7 +187,7 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
     slug: "proektnye-izyskatelnye",
     title: "Проектно-изыскательные работы",
     description: "Обследование, ПИР, BIM-координация и сопровождение экспертизы. Ведение проекта в единой среде данных.",
-    image: "/img/services/proektnye.svg",
+    image: "/img/services/proektnye.jpg",
     alt: "Инженер проектирует инфраструктуру на компьютере",
     href: "/services/proektnye",
   },
@@ -195,7 +195,7 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
     slug: "puskonaladochnye",
     title: "Пусконаладочные работы",
     description: "Настройка оборудования, испытания, обучение персонала и гарантийный сервис.",
-    image: "/img/services/puskonaladochnye.svg",
+    image: "/img/services/puskonaladochnye.jpg",
     alt: "Специалист проводит пусконаладку оборудования",
     href: "/services/puskonaladochnye",
   },
@@ -203,7 +203,7 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
     slug: "avtorskiy-nadzor",
     title: "Авторский и технический надзор",
     description: "Контроль качества, управление изменениями, ведение исполнительной документации.",
-    image: "/img/services/nadzor.svg",
+    image: "/img/services/nadzor.jpeg",
     alt: "Инженеры проводят технический надзор",
     href: "/services/nadzor",
   },
@@ -211,7 +211,7 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
     slug: "logistika",
     title: "Логистика и снабжение",
     description: "Маршрутизация, складирование, контроль сроков и качества. Собственный парк и федеральные партнёры.",
-    image: "/img/services/logistika.svg",
+    image: "/img/services/logistika.jpeg",
     alt: "Колонна грузовиков на трассе",
     href: "/services/logistika",
   },
@@ -219,7 +219,7 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
     slug: "arenda-spectekhniki",
     title: "Аренда спецтехники",
     description: "Техника 24/7, вахтовые бригады, сервисное сопровождение и страхование.",
-    image: "/img/services/arenda-spectekhniki.svg",
+    image: "/img/services/arenda-spectekhniki.jpg",
     alt: "Парк спецтехники на базе",
     href: "/services/arenda",
   },
@@ -688,11 +688,11 @@ export default function Page() {
           )}
         </section>
 
-        <section id="product-directions" className="mx-auto max-w-6xl px-6">
-          <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <section id="product-directions" className="mx-auto max-w-6xl px-6"> 
+          <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between ">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Продукты</span>
-              <h2 className="text-3xl font-semibold text-slate-900">Категории</h2>
+              <h2 className="text-3xl font-semibold text-slate-900">Строительные материалы</h2>
             </div>
             <p className="max-w-xl text-sm text-slate-500">
               Комплексный поиск промышленных материалов и материалов для инфраструктуры с предсказуемыми сроками поставки и строгим контролем качества.
@@ -701,20 +701,30 @@ export default function Page() {
 
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {directions.products.map((direction) => (
-              <Link
-                key={direction.slug}
-                href={direction.href}
-                className="group flex flex-col gap-4 rounded-3xl border border-teal-100/20 bg-teal p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-400/20 hover:shadow-xl"
-              >
-                <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-blue-50">
-                  <Image src={direction.image} alt={direction.alt} width={360} height={240} className="h-full w-full overflow-hidden" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
-                  <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
-                </div>
-                <span className="text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">Узнать больше</span>
-              </Link>
+<Link
+  key={direction.slug}
+  href={direction.href}
+  className="group flex flex-col overflow-hidden rounded-3xl border border-teal-100/20 bg-teal shadow-sm transition hover:-translate-y-1 hover:border-teal-400/20 hover:shadow-xl"
+>
+  <div className="relative h-50 w-full">
+    <Image
+      src={direction.image}
+      alt={direction.alt}
+      fill
+      className="object-cover"
+      sizes="100vw"
+    />
+  </div>
+
+  <div className="p-6 flex flex-col gap-2">
+    <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
+    <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
+  </div>
+
+  <span className="px-6 pb-6 text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">
+    Узнать больше
+  </span>
+</Link>
             ))}
           </div>
         </section>
@@ -722,7 +732,7 @@ export default function Page() {
         <section id="service-directions" className="mx-auto max-w-6xl px-6">
           <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">Услуги</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Услуги</span>
               <h2 className="text-3xl font-semibold text-slate-900">Инженерные компетенции</h2>
             </div>
             <p className="max-w-xl text-sm text-slate-500">
@@ -732,20 +742,30 @@ export default function Page() {
 
           <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {directions.services.map((direction) => (
-              <Link
-                key={direction.slug}
-                href={direction.href}
-                className="group flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
-              >
-                <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-slate-50">
-                  <Image src={direction.image} alt={direction.alt} width={360} height={240} className="h-full w-full object-contain" />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
-                  <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
-                </div>
-                <span className="text-sm font-semibold text-blue-700 transition group-hover:text-blue-600">Узнать больше</span>
-              </Link>
+<Link
+  key={direction.slug}
+  href={direction.href}
+  className="group flex flex-col overflow-hidden rounded-3xl border border-teal-100/20 bg-teal shadow-sm transition hover:-translate-y-1 hover:border-teal-400/20 hover:shadow-xl"
+>
+  <div className="relative h-50 w-full">
+    <Image
+      src={direction.image}
+      alt={direction.alt}
+      fill
+      className="object-cover"
+      sizes="100vw"
+    />
+  </div>
+
+  <div className="p-6 flex flex-col gap-2">
+    <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
+    <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
+  </div>
+
+  <span className="px-6 pb-6 text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">
+    Узнать больше
+  </span>
+</Link>
             ))}
           </div>
         </section>
