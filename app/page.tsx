@@ -168,7 +168,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
     title: "Спецтехника",
     description:
       "Автокраны, экскаваторы, бетононасосы и погрузчики. Аренда с экипажем, топливной логистикой и круглосуточным сервисом.",
-    image: "/img/products/spectekhnika.webp",
+    image: "/img/products/spectekhnika.jpg",
     alt: "Спецтехника компании на объекте",
     href: "/catalog/spectekhnika",
   },
@@ -228,40 +228,40 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
 const CLIENT_CASES: ClientCase[] = [
   {
     id: "rosvodokanal",
-    name: "Росводоканал",
-    sector: "ЖКХ · Водоснабжение",
-    summary: "Модернизация водоочистных сооружений и насосных станций в трёх регионах.",
-    image: "/img/clients/rosvodokanal-bg.svg",
-    logo: "/img/clients/rosvodokanal-logo.svg",
+    name: "МРИЯ",
+    sector: "ГНБ · B2B",
+    summary: "Переход методом ГНБ в скальных грунтах.",
+    image: "/img/clients/mriya-bg.jpg",
+    logo: "/img/clients/mriya-logo.png",
     alt: "Команда на объекте Росводоканала",
     details: [
-      "Поставка насосного оборудования, труб ПНД и запорной арматуры под ключ.",
-      "Инжиниринг и авторский надзор за монтажом фильтрационных станций.",
-      "Сервисное обслуживание и обучение дежурного персонала.",
+      "Переход методом ГНБ в скальных грунтах D 300 мм L 270 п.м. Mriya Resot and Spa",
+      ".",
+      ".",
     ],
-    link: "https://rosvodokanal.ru",
+    link: "https://mriyaresort.com/",
   },
   {
     id: "mosoblvodokanal",
-    name: "МосОблВодоканал",
-    sector: "Госзаказ · ЖКХ",
-    summary: "Комплекс поставок для реконструкции сетей водоотведения Московской области.",
-    image: "/img/clients/mosoblvodokanal-bg.svg",
-    logo: "/img/clients/mosoblvodokanal-logo.svg",
+    name: "ТД ВИПАКС",
+    sector: "ПНР · B2G",
+    summary: "Работы ПНР по направляениям ЭТО, ТМО, СВС, ВС, и ОВиК.",
+    image: "/img/clients/td-bg.jpg",
+    logo: "/img/clients/td-logo.png",
     alt: "Строительство канализационных сетей",
     details: [
-      "Поставили более 12 км труб ПВХ и напорных трубопроводов.",
-      "Организовали ночные окна, временное складирование и доставку точно в срок.",
-      "Согласовали исполнительную документацию с техническим надзором.",
+      "В 2022 ведутся работы ПНР по направлениям ЭТО, ТМО, системам внешней связи, внутриобъектовой связи и ОВиК, плановый срок окончания первого этапа 1й квартал 2023г.",
+      "В мае 2022 года проведены ПНР системы внешней связи между Ударной ТЭС и Кубанским РДУ основного и резервного канала.",
+      "Пуск ТЭС 2024 год.",
     ],
   },
   {
     id: "moscow-metro",
-    name: "Московский метрополитен",
-    sector: "Транспорт · B2G",
+    name: "ТехноПромЭкспорт",
+    sector: "Газоснабжение · B2G",
     summary: "Инженерные системы и спецтехника для строительства Большой кольцевой линии.",
-    image: "/img/clients/mosmetro-bg.svg",
-    logo: "/img/clients/mosmetro-logo.svg",
+    image: "/img/clients/tpe-bg.png",
+    logo: "/img/clients/tpe-logo.png",
     alt: "Тоннель метро в процессе строительства",
     details: [
       "Поставка кабельных линий, силовых щитов и шкафов автоматики.",
@@ -272,11 +272,11 @@ const CLIENT_CASES: ClientCase[] = [
   },
   {
     id: "novatek",
-    name: "НОВАТЭК",
-    sector: "Промышленность · Нефтегаз",
+    name: "Вода Крыма",
+    sector: "Водоснабжение · B2G",
     summary: "Газовые сети для технологических линий и объектов внешнего снабжения.",
-    image: "/img/clients/novatek-bg.svg",
-    logo: "/img/clients/novatek-logo.svg",
+    image: "/img/clients/vodacrimea-bg.jpg",
+    logo: "/img/clients/vodacrimea-logo.jpg",
     alt: "Газовая инфраструктура на промышленной площадке",
     details: [
       "Поставка оборудования ГРП и узлов учёта с резервированием.",
@@ -640,22 +640,23 @@ export default function Page() {
               </div>
             </div>
             <div className="flex-1">
-              <div className="relative mx-auto aspect-[4/3] w-full max-w-xl overflow-hidden rounded-3xl shadow-2xl shadow-teal-600/70">
-                <div className="relative h-full w-full rounded-2xl bg-white/20">
+<div className="relative mx-auto w-full max-w-xl
+                      aspect-[16/9] lg:max-w-none lg:h-[420px] lg:aspect-auto
+                      overflow-hidden rounded-2xl bg-white/5">
                   {activeHero && (
                     <Image
                       src={activeHero.image}
                       alt={activeHero.alt}
                       fill
-                      className="overflow-hidden rounded-2xl"
-                      sizes="(max-width: 1024px) 100vw, 480px"
+                      className="object-cover object-center"
+                      sizes="(min-width:1024px) 600px, 100vw"
                       priority
                     />
                   )}
                 </div>
               </div>
             </div>
-          </div>
+
 
           {heroSlides.length > 1 && (
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 pb-10">
