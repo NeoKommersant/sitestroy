@@ -79,7 +79,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Строим инфраструктуру под ключ",
     description:
       "Комплексные поставки, инжиниринг и сопровождение для промышленных, муниципальных и энергетических объектов по всей России.",
-    image: "/img/hero/slide-1.svg",
+    image: "/img/hero/slide-1.jpeg",
     alt: "Инженеры обсуждают проект модернизации инфраструктуры",
     primaryCta: { label: "Связаться с менеджером", href: "#contacts" },
     secondaryCta: { label: "Каталог решений", href: "/catalog" },
@@ -90,7 +90,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Интеллектуальный подбор номенклатуры",
     description:
       "Вода, газ, электричество, общестроительные материалы и спецтехника — подбираем номенклатуру под проект с умным поиском и фильтрацией.",
-    image: "/img/hero/slide-2.svg",
+    image: "/img/hero/slide-2.jpeg",
     alt: "Склад строительных материалов с металлопрокатом и трубами",
     primaryCta: { label: "Отправить спецификацию", href: "/catalog/request" },
     secondaryCta: { label: "Смотреть категории", href: "/catalog" },
@@ -101,7 +101,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Полный цикл работ",
     description:
       "Проектирование, строительно-монтажные и пусконаладочные работы, технадзор, логистика и сервис. Формируем команду под задачу.",
-    image: "/img/hero/slide-3.svg",
+    image: "/img/hero/slide-3.jpeg",
     alt: "Монтажная бригада устанавливает инженерные сети",
     primaryCta: { label: "Выбрать услугу", href: "/services" },
   },
@@ -111,7 +111,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Опыт в B2B и B2G проектах",
     description:
       "Госкорпорации, ресурсоснабжающие организации, девелоперы и промышленные холдинги. Реализуем проекты по всей стране.",
-    image: "/img/hero/slide-4.svg",
+    image: "/img/hero/slide-4.jpeg",
     alt: "Команда компании и клиента на строительной площадке",
     primaryCta: { label: "Кейсы клиентов", href: "/clients" },
   },
@@ -577,6 +577,7 @@ export default function Page() {
 
   const { containerRef: certificatesRef, activeIndex: certificateIndex, goTo: goToCertificate } = useCarousel(certificates.length);
 
+  
   useEffect(() => {
     if (heroSlides.length <= 1) return;
     const timer = window.setInterval(() => {
@@ -612,10 +613,10 @@ export default function Page() {
   return (
     <>
       <main className="space-y-24 pb-24">
-        <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-blue-700">
+        <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-teal-600 via-teal-800 to-blue-900">
           <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-20 lg:flex-row lg:items-center">
             <div className="flex-1 space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-200">Sitestroy</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-200">Строй Альянс</span>
               <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">{activeHero?.title}</h1>
               <p className="text-lg text-blue-100">{activeHero?.subtitle}</p>
               <p className="text-sm leading-relaxed text-blue-100/80">{activeHero?.description}</p>
@@ -638,16 +639,15 @@ export default function Page() {
                 )}
               </div>
             </div>
-
             <div className="flex-1">
-              <div className="relative mx-auto aspect-[4/3] w-full max-w-xl overflow-hidden rounded-3xl bg-white/10 p-6 shadow-2xl shadow-blue-900/50">
-                <div className="relative h-full w-full rounded-2xl bg-white/80">
+              <div className="relative mx-auto aspect-[4/3] w-full max-w-xl overflow-hidden rounded-3xl shadow-2xl shadow-teal-600/70">
+                <div className="relative h-full w-full rounded-2xl bg-white/20">
                   {activeHero && (
                     <Image
                       src={activeHero.image}
                       alt={activeHero.alt}
                       fill
-                      className="object-contain"
+                      className="overflow-hidden rounded-2xl"
                       sizes="(max-width: 1024px) 100vw, 480px"
                       priority
                     />
@@ -691,7 +691,7 @@ export default function Page() {
         <section id="product-directions" className="mx-auto max-w-6xl px-6">
           <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">Продукты</span>
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Продукты</span>
               <h2 className="text-3xl font-semibold text-slate-900">Категории</h2>
             </div>
             <p className="max-w-xl text-sm text-slate-500">
@@ -704,16 +704,16 @@ export default function Page() {
               <Link
                 key={direction.slug}
                 href={direction.href}
-                className="group flex flex-col gap-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
+                className="group flex flex-col gap-4 rounded-3xl border border-teal-100/20 bg-teal p-6 shadow-sm transition hover:-translate-y-1 hover:border-teal-400/20 hover:shadow-xl"
               >
-                <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-slate-50">
-                  <Image src={direction.image} alt={direction.alt} width={360} height={240} className="h-full w-full object-contain" />
+                <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-blue-50">
+                  <Image src={direction.image} alt={direction.alt} width={360} height={240} className="h-full w-full overflow-hidden" />
                 </div>
                 <div className="flex flex-col gap-2">
                   <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
                   <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
                 </div>
-                <span className="text-sm font-semibold text-blue-700 transition group-hover:text-blue-600">Узнать больше</span>
+                <span className="text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">Узнать больше</span>
               </Link>
             ))}
           </div>
