@@ -22,7 +22,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   if (!ctx) {
     return {
       title: "Позиция не найдена",
-      description: "Запрашиваемая позиция каталога недоступна.",
+      description: "Запрошенная позиция каталога отсутствует или была обновлена.",
     };
   }
   const { item, sub, cat } = ctx;
@@ -38,10 +38,12 @@ export default function ItemPage({ params }: { params: Params }) {
   if (!ctx) {
     notFound();
   }
+
   const { cat, sub, item } = ctx;
+
   return (
     <div className="mx-auto max-w-4xl px-4 pb-24 pt-12 sm:px-6 lg:px-8">
-      <nav className="mb-6 text-sm text-slate-500">
+      <nav className="mb-8 text-sm text-slate-500">
         <Link href="/catalog" className="hover:text-blue-700">
           Каталог
         </Link>
@@ -56,7 +58,8 @@ export default function ItemPage({ params }: { params: Params }) {
         <span className="mx-2 text-slate-400">/</span>
         <span className="text-slate-700">{item.title}</span>
       </nav>
-      <div className="space-y-4">
+
+      <header className="space-y-4">
         <h1 className="text-3xl font-semibold text-slate-900 sm:text-4xl">{item.title}</h1>
         {item.sku && (
           <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600">
@@ -65,40 +68,46 @@ export default function ItemPage({ params }: { params: Params }) {
         )}
         <p className="text-base text-slate-600">
           {item.desc ??
-            "Позиция доступна к поставке со склада и под заказ. Подготовим коммерческое предложение, спецификацию и сопроводительную документацию."}
+            "Позиция доступна к поставке под заказ. Уточним стоимость, сроки производства и доставку в течение рабочего дня."}
         </p>
-      </div>
-      <div className="mt-10 space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+      </header>
+
+      <section className="mt-10 space-y-8 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="space-y-2">
-          <h2 className="text-lg font-semibold text-slate-900">Что включено</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Что включено в поставку</h2>
           <ul className="list-disc space-y-2 pl-5 text-sm text-slate-600">
-            <li>Проверка соответствия проекту и нормативам.</li>
-            <li>Подготовка паспортов, сертификатов и протоколов испытаний.</li>
-            <li>Логистика до объекта, разгрузка и складирование по требованию.</li>
-            <li>Инженерно-техническое сопровождение и консультации.</li>
+            <li>Подбор по техническим требованиям и отраслевым стандартам.</li>
+            <li>Комплект сопроводительной документации и сертификатов.</li>
+            <li>Организация логистики на объект с уведомлением о готовности.</li>
+            <li>Опционально — монтаж, ПНР и сервисное сопровождение.</li>
           </ul>
         </div>
+
         <div className="space-y-3">
-          <h2 className="text-lg font-semibold text-slate-900">Получить предложение</h2>
+          <h2 className="text-lg font-semibold text-slate-900">Запросить коммерческое предложение</h2>
           <form className="grid gap-3 sm:grid-cols-2" action="/contacts" method="post">
             <input
               className="rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-              placeholder="Ваше имя"
+              placeholder="Как к вам обращаться"
+              name="name"
               required
             />
             <input
               className="rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
               placeholder="+7 (___) ___-__-__"
+              name="phone"
               required
             />
             <input
               className="rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100 sm:col-span-2"
-              placeholder="Компания и проект"
+              placeholder="Компания или проект"
+              name="company"
             />
             <textarea
               className="rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100 sm:col-span-2"
               rows={4}
-              placeholder="Комментарий к заявке, требуемые сроки, объемы."
+              placeholder="Опишите задачу или приложите спецификацию — мы уточним наличие и предложим аналог при необходимости."
+              name="comment"
             />
             <button
               type="submit"
@@ -108,14 +117,14 @@ export default function ItemPage({ params }: { params: Params }) {
             </button>
           </form>
           <p className="text-xs text-slate-500">
-            Нажимая кнопку, вы подтверждаете согласие с{" "}
+            Отправляя заявку, вы соглашаетесь с{" "}
             <Link href="/policy" className="text-blue-700 hover:text-blue-800">
-              политикой обработки данных
+              политикой обработки персональных данных
             </Link>
             .
           </p>
         </div>
-      </div>
+      </section>
     </div>
   );
 }

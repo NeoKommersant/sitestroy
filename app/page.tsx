@@ -155,22 +155,22 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
     href: "/catalog/elektrosnabzhenie",
   },
   {
-    slug: "obshhestroj",
-    title: "Общестроительные материалы",
+    slug: "stroymaterialy",
+    title: "Строительные материалы",
     description:
       "Металлопрокат, инертные материалы, ЖБИ и сухие смеси. Организуем поставки Just-in-Time, комплектацию и контроль качества.",
     image: "/img/products/obshhestroitelnye-materialy.webp",
-    alt: "Склад общестроительных материалов и металлоконструкций",
-    href: "/catalog/obshhestroitelnye-materialy",
+    alt: "Склад строительных материалов и металлоконструкций",
+    href: "/catalog/stroymaterialy",
   },
   {
-    slug: "spectekhnika",
-    title: "Спецтехника",
+    slug: "uslugi",
+    title: "Услуги",
     description:
-      "Автокраны, экскаваторы, бетононасосы и погрузчики. Аренда с экипажем, топливной логистикой и круглосуточным сервисом.",
+      "Доставка материалов по всей России, аренда спецтехники, выполнение СМР и пусконаладка с одним подрядчиком.",
     image: "/img/products/spectekhnika.jpg",
-    alt: "Спецтехника компании на объекте",
-    href: "/catalog/spectekhnika",
+    alt: "Команда инженеров и спецтехника на строительной площадке",
+    href: "/catalog/uslugi",
   },
 ];
 // КАТЕГОРИИ УСЛУГ
@@ -513,7 +513,7 @@ function BackToTopButton() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-8 right-8 z-40 rounded-full border border-blue-100 bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-700 shadow-lg transition hover:border-blue-400 hover:bg-blue-50"
+      className="fixed bottom-8 right-1/2 z-40 rounded-full border border-blue-100 bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-700 shadow-lg transition hover:border-blue-400 hover:bg-blue-50"
       aria-label="Вернуться к началу страницы"
     >
       Вверх
