@@ -20,20 +20,32 @@ const AccordionCategory = ({ category, isOpen, onToggle }: AccordionCategoryProp
   const [maxHeight, setMaxHeight] = useState(0);
 
   useEffect(() => {
-    if (containerRef.current) {
-      setMaxHeight(containerRef.current.scrollHeight);
-    }
-  }, [category.sub.length, isOpen]);
+    if (typeof window === "undefined" || !containerRef.current) return;
+    const node = containerRef.current;
+
+    const updateHeight = () => {
+      const measured = node.scrollHeight;
+      setMaxHeight(measured);
+    };
+
+    updateHeight();
+
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(node);
+
+    return () => observer.disconnect();
+  }, [category.sub.length]);
 
   return (
     <article className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:border-blue-200">
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-center gap-5 px-6 py-5 text-left transition hover:bg-slate-50"
+        className="flex w-full flex-col gap-5 px-4 py-5 text-left transition hover:bg-slate-50 sm:flex-row sm:items-center sm:px-6"
         aria-expanded={isOpen}
+        aria-controls={`catalog-category-${category.slug}`}
       >
-        <div className="relative h-20 w-28 flex-shrink-0 overflow-hidden rounded-2xl">
+        <div className="relative h-28 w-full overflow-hidden rounded-2xl sm:h-20 sm:w-28 md:h-24 md:w-32">
           <Image
             src={category.image}
             alt={category.title}
@@ -44,18 +56,16 @@ const AccordionCategory = ({ category, isOpen, onToggle }: AccordionCategoryProp
         </div>
         <div className="min-w-0 flex-1 space-y-2">
           <div className="text-xs uppercase tracking-[0.35em] text-slate-400">Категория</div>
-          <h3 className="truncate text-xl font-semibold text-slate-900">{category.title}</h3>
+          <h3 className="text-xl font-semibold text-slate-900 sm:truncate">{category.title}</h3>
           <p className="line-clamp-2 text-sm text-slate-600">{category.intro}</p>
         </div>
-        <div className="flex flex-col items-end gap-1 text-xs font-semibold uppercase tracking-[0.3em] text-blue-700">
+        <div className="flex flex-col items-start gap-1 text-xs font-semibold uppercase tracking-[0.25em] text-blue-700 sm:items-end sm:tracking-[0.3em]">
           <span>{category.sub.length} подкатегорий</span>
-          <span>
-            {category.sub.reduce((acc, sub) => acc + sub.items.length, 0)} позиций
-          </span>
+          <span>{category.sub.reduce((acc, sub) => acc + sub.items.length, 0)} позиций</span>
         </div>
         <span
-          className={`ml-3 flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition duration-300 ${
-            isOpen ? "rotate-180 bg-blue-50 text-blue-700" : "bg-white"
+          className={`ml-auto flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition duration-300 ${
+            isOpen ? "rotate-180 bg-blue-50 text-blue-700 shadow-inner" : "bg-white"
           }`}
           aria-hidden
         >
@@ -65,15 +75,16 @@ const AccordionCategory = ({ category, isOpen, onToggle }: AccordionCategoryProp
       <div
         className="overflow-hidden transition-[max-height] duration-500 ease-in-out"
         style={{ maxHeight: isOpen ? maxHeight : 0 }}
+        id={`catalog-category-${category.slug}`}
       >
-        <div ref={containerRef} className="border-t border-slate-200 bg-slate-50 px-6 py-5">
-          <div className="flex flex-wrap items-center justify-between gap-3 pb-4">
+        <div ref={containerRef} className="border-t border-slate-200 bg-slate-50 px-4 py-5 sm:px-6">
+          <div className="flex flex-col gap-3 pb-4 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <span className="text-sm text-slate-600">
               Подкатегории раздела &laquo;{category.title}&raquo;
             </span>
             <Link
               href={`/catalog/${category.slug}`}
-              className="inline-flex items-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-blue-200 bg-white px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 sm:w-auto"
             >
               Открыть раздел →
             </Link>
@@ -114,7 +125,7 @@ const CatalogExplorer = ({ categories }: CatalogExplorerProps) => {
   const groupedCategories = useMemo(() => categories, [categories]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 md:space-y-6">
       {groupedCategories.map((category) => (
         <AccordionCategory
           key={category.slug}

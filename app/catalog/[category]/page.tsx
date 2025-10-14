@@ -92,7 +92,7 @@ export default function CategoryPage({ params }: { params: Params }) {
 
           <section className="space-y-6">
             <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">Подкатегории</h2>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
               {category.sub.map((sub) => (
                 <article
                   key={sub.slug}
@@ -107,14 +107,14 @@ export default function CategoryPage({ params }: { params: Params }) {
                         )}
                         {sub.intro && <p className="text-sm text-slate-600">{sub.intro}</p>}
                       </div>
-                      <span className="rounded-full bg-blue-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-blue-700">
+                      <span className="rounded-full bg-blue-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-blue-700 whitespace-nowrap">
                         {sub.items.length} позиций
                       </span>
                     </div>
                   </div>
                   <Link
                     href={`/catalog/${category.slug}/${sub.slug}`}
-                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 transition hover:text-blue-600"
+                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full border border-blue-200 px-4 py-2 text-sm font-semibold text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 sm:w-auto sm:justify-start sm:rounded-none sm:border-none sm:px-0 sm:py-0"
                   >
                     Открыть номенклатуру
                     <span aria-hidden>→</span>

@@ -117,37 +117,37 @@ export default function SubcategoryPage({ params }: { params: Params }) {
             </div>
           ) : (
             <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-              <div className="hidden grid-cols-[minmax(0,40%)_minmax(0,1fr)_auto] border-b border-slate-200 bg-slate-50 px-6 py-4 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 md:grid">
-                <div>Полное наименование</div>
-                <div>Важные характеристики</div>
-                <div className="text-right">Действия</div>
-              </div>
-              <div className="divide-y divide-slate-200">
-                {sub.items.map((item) => (
-                  <div
-                    key={item.slug}
-                    className="grid gap-4 px-4 py-5 transition md:grid-cols-[minmax(0,40%)_minmax(0,1fr)_auto] md:px-6 hover:bg-slate-50"
-                  >
-                    <div>
-                      <div className="text-base font-semibold text-slate-900">{item.title}</div>
-                      {item.sku && (
-                        <div className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">Артикул: {item.sku}</div>
-                      )}
+              <div className="overflow-x-auto">
+                <div className="hidden min-w-[560px] grid-cols-[minmax(240px,0.6fr)_minmax(240px,1fr)_auto] border-b border-slate-200 bg-slate-50 px-6 py-4 text-xs font-semibold uppercase tracking-[0.3em] text-slate-500 md:grid">
+                  <div>Полное наименование</div>
+                  <div>Важные характеристики</div>
+                  <div className="text-right">Действия</div>
+                </div>
+                <div className="divide-y divide-slate-200">
+                  {sub.items.map((item) => (
+                    <div
+                      key={item.slug}
+                      className="grid gap-4 px-4 py-5 transition hover:bg-slate-50 md:min-w-[560px] md:grid-cols-[minmax(240px,0.6fr)_minmax(240px,1fr)_auto] md:px-6"
+                    >
+                      <div>
+                        <div className="text-base font-semibold text-slate-900">{item.title}</div>
+                        {item.sku && (
+                          <div className="mt-1 text-xs uppercase tracking-[0.2em] text-slate-500">Артикул: {item.sku}</div>
+                        )}
+                      </div>
+                      <div className="text-sm text-slate-600">{item.desc ?? "Характеристики уточняются по запросу."}</div>
+                      <div className="flex items-start justify-end">
+                        <Link
+                          href={`/catalog/${cat.slug}/${sub.slug}/${item.slug}`}
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-blue-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600 sm:w-auto"
+                        >
+                          Подробнее
+                          <span aria-hidden>→</span>
+                        </Link>
+                      </div>
                     </div>
-                    <div className="text-sm text-slate-600">
-                      {item.desc ?? "Характеристики уточняются по запросу."}
-                    </div>
-                    <div className="flex items-start justify-end">
-                      <Link
-                        href={`/catalog/${cat.slug}/${sub.slug}/${item.slug}`}
-                        className="inline-flex items-center gap-2 rounded-full border border-blue-200 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-blue-700 transition hover:-translate-y-0.5 hover:border-blue-300 hover:text-blue-600"
-                      >
-                        Подробнее
-                        <span aria-hidden>→</span>
-                      </Link>
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           )}
