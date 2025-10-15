@@ -32,6 +32,7 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
 
   const categoryMap = useMemo(() => new Map(categories.map((cat) => [cat.slug, cat])), [categories]);
 
+  // Приводим слуги из query к валидным значениям каталога (если slug не найден, сбрасываем его)
   const normalizeSelection = useCallback(
     (categorySlug: string | null, subcategorySlug: string | null, itemSlug: string | null) => {
       const category = categorySlug && categoryMap.has(categorySlug) ? categorySlug : null;
@@ -56,6 +57,7 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
     [categoryMap],
   );
 
+  // Читаем текущие query-параметры, чтобы при обновлении URL состояние карточек синхронизировалось само
   const getSelectionFromParams = useCallback((): SelectionState => {
     const categorySlug = searchParams.get("category");
     const subSlug = searchParams.get("subcategory");
@@ -155,14 +157,18 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
   const hasCategory = Boolean(selectedCategory);
   const hasSubcategory = Boolean(selectedCategory && selectedSubcategory);
 
+  // Базовый класс для колонок: управляем шириной/сдвигом через flex-basis и translate
   const baseColumnClass =
-    "w-full transition-[flex-basis,transform,opacity] duration-500 ease-out flex-shrink-0";
-  const categoryColumnClass = hasCategory ? "lg:basis-[24%] lg:pr-4" : "lg:basis-full lg:pr-0";
+    "w-full transition-[flex-basis,transform,opacity] duration-700 ease-out flex-shrink-0";
+  // Категории занимают ~3/4 ширины, после выбора сдвигаются вправо, освобождая место под соседние панели
+  const categoryColumnClass = hasCategory ? "lg:basis-[25%] lg:pr-6" : "lg:basis-full lg:pr-0";
+  // Подкатегории выезжают в освободившееся пространство; при закрытии колонка схлопывается
   const subcategoryColumnClass = hasCategory
-    ? "lg:basis-[32%] lg:translate-x-0 lg:opacity-100"
+    ? "lg:basis-[35%] lg:translate-x-0 lg:opacity-100"
     : "lg:basis-0 lg:-translate-x-16 lg:opacity-0 lg:pointer-events-none";
+  // Таблица товаров появляется только после выбора подкатегории
   const itemsColumnClass = hasSubcategory
-    ? "lg:basis-[44%] lg:translate-x-0 lg:opacity-100"
+    ? "lg:basis-[40%] lg:translate-x-0 lg:opacity-100"
     : "lg:basis-0 lg:translate-x-16 lg:opacity-0 lg:pointer-events-none";
 
   return (
@@ -177,7 +183,8 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                   key={category.slug}
                   type="button"
                   onClick={() => handleCategoryClick(category.slug)}
-                  className={`group relative flex min-w-[220px] cursor-pointer overflow-hidden rounded-3xl border shadow-sm transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 lg:min-w-0 ${
+                  // Карточки категорий короче по ширине (w-3/4) и имеют фиксированную высоту, чтобы не «скакать» между пунктами
+                  className={`group relative flex min-h-[110px] min-w-[220px] cursor-pointer overflow-hidden rounded-3xl border shadow-sm transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 self-start lg:min-h-[80px] lg:w-full lg:min-w-0 ${
                     isActive ? "border-teal-500" : "border-slate-200 hover:border-teal-400"
                   }`}
                   aria-pressed={isActive}
@@ -219,7 +226,6 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         ) : (
           <div className="flex flex-col gap-3">
             <h2 className="text-base font-semibold text-slate-900">{selectedCategory.title}</h2>
-            <p className="text-sm text-slate-600">{selectedCategory.intro}</p>
             <div className="mt-2 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-1 lg:gap-2.5 lg:overflow-visible">
               {selectedCategory.sub.map((sub, index) => {
                 const isActive = selectedSubcategory?.slug === sub.slug;
@@ -229,7 +235,8 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                     key={sub.slug}
                     type="button"
                     onClick={() => handleSubcategoryClick(sub.slug)}
-                    className={`group relative flex min-w-[220px] cursor-pointer overflow-hidden rounded-3xl border shadow-sm transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 lg:min-w-0 ${
+                    // Снижаем высоту и ширину подкатегорий, чтобы блок визуально соответствовал новым требованиям
+                    className={`group relative flex max-h-[88px] min-w-[220px] cursor-pointer overflow-hidden rounded-4xl border shadow-sm transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2 self-start lg:w-3/4 lg:min-w-0 ${
                       isActive ? "border-teal-500" : "border-slate-200 hover:border-teal-400"
                     }`}
                     aria-pressed={isActive}
@@ -241,7 +248,7 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                         isActive ? "bg-slate-900/70" : ""
                       }`}
                     />
-                    <span className="relative z-10 flex h-full w-full items-center justify-center px-4 py-6 text-center text-base font-semibold uppercase tracking-wide text-white">
+                    <span className="relative z-10 flex h-full w-full items-center justify-center px-4 py-3 text-center text-base font-regular tracking-wide text-white">
                       {sub.title}
                     </span>
                     <span className="sr-only">
@@ -255,6 +262,7 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         )}
       </section>
 
+      {/* Колонка номенклатуры появляется только после выбора подкатегории */}
       <section
         className={`${baseColumnClass} ${itemsColumnClass} origin-left rounded-3xl border border-slate-100 bg-white p-5 shadow-sm backdrop-blur-sm`}
         aria-hidden={!hasSubcategory}
@@ -266,10 +274,8 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         ) : (
           <div className="flex h-full flex-col">
             <h2 className="text-base font-semibold text-slate-900">{selectedSubcategory.title}</h2>
-            <p className="text-sm text-slate-600">
-              {selectedSubcategory.intro ?? selectedCategory?.intro}
-            </p>
-            <div className="mt-4 flex-1 space-y-3 overflow-y-auto pr-1">
+            {/* Intro убран, чтобы колонка товаров оставалась компактной */}
+            <div className="mt-2 flex-1 space-y-1 overflow-y-auto pr-1">
               {selectedSubcategory.items.map((itm) => {
                 const isActive = selection.item === itm.slug;
                 return (
@@ -287,11 +293,8 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                     <div className={ITEM_PLACEHOLDER}>{itm.title.slice(0, 2).toUpperCase()}</div>
                     <div className="space-y-1">
                       <div className="text-sm font-semibold text-slate-900">{itm.title}</div>
-                      <p className="text-xs text-slate-600">
-                        {itm.desc ?? "Характеристики уточним по запросу."}
-                      </p>
                     </div>
-                    <div className="ml-auto text-xs font-semibold uppercase tracking-[0.3em] text-teal-600 transition group-hover:text-teal-700">
+                    <div className="ml-auto text-xs font-semibold uppercase tracking-[0.1em] text-teal-600 transition group-hover:text-teal-700">
                       Подробнее
                     </div>
                   </button>
