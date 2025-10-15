@@ -125,7 +125,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
       "Насосные станции, узлы учета, запорная арматура и диспетчеризация. Поддерживаем непрерывность и контроль расхода воды.",
     image: "/img/products/vodosnabzhenie.webp",
     alt: "Промышленное оборудование водоснабжения",
-    href: "/catalog/vodosnabzhenie",
+    href: "/catalog?category=vodosnabzhenie",
   },
   {
     slug: "vodootvedenie",
@@ -134,7 +134,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
       "Гравитационные и напорные трубопроводы, КНС, очистные сооружения и емкости для коммунальной и промышленной инфраструктуры.",
     image: "/img/products/vodootvedenie.webp",
     alt: "Коллектор системы водоотведения на стройплощадке",
-    href: "/catalog/vodootvedenie",
+    href: "/catalog?category=vodootvedenie",
   },
   {
     slug: "gazosnabzhenie",
@@ -143,7 +143,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
       "Полиэтиленовые и стальные трубопроводы, ГРП/ГРПШ, КИПиА и катодная защита под требования Ростехнадзора и Газпрома.",
     image: "/img/products/gazosnabzhenie.webp",
     alt: "Газораспределительный пункт и трубопровод",
-    href: "/catalog/gazosnabzhenie",
+    href: "/catalog?category=gazosnabzhenie",
   },
   {
     slug: "elektrosnabzhenie",
@@ -152,7 +152,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
       "КТП, распределительные устройства, кабельная продукция и освещение. Соответствие стандартам сетевых и промышленных заказчиков.",
     image: "/img/products/elektrosnabzhenie.webp",
     alt: "Электротехническое оборудование подстанции",
-    href: "/catalog/elektrosnabzhenie",
+    href: "/catalog?category=elektrosnabzhenie",
   },
   {
     slug: "stroymaterialy",
@@ -161,7 +161,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
       "Металлопрокат, инертные материалы, ЖБИ и сухие смеси. Организуем поставки Just-in-Time, комплектацию и контроль качества.",
     image: "/img/products/obshhestroitelnye-materialy.webp",
     alt: "Склад строительных материалов и металлоконструкций",
-    href: "/catalog/stroymaterialy",
+    href: "/catalog?category=stroymaterialy",
   },
   {
     slug: "uslugi",
@@ -170,7 +170,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
       "Доставка материалов по всей России, аренда спецтехники, выполнение СМР и пусконаладка с одним подрядчиком.",
     image: "/img/products/spectekhnika.jpg",
     alt: "Команда инженеров и спецтехника на строительной площадке",
-    href: "/catalog/uslugi",
+    href: "/catalog?category=uslugi",
   },
 ];
 // КАТЕГОРИИ УСЛУГ
