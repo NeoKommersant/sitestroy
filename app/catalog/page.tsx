@@ -1,4 +1,5 @@
-﻿import type { Metadata } from "next";
+﻿import { Suspense } from "react";
+import type { Metadata } from "next";
 import { getCategories } from "@/lib/catalog";
 import CatalogExplorer from "./CatalogExplorer";
 
@@ -51,7 +52,15 @@ export default function CatalogPage() {
           <p className="max-w-3xl text-base text-slate-600">{BASE_DESCRIPTION}</p>
         </header>
         <section className="mt-8">
-          <CatalogExplorer categories={categories} />
+          <Suspense
+            fallback={
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 text-sm text-slate-500 shadow-sm">
+                Загрузка каталога…
+              </div>
+            }
+          >
+            <CatalogExplorer categories={categories} />
+          </Suspense>
         </section>
       </div>
     </>
