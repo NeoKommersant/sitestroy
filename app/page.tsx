@@ -837,7 +837,7 @@ export default function Page() {
                 className="group w-72 shrink-0 rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
               >
                 <div className="relative h-36 w-full overflow-hidden rounded-2xl bg-slate-50">
-                  <Image src={certificate.image} alt={certificate.alt} width={320} height={200} className="h-full w-full object-contain" />
+                  <Image src={certificate.image} alt={certificate.alt} width={320} height={200} className="object-cover object-center" />
                 </div>
                 <div className="mt-4 flex flex-col gap-1">
                   <h3 className="text-lg font-semibold text-slate-900">{certificate.title}</h3>
@@ -845,7 +845,7 @@ export default function Page() {
                   <p className="text-sm text-slate-600">Выдано: {certificate.issuedBy}</p>
                   <p className="text-xs text-slate-400">Действует {certificate.validTill}</p>
                 </div>
-                <span className="mt-3 inline-flex text-sm font-semibold text-blue-700 transition group-hover:text-blue-600">Увеличить</span>
+                <span className="mt-3 inline-flex text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">Открыть</span>
               </button>
             ))}
           </div>
@@ -858,7 +858,7 @@ export default function Page() {
                   type="button"
                   onClick={() => goToCertificate(index)}
                   aria-label={`Go to certificate ${certificate.title}`}
-                  className={`h-2.5 w-8 rounded-full transition ${certificateIndex === index ? "bg-blue-600" : "bg-slate-300"}`}
+                  className={`h-2.5 w-8 rounded-full transition ${certificateIndex === index ? "bg-teal-600" : "bg-slate-300"}`}
                 />
               ))}
             </div>
