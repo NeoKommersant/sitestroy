@@ -29,7 +29,6 @@ const UNIT_LABELS = {
   cubicMeter: "\u043c\u00b3",
   ton: "\u0442",
   kilogram: "\u043a\u0433",
-  liter: "\u043b",
   runningMeter: "\u043f.\u043c.",
   set: "\u043a\u043e\u043c\u043f\u043b.",
   pack: "\u0443\u043f.",
@@ -43,7 +42,6 @@ const DECIMAL_UNITS = new Set([
   decodeUnit(UNIT_LABELS.cubicMeter),
   decodeUnit(UNIT_LABELS.ton),
   decodeUnit(UNIT_LABELS.kilogram),
-  decodeUnit(UNIT_LABELS.liter),
   decodeUnit(UNIT_LABELS.runningMeter),
 ]);
 
@@ -170,7 +168,10 @@ export function RequestProvider({ children }: { children: React.ReactNode }) {
         custom: payload.custom ?? false,
       };
 
-      return { ...prev, items: [...prev.items, nextItem] };
+      return {
+        ...prev,
+        items: payload.custom ? [nextItem, ...prev.items] : [...prev.items, nextItem],
+      };
     });
   }, []);
 
@@ -203,16 +204,16 @@ export function RequestProvider({ children }: { children: React.ReactNode }) {
     setState((prev) => ({
       ...prev,
       items: [
-        ...prev.items,
         {
           id: generateId(),
-          title: decodeUnit("\u041d\u043e\u0432\u0430\u044f позиция"),
+          title: "",
           category: "custom",
           subcategory: "custom",
           unit: decodeUnit(UNIT_OPTIONS[0]),
           quantity: 1,
           custom: true,
         },
+        ...prev.items,
       ],
     }));
   }, []);

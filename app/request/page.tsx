@@ -164,11 +164,20 @@ export default function RequestPage() {
 
       {isEmpty ? (
         <div className="rounded-3xl border border-dashed border-slate-300 bg-white p-10 text-center text-sm text-slate-500 shadow-sm">
-          В заявке пока нет позиций. Откройте{" "}
-          <Link href="/catalog" className="font-semibold text-teal-600 hover:text-teal-500">
-            каталог
-          </Link>{" "}
-          и добавьте нужные материалы.
+          <p>
+            В заявке пока нет позиций. Откройте{" "}
+            <Link href="/catalog" className="font-semibold text-teal-600 hover:text-teal-500">
+              каталог
+            </Link>{" "}
+            или добавьте собственную позицию вручную.
+          </p>
+          <button
+            type="button"
+            onClick={addCustomItem}
+            className="mt-5 inline-flex items-center justify-center rounded-full border border-teal-500 px-4 py-2 text-sm font-semibold text-teal-600 transition hover:bg-teal-50"
+          >
+            Добавить не найденную позицию
+          </button>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-10">
@@ -186,7 +195,7 @@ export default function RequestPage() {
                   onClick={addCustomItem}
                   className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-600"
                 >
-                  Добавить свою позицию
+                  Добавить не найденную позицию
                 </button>
                 <button
                   type="button"
@@ -215,18 +224,31 @@ export default function RequestPage() {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       {item.custom ? (
-                        <input
-                          value={item.title}
-                          onChange={(event) => updateItem(item.id, { title: event.target.value })}
-                          className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-base font-semibold text-slate-900 shadow-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
-                          placeholder="Наименование"
-                          required
-                        />
+                        <div className="space-y-2">
+                          <input
+                            value={item.title}
+                            onChange={(event) => updateItem(item.id, { title: event.target.value })}
+                            className="w-full rounded-2xl border border-slate-200 px-3 py-2 text-base font-semibold text-slate-900 shadow-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                            placeholder="Введите название"
+                            required
+                          />
+                          <p className="text-[11px] text-slate-400">
+                            Введите название
+                          </p>
+                        </div>
                       ) : (
                         <div className="text-base font-semibold text-slate-900">{item.title}</div>
                       )}
-                      <div className="text-xs uppercase tracking-[0.25em] text-slate-400">
-                        {item.category} / {item.subcategory}
+                      <div
+                        className={
+                          item.custom
+                            ? "mt-3 text-[11px] font-medium text-slate-400"
+                            : "text-xs uppercase tracking-[0.25em] text-slate-400"
+                        }
+                      >
+                        {item.custom
+                          ? "Добавить не найденную позицию"
+                          : `${item.category} / ${item.subcategory}`}
                       </div>
                     </div>
                     <button
@@ -267,8 +289,8 @@ export default function RequestPage() {
                     </label>
                     <label className="md:col-span-3">
                       <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Комментарий</span>
-                      <textarea
-                        rows={2}
+                      <input
+                        type="text"
                         value={item.comment ?? ""}
                         onChange={(event) => updateItem(item.id, { comment: event.target.value })}
                         placeholder="Дополнительные пожелания (необязательно)"
@@ -413,5 +435,3 @@ const formatQuantityDisplay = (quantity: number, precision: number) => {
   const normalized = Math.round(quantity * factor) / factor;
   return normalized.toFixed(precision).replace(/\.?0+$/, "");
 };
-
-

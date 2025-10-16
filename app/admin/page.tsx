@@ -2,32 +2,30 @@
 
 import { useMemo, useRef, useState, type ChangeEvent } from "react";
 import * as XLSX from "xlsx";
-import type { Category, Item, Subcategory } from "@/data/catalog";
+import type { Category, Item } from "@/data/catalog";
 import { CATEGORIES } from "@/data/catalog";
 
 type EditableCategory = Category;
 
-const createCategory = (): EditableCategory => ({
-  slug: `category-${Date.now()}`,
-  title: "Новая категория",
-  intro: "",
-  image: "",
-  sub: [],
-});
+type ImportSummary = {
+  categories: number;
+  subcategories: number;
+  items: number;
+};
 
-const createSubcategory = (): Subcategory => ({
-  slug: `subcategory-${Date.now()}`,
-  title: "Новая подкатегория",
-  intro: "",
-  items: [],
-});
+type ImportPreview = {
+  filename: string;
+  data: EditableCategory[];
+  summary: ImportSummary;
+  warnings: string[];
+  errors: string[];
+};
 
-const createItem = (): Item => ({
-  slug: `item-${Date.now()}`,
-  title: "Новая позиция",
-  sku: "",
-  desc: "",
-});
+type ImportState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "ready"; preview: ImportPreview }
+  | { status: "error"; message: string };
 
 const CYRILLIC_MAP: Record<string, string> = {
   а: "a",
@@ -71,49 +69,21 @@ const slugify = (input: string) => {
   for (const char of lower) {
     transliterated += CYRILLIC_MAP[char] ?? char;
   }
-  return transliterated
+  const normalized = transliterated
     .replace(/[^a-z0-9\s_-]/g, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "") || "slug";
+    .replace(/^-|-$/g, "");
+  return normalized || `item-${Date.now()}`;
 };
 
-type ImportSummary = {
-  categories: number;
-  subcategories: number;
-  items: number;
+const generateSku = (value: string) => {
+  const base = slugify(value);
+  const normalized = base.replace(/[^a-z0-9-]/g, "");
+  return normalized ? normalized.toUpperCase().replace(/-/g, "_") : `SKU-${Date.now()}`;
 };
 
-type ImportPreview = {
-  filename: string;
-  data: EditableCategory[];
-  summary: ImportSummary;
-  warnings: string[];
-  errors: string[];
-};
-
-type ImportState =
-  | { status: "idle" }
-  | { status: "loading" }
-  | { status: "ready"; preview: ImportPreview }
-  | { status: "error"; message: string };
-
-const REQUIRED_COLUMNS = ["category", "subcategory", "item"] as const;
-
-const normalizeCell = (value: unknown) => {
-  if (value === undefined || value === null) return "";
-  if (typeof value === "string") return value.trim();
-  if (typeof value === "number") return `${value}`;
-  return String(value).trim();
-};
-
-const mapRowKeys = (row: Record<string, unknown>) =>
-  Object.fromEntries(Object.entries(row).map(([key, value]) => [key.trim().toLowerCase(), value])) as Record<
-    string,
-    unknown
-  >;
-
-const cloneCategories = (data: EditableCategory[]): EditableCategory[] =>
+const cloneCatalog = (data: Category[]): EditableCategory[] =>
   data.map((category) => ({
     ...category,
     sub: category.sub.map((sub) => ({
@@ -122,7 +92,51 @@ const cloneCategories = (data: EditableCategory[]): EditableCategory[] =>
     })),
   }));
 
-const parseExcelFile = async (file: File): Promise<ImportPreview> => {
+const prepareEmptyCatalog = (catalog: EditableCategory[]): EditableCategory[] =>
+  catalog.map((category) => ({
+    ...category,
+    sub: category.sub.map((sub) => ({
+      ...sub,
+      items: [],
+    })),
+  }));
+
+const ensureItemShape = (item: Item): Item => {
+  const title = item.title.trim();
+  const slug = item.slug?.trim() || slugify(title);
+  const sku = item.sku?.trim() || generateSku(title);
+  return {
+    ...item,
+    title,
+    slug,
+    sku,
+    desc: item.desc?.trim() ? item.desc.trim() : undefined,
+  };
+};
+
+const prepareCatalogForExport = (catalog: EditableCategory[]): EditableCategory[] =>
+  cloneCatalog(catalog).map((category) => ({
+    ...category,
+    sub: category.sub.map((sub) => ({
+      ...sub,
+      items: sub.items.map((item) => ensureItemShape(item)),
+    })),
+  }));
+
+const normalizeCell = (value: unknown) => {
+  if (value === undefined || value === null) return "";
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number") return `${value}`;
+  return String(value).trim();
+};
+
+const REQUIRED_HEADERS = ["категория", "подкатегория", "наименование"] as const;
+
+const normalizeHeader = (header: string) => header.trim().toLowerCase();
+const parseExcelFile = async (
+  file: File,
+  baseCatalog: EditableCategory[],
+): Promise<ImportPreview> => {
   const buffer = await file.arrayBuffer();
   const workbook = XLSX.read(buffer, { type: "array" });
   const sheetName = workbook.SheetNames[0];
@@ -135,168 +149,338 @@ const parseExcelFile = async (file: File): Promise<ImportPreview> => {
     throw new Error("Файл не содержит данных.");
   }
 
-  const rows = rawRows.map(mapRowKeys);
-  const availableColumns = new Set(Object.keys(rows[0] ?? {}));
-  const missingColumns = REQUIRED_COLUMNS.filter((column) => !availableColumns.has(column));
-  if (missingColumns.length > 0) {
-    throw new Error(`В таблице отсутствуют обязательные колонки: ${missingColumns.join(", ")}`);
-  }
+  const emptyCatalog = prepareEmptyCatalog(baseCatalog);
+  const categoryTitleMap = new Map(
+    baseCatalog.map((category) => [category.title.trim().toLowerCase(), category.slug]),
+  );
+  const subcategoryTitleMap = new Map<string, Map<string, string>>();
+  baseCatalog.forEach((category) => {
+    const subMap = new Map<string, string>();
+    category.sub.forEach((sub) => subMap.set(sub.title.trim().toLowerCase(), sub.slug));
+    subcategoryTitleMap.set(category.slug, subMap);
+  });
 
-  const categoryMap = new Map<string, EditableCategory>();
-  const subcategoryStore = new Map<string, Map<string, Subcategory>>();
+  const catalogIndex = new Map<string, EditableCategory>();
+  emptyCatalog.forEach((category) => catalogIndex.set(category.slug, category));
+
   const warnings = new Set<string>();
   const errors: string[] = [];
 
-  rows.forEach((row, index) => {
+  rawRows.forEach((row, index) => {
     const rowNumber = index + 2;
-    const categoryTitle = normalizeCell(row["category"]);
-    const subcategoryTitle = normalizeCell(row["subcategory"]);
-    const itemTitle = normalizeCell(row["item"]);
+    const normalizedRow = Object.entries(row).reduce<Record<string, unknown>>((acc, [key, value]) => {
+      acc[normalizeHeader(key)] = value;
+      return acc;
+    }, {});
 
-    if (!categoryTitle || !subcategoryTitle || !itemTitle) {
-      errors.push(`Строка ${rowNumber}: заполните колонки Category, Subcategory и Item.`);
+    for (const header of REQUIRED_HEADERS) {
+      if (!normalizedRow[header] || normalizeCell(normalizedRow[header]) === "") {
+        errors.push(`Строка ${rowNumber}: заполните столбец "${header}".`);
+      }
+    }
+    if (errors.length && errors[errors.length - 1].includes(`Строка ${rowNumber}`)) {
       return;
     }
 
-    const categorySlug = normalizeCell(row["category_slug"]) || slugify(categoryTitle);
-    const categoryIntro = normalizeCell(row["category_intro"]);
-    const categoryImage = normalizeCell(row["category_image"]);
+    const categoryTitle = normalizeCell(normalizedRow["категория"]);
+    const subcategoryTitle = normalizeCell(normalizedRow["подкатегория"]);
+    const itemTitle = normalizeCell(normalizedRow["наименование"]);
+    const itemDescription = normalizeCell(normalizedRow["описание"]);
 
-    let category = categoryMap.get(categorySlug);
-    if (!category) {
-      category = {
-        slug: categorySlug,
-        title: categoryTitle,
-        intro: categoryIntro,
-        image: categoryImage,
-        sub: [],
-      };
-      categoryMap.set(categorySlug, category);
-      subcategoryStore.set(categorySlug, new Map());
-    } else {
-      if (categoryIntro && !category.intro) category.intro = categoryIntro;
-      if (categoryImage && !category.image) category.image = categoryImage;
+    const categorySlug = categoryTitleMap.get(categoryTitle.toLowerCase());
+    if (!categorySlug) {
+      errors.push(`Строка ${rowNumber}: категория "${categoryTitle}" не найдена в каталоге.`);
+      return;
     }
 
-    const subSlug = normalizeCell(row["subcategory_slug"]) || slugify(subcategoryTitle);
-    const subIntro = normalizeCell(row["subcategory_intro"]);
-    const subRange = normalizeCell(row["subcategory_range"]);
-
-    const subMap = subcategoryStore.get(categorySlug)!;
-    let subcategory = subMap.get(subSlug);
-    if (!subcategory) {
-      subcategory = {
-        slug: subSlug,
-        title: subcategoryTitle,
-        intro: subIntro,
-        range: subRange,
-        items: [],
-      };
-      subMap.set(subSlug, subcategory);
-      category.sub.push(subcategory);
-    } else {
-      if (subIntro && !subcategory.intro) subcategory.intro = subIntro;
-      if (subRange && !subcategory.range) subcategory.range = subRange;
-      if (subcategory.title !== subcategoryTitle) {
-        warnings.add(`Строка ${rowNumber}: подкатегория "${subcategoryTitle}" переопределяет название со слугом ${subSlug}.`);
-        subcategory.title = subcategoryTitle;
-      }
+    const subMap = subcategoryTitleMap.get(categorySlug);
+    const subSlug = subMap?.get(subcategoryTitle.toLowerCase());
+    if (!subSlug) {
+      errors.push(
+        `Строка ${rowNumber}: подкатегория "${subcategoryTitle}" не найдена в категории "${categoryTitle}".`,
+      );
+      return;
     }
 
-    const itemSlug = normalizeCell(row["item_slug"]) || slugify(itemTitle);
-    const itemSku = normalizeCell(row["sku"] ?? row["item_sku"]);
-    const itemDesc = normalizeCell(row["desc"] ?? row["item_desc"]);
+    const targetCategory = catalogIndex.get(categorySlug);
+    const targetSubcategory = targetCategory?.sub.find((sub) => sub.slug === subSlug);
+    if (!targetSubcategory) {
+      errors.push(
+        `Строка ${rowNumber}: не удалось определить подкатегорию "${subcategoryTitle}" в категории "${categoryTitle}".`,
+      );
+      return;
+    }
 
-    const existingItem = subcategory.items.find((item) => item.slug === itemSlug);
-    if (existingItem) {
-      warnings.add(`Строка ${rowNumber}: товар "${itemTitle}" перезаписал данные для слага ${itemSlug}.`);
-      existingItem.title = itemTitle;
-      existingItem.sku = itemSku || undefined;
-      existingItem.desc = itemDesc || undefined;
+    const slug = slugify(itemTitle);
+    const sku = generateSku(itemTitle);
+    if (targetSubcategory.items.some((item) => item.slug === slug)) {
+      warnings.add(
+        `Строка ${rowNumber}: позиция "${itemTitle}" заменит существующую в "${categoryTitle} / ${subcategoryTitle}".`,
+      );
+      targetSubcategory.items = targetSubcategory.items.map((item) =>
+        item.slug === slug ? { ...item, title: itemTitle, sku, desc: itemDescription } : item,
+      );
     } else {
-      subcategory.items.push({
-        slug: itemSlug,
+      targetSubcategory.items.push({
+        slug,
         title: itemTitle,
-        sku: itemSku || undefined,
-        desc: itemDesc || undefined,
+        sku,
+        desc: itemDescription || undefined,
       });
     }
   });
 
-  const data = cloneCategories(Array.from(categoryMap.values()).filter((category) => category.sub.length > 0));
   const summary: ImportSummary = {
-    categories: data.length,
-    subcategories: data.reduce((total, category) => total + category.sub.length, 0),
-    items: data.reduce(
-      (total, category) => total + category.sub.reduce((count, subcategory) => count + subcategory.items.length, 0),
+    categories: emptyCatalog.length,
+    subcategories: emptyCatalog.reduce((acc, category) => acc + category.sub.length, 0),
+    items: emptyCatalog.reduce(
+      (acc, category) =>
+        acc + category.sub.reduce((subAcc, subcategory) => subAcc + subcategory.items.length, 0),
       0,
     ),
   };
 
   return {
     filename: file.name,
-    data,
+    data: emptyCatalog,
     summary,
     warnings: Array.from(warnings),
     errors,
   };
 };
 
-const mergeCategories = (base: EditableCategory[], incoming: EditableCategory[]) => {
-  const merged = new Map<string, EditableCategory>(cloneCategories(base).map((category) => [category.slug, category]));
-
+const mergeCatalogs = (base: EditableCategory[], incoming: EditableCategory[]) => {
+  const next = cloneCatalog(base);
   incoming.forEach((incomingCategory) => {
-    const category = cloneCategories([incomingCategory])[0];
-    const existing = merged.get(category.slug);
-    if (!existing) {
-      merged.set(category.slug, category);
-      return;
-    }
-
-    existing.title = category.title;
-    if (category.intro) existing.intro = category.intro;
-    if (category.image) existing.image = category.image;
-
-    const subMap = new Map<string, Subcategory>(existing.sub.map((sub) => [sub.slug, sub]));
-
-    category.sub.forEach((incomingSub) => {
-      const subExisting = subMap.get(incomingSub.slug);
-      if (!subExisting) {
-        subMap.set(incomingSub.slug, incomingSub);
-        return;
-      }
-      subExisting.title = incomingSub.title;
-      if (incomingSub.intro) subExisting.intro = incomingSub.intro;
-      if (incomingSub.range) subExisting.range = incomingSub.range;
-
-      const itemMap = new Map<string, Item>(subExisting.items.map((item) => [item.slug, item]));
+    const category = next.find((cat) => cat.slug === incomingCategory.slug);
+    if (!category) return;
+    incomingCategory.sub.forEach((incomingSub) => {
+      const sub = category.sub.find((candidate) => candidate.slug === incomingSub.slug);
+      if (!sub) return;
       incomingSub.items.forEach((incomingItem) => {
-        itemMap.set(incomingItem.slug, incomingItem);
+        const formatted = ensureItemShape(incomingItem);
+        const existingIndex = sub.items.findIndex((item) => item.slug === formatted.slug);
+        if (existingIndex >= 0) {
+          sub.items[existingIndex] = formatted;
+        } else {
+          sub.items.unshift(formatted);
+        }
       });
-      subExisting.items = Array.from(itemMap.values());
     });
-
-    existing.sub = Array.from(subMap.values());
   });
-
-  return Array.from(merged.values());
+  return next;
 };
-
 export default function AdminCatalogPage() {
-  const [categories, setCategories] = useState<EditableCategory[]>(() => JSON.parse(JSON.stringify(CATEGORIES)));
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+  const [catalog, setCatalog] = useState<EditableCategory[]>(() => cloneCatalog(CATEGORIES));
+  const [selectedCategoryFilter, setSelectedCategoryFilter] = useState<string>("all");
+  const [selectedSubcategoryFilter, setSelectedSubcategoryFilter] = useState<string>("all");
   const [clipboardStatus, setClipboardStatus] = useState<"idle" | "success" | "error">("idle");
   const [importState, setImportState] = useState<ImportState>({ status: "idle" });
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  const selectedCategory = categories[selectedCategoryIndex];
+  const categoryOptions = useMemo(
+    () =>
+      catalog.map((category) => ({
+        value: category.slug,
+        label: category.title,
+      })),
+    [catalog],
+  );
 
-  const jsonOutput = useMemo(() => JSON.stringify(categories, null, 2), [categories]);
+  const subcategoryOptions = useMemo(() => {
+    if (selectedCategoryFilter === "all") return [];
+    const category = catalog.find((cat) => cat.slug === selectedCategoryFilter);
+    return (
+      category?.sub.map((sub) => ({
+        value: sub.slug,
+        label: sub.title,
+      })) ?? []
+    );
+  }, [catalog, selectedCategoryFilter]);
+
+  const rows = useMemo(
+    () =>
+      catalog.flatMap((category) =>
+        category.sub.flatMap((subcategory) =>
+          subcategory.items.map((item) => ({
+            categorySlug: category.slug,
+            categoryTitle: category.title,
+            subcategorySlug: subcategory.slug,
+            subcategoryTitle: subcategory.title,
+            item,
+          })),
+        ),
+      ),
+    [catalog],
+  );
+
+  const filteredRows = useMemo(
+    () =>
+      rows.filter((row) => {
+        const matchCategory =
+          selectedCategoryFilter === "all" || row.categorySlug === selectedCategoryFilter;
+        const matchSub =
+          selectedSubcategoryFilter === "all" || row.subcategorySlug === selectedSubcategoryFilter;
+        return matchCategory && matchSub;
+      }),
+    [rows, selectedCategoryFilter, selectedSubcategoryFilter],
+  );
+
+  const jsonForExport = useMemo(
+    () => JSON.stringify(prepareCatalogForExport(catalog), null, 2),
+    [catalog],
+  );
+
+  const updateItemInCatalog = (
+    categorySlug: string,
+    subcategorySlug: string,
+    itemSlug: string,
+    updater: (item: Item) => Item,
+  ) => {
+    setCatalog((prev) =>
+      prev.map((category) => {
+        if (category.slug !== categorySlug) return category;
+        return {
+          ...category,
+          sub: category.sub.map((subcategory) => {
+            if (subcategory.slug !== subcategorySlug) return subcategory;
+            return {
+              ...subcategory,
+              items: subcategory.items.map((item) =>
+                item.slug === itemSlug ? updater(item) : item,
+              ),
+            };
+          }),
+        };
+      }),
+    );
+  };
+
+  const removeItemFromCatalog = (categorySlug: string, subcategorySlug: string, itemSlug: string) => {
+    setCatalog((prev) =>
+      prev.map((category) => {
+        if (category.slug !== categorySlug) return category;
+        return {
+          ...category,
+          sub: category.sub.map((subcategory) => {
+            if (subcategory.slug !== subcategorySlug) return subcategory;
+            return {
+              ...subcategory,
+              items: subcategory.items.filter((item) => item.slug !== itemSlug),
+            };
+          }),
+        };
+      }),
+    );
+  };
+
+  const moveItem = (
+    fromCategorySlug: string,
+    fromSubcategorySlug: string,
+    itemSlug: string,
+    toCategorySlug: string,
+    toSubcategorySlug: string,
+  ) => {
+    if (
+      fromCategorySlug === toCategorySlug &&
+      fromSubcategorySlug === toSubcategorySlug
+    ) {
+      return;
+    }
+
+    setCatalog((prev) => {
+      let movingItem: Item | undefined;
+
+      const withoutItem = prev.map((category) => {
+        if (category.slug !== fromCategorySlug) return category;
+        return {
+          ...category,
+          sub: category.sub.map((subcategory) => {
+            if (subcategory.slug !== fromSubcategorySlug) return subcategory;
+            const index = subcategory.items.findIndex((item) => item.slug === itemSlug);
+            if (index === -1) return subcategory;
+            const nextItems = [...subcategory.items];
+            [movingItem] = nextItems.splice(index, 1);
+            return { ...subcategory, items: nextItems };
+          }),
+        };
+      });
+
+      if (!movingItem) {
+        return prev;
+      }
+
+      return withoutItem.map((category) => {
+        if (category.slug !== toCategorySlug) return category;
+        return {
+          ...category,
+          sub: category.sub.map((subcategory) => {
+            if (subcategory.slug !== toSubcategorySlug) return subcategory;
+            return {
+              ...subcategory,
+              items: [movingItem as Item, ...subcategory.items],
+            };
+          }),
+        };
+      });
+    });
+  };
+
+  const handleAddItem = () => {
+    const targetCategorySlug =
+      selectedCategoryFilter !== "all"
+        ? selectedCategoryFilter
+        : categoryOptions[0]?.value;
+    if (!targetCategorySlug) return;
+
+    const category = catalog.find((cat) => cat.slug === targetCategorySlug);
+    if (!category || category.sub.length === 0) return;
+
+    const targetSubSlug =
+      selectedSubcategoryFilter !== "all" && selectedCategoryFilter !== "all"
+        ? selectedSubcategoryFilter
+        : category.sub[0]?.slug;
+    if (!targetSubSlug) return;
+
+    const newItem: Item = {
+      slug: `item-${Date.now()}`,
+      title: "",
+      desc: "",
+      sku: "",
+    };
+
+    setCatalog((prev) =>
+      prev.map((cat) => {
+        if (cat.slug !== targetCategorySlug) return cat;
+        return {
+          ...cat,
+          sub: cat.sub.map((subcategory) => {
+            if (subcategory.slug !== targetSubSlug) return subcategory;
+            return {
+              ...subcategory,
+              items: [newItem, ...subcategory.items],
+            };
+          }),
+        };
+      }),
+    );
+  };
+  const handleCopyJson = async () => {
+    try {
+      await navigator.clipboard.writeText(jsonForExport);
+      setClipboardStatus("success");
+      setTimeout(() => setClipboardStatus("idle"), 2600);
+    } catch (error) {
+      console.error(error);
+      setClipboardStatus("error");
+      setTimeout(() => setClipboardStatus("idle"), 2600);
+    }
+  };
 
   const handleImportFile = async (file: File) => {
     setImportState({ status: "loading" });
     try {
-      const preview = await parseExcelFile(file);
+      const preview = await parseExcelFile(file, catalog);
       setImportState({ status: "ready", preview });
     } catch (error) {
       console.error("Import failed", error);
@@ -307,211 +491,78 @@ export default function AdminCatalogPage() {
     }
   };
 
+  const applyImport = (mode: "replace" | "merge") => {
+    if (importState.status !== "ready") return;
+    const prepared = prepareCatalogForExport(importState.preview.data);
+    if (mode === "replace") {
+      setCatalog(prepared);
+    } else {
+      setCatalog((prev) => mergeCatalogs(prev, prepared));
+    }
+    resetImportState();
+  };
+
   const onImportInput = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
     await handleImportFile(file);
   };
 
-  const applyImport = (mode: "replace" | "merge") => {
-    if (importState.status !== "ready") return;
-    const data = cloneCategories(importState.preview.data);
-    if (mode === "replace") {
-      setCategories(data);
-      setSelectedCategoryIndex(0);
-    } else {
-      setCategories((prev) => mergeCategories(prev, data));
-    }
-    setImportState({ status: "idle" });
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
   const resetImportState = () => {
     setImportState({ status: "idle" });
-    if (fileInputRef.current) fileInputRef.current.value = "";
-  };
-
-  const updateCategory = <K extends keyof EditableCategory>(field: K, value: EditableCategory[K]) => {
-    setCategories((prev) =>
-      prev.map((cat, idx) => (idx === selectedCategoryIndex ? { ...cat, [field]: value } : cat)),
-    );
-  };
-
-  const updateSubcategory = <K extends keyof Subcategory>(subIndex: number, field: K, value: Subcategory[K]) => {
-    setCategories((prev) =>
-      prev.map((cat, idx) => {
-        if (idx !== selectedCategoryIndex) return cat;
-        const updatedSub = cat.sub.map((sub, sIdx) => (sIdx === subIndex ? { ...sub, [field]: value } : sub));
-        return { ...cat, sub: updatedSub };
-      }),
-    );
-  };
-
-  const updateItem = <K extends keyof Item>(subIndex: number, itemIndex: number, field: K, value: Item[K]) => {
-    setCategories((prev) =>
-      prev.map((cat, idx) => {
-        if (idx !== selectedCategoryIndex) return cat;
-        const updatedSub = cat.sub.map((sub, sIdx) => {
-          if (sIdx !== subIndex) return sub;
-          const items = sub.items.map((item, iIdx) => (iIdx === itemIndex ? { ...item, [field]: value } : item));
-          return { ...sub, items };
-        });
-        return { ...cat, sub: updatedSub };
-      }),
-    );
-  };
-
-  const addCategory = () => {
-    setCategories((prev) => [...prev, createCategory()]);
-    setSelectedCategoryIndex(categories.length);
-  };
-
-  const removeCategory = (index: number) => {
-    setCategories((prev) => prev.filter((_, idx) => idx !== index));
-    setSelectedCategoryIndex((prevIndex) => Math.max(0, Math.min(prevIndex, categories.length - 2)));
-  };
-
-  const addSubcategory = () => {
-    setCategories((prev) =>
-      prev.map((cat, idx) => (idx === selectedCategoryIndex ? { ...cat, sub: [...cat.sub, createSubcategory()] } : cat)),
-    );
-  };
-
-  const removeSubcategory = (subIndex: number) => {
-    setCategories((prev) =>
-      prev.map((cat, idx) =>
-        idx === selectedCategoryIndex ? { ...cat, sub: cat.sub.filter((_, sIdx) => sIdx !== subIndex) } : cat,
-      ),
-    );
-  };
-
-  const addItem = (subIndex: number) => {
-    setCategories((prev) =>
-      prev.map((cat, idx) => {
-        if (idx !== selectedCategoryIndex) return cat;
-        const updatedSub = cat.sub.map((sub, sIdx) =>
-          sIdx === subIndex ? { ...sub, items: [...sub.items, createItem()] } : sub,
-        );
-        return { ...cat, sub: updatedSub };
-      }),
-    );
-  };
-
-  const removeItem = (subIndex: number, itemIndex: number) => {
-    setCategories((prev) =>
-      prev.map((cat, idx) => {
-        if (idx !== selectedCategoryIndex) return cat;
-        const updatedSub = cat.sub.map((sub, sIdx) =>
-          sIdx === subIndex ? { ...sub, items: sub.items.filter((_, iIdx) => iIdx !== itemIndex) } : sub,
-        );
-        return { ...cat, sub: updatedSub };
-      }),
-    );
-  };
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(jsonOutput);
-      setClipboardStatus("success");
-      setTimeout(() => setClipboardStatus("idle"), 2500);
-    } catch (error) {
-      console.error(error);
-      setClipboardStatus("error");
-      setTimeout(() => setClipboardStatus("idle"), 3000);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
     }
   };
-
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-24 pt-10 sm:px-6 lg:flex-row lg:px-8">
-      <aside className="lg:w-64">
-        <div className="mb-4 flex items-center justify-between">
-          <h1 className="text-lg font-semibold text-slate-900">Категории</h1>
-          <button
-            type="button"
-            onClick={addCategory}
-            className="inline-flex items-center rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-blue-700 transition hover:border-blue-500 hover:bg-blue-50"
-          >
-            + Добавить
-          </button>
+      <aside className="lg:w-72">
+        <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <h1 className="text-lg font-semibold text-slate-900">Настройка каталога</h1>
+          <p className="text-sm text-slate-600">
+            Менеджеры работают только с номенклатурой: категории и подкатегории выбираются из существующего справочника.
+            Новые разделы добавляются только через разработчиков.
+          </p>
         </div>
-        <div className="space-y-2">
-          {categories.map((category, index) => (
-            <button
-              key={category.slug}
-              type="button"
-              onClick={() => setSelectedCategoryIndex(index)}
-              className={`flex w-full items-center justify-between rounded-2xl border px-3 py-2 text-left text-sm transition ${
-                index === selectedCategoryIndex
-                  ? "border-blue-500 bg-blue-50 text-blue-800"
-                  : "border-slate-200 bg-white hover:border-slate-300"
-              }`}
-            >
-              <span className="line-clamp-1">{category.title}</span>
-              {categories.length > 1 && (
-                <span
-                  role="button"
-                  aria-label="Удалить категорию"
-                  onClick={(event) => {
-                    event.stopPropagation();
-                    removeCategory(index);
-                  }}
-                  className="ml-3 text-xs text-slate-400 hover:text-red-500"
-                >
-                  ×
-                </span>
-              )}
-            </button>
-          ))}
-          {categories.length === 0 && (
-            <div className="rounded-2xl border border-dashed border-slate-200 p-4 text-sm text-slate-500">
-              Каталог пуст. Добавьте первую категорию.
-            </div>
-          )}
-        </div>
-        <div className="mt-8 space-y-3 rounded-2xl border border-slate-200 bg-white p-4 text-xs text-slate-600">
-          <div className="text-sm font-semibold text-slate-900">Как пользоваться</div>
-          <ul className="space-y-2">
-            <li>Редактор работает локально — изменения надо вручную перенести в файл `data/catalog.ts`.</li>
-            <li>Используйте кнопку «Скопировать JSON», чтобы обновить данные в проекте.</li>
-            <li>Slug генерируется автоматически, при необходимости можно отредактировать вручную.</li>
-          </ul>
-        </div>
-      </aside>
 
-      <main className="flex-1 space-y-8">
-        <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+        <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <header className="flex flex-wrap items-center justify-between gap-3">
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">Импорт из Excel</h2>
-              <p className="text-sm text-slate-500">
-                Загрузите файл .xlsx/.xls c колонками Category, Subcategory, Item. Дополнительные поля можно включать по мере необходимости.
+              <h2 className="text-base font-semibold text-slate-900">Импорт из Excel</h2>
+              <p className="text-xs text-slate-500">
+                Столбцы: «Категория», «Подкатегория», «Наименование», «Описание». Новые разделы не создаются.
               </p>
             </div>
-            <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-600">
-              <input ref={fileInputRef} type="file" accept=".xlsx,.xls" className="hidden" onChange={onImportInput} />
+            <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-600">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".xlsx,.xls"
+                className="hidden"
+                onChange={onImportInput}
+              />
               Выбрать файл
             </label>
           </header>
           <p className="text-xs text-slate-500">
-            Скачайте{" "}
-            <a href="/templates/catalog-import.xlsx" className="font-semibold text-teal-600 hover:text-teal-500">
+            Скачайте {""}
+            <a
+              href="/templates/catalog-import.xlsx"
+              className="font-semibold text-teal-600 hover:text-teal-500"
+            >
               шаблон для импорта
             </a>{" "}
-            с примером заполнения.
+            и заполните нужные строки.
           </p>
-          {importState.status === "idle" && (
-            <p className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-500">
-              Поддерживаются дополнительные колонки: <code>category_intro</code>, <code>category_image</code>,{" "}
-              <code>subcategory_intro</code>, <code>subcategory_range</code>, <code>sku</code>, <code>desc</code>.
-            </p>
+          {importState.status === "loading" && (
+            <p className="text-sm text-slate-500">Обрабатываем файл…</p>
           )}
-          {importState.status === "loading" && <p className="text-sm text-slate-500">Обрабатываем файл…</p>}
           {importState.status === "error" && (
             <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
               {importState.message}
               <button
                 type="button"
-                className="ml-3 text-xs font-semibold underline"
+                className="ml-2 text-xs font-semibold underline"
                 onClick={resetImportState}
               >
                 Сбросить
@@ -519,97 +570,60 @@ export default function AdminCatalogPage() {
             </div>
           )}
           {importState.status === "ready" && (
-            <div className="space-y-4 text-sm text-slate-700">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
+            <div className="space-y-3 text-xs text-slate-600">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
                   {importState.preview.filename}
                 </span>
-                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-[11px] font-semibold text-teal-700">
                   Категорий: {importState.preview.summary.categories}
                 </span>
-                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-[11px] font-semibold text-teal-700">
                   Подкатегорий: {importState.preview.summary.subcategories}
                 </span>
-                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-[11px] font-semibold text-teal-700">
                   Позиции: {importState.preview.summary.items}
                 </span>
               </div>
               {importState.preview.errors.length > 0 && (
-                <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-xs text-red-700">
+                <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-[11px] text-red-700">
                   <div className="font-semibold text-red-800">Ошибки</div>
-                  <ul className="mt-2 space-y-1">
+                  <ul className="mt-1 space-y-1">
                     {importState.preview.errors.slice(0, 5).map((error) => (
                       <li key={error}>• {error}</li>
                     ))}
                   </ul>
-              {importState.preview.errors.length > 5 && (
-                    <div className="mt-2 text-[11px] text-red-600">
-                      Показаны только 5 ошибок. Исправьте данные и загрузите файл повторно.
-                    </div>
-                  )}
                 </div>
               )}
               {importState.preview.warnings.length > 0 && (
-                <div className="rounded-2xl border border-yellow-200 bg-yellow-50 px-4 py-3 text-xs text-yellow-700">
+                <div className="rounded-2xl border border-yellow-200 bg-yellow-50 px-3 py-2 text-[11px] text-yellow-700">
                   <div className="font-semibold text-yellow-800">Предупреждения</div>
-                  <ul className="mt-2 space-y-1">
+                  <ul className="mt-1 space-y-1">
                     {importState.preview.warnings.slice(0, 5).map((warning) => (
                       <li key={warning}>• {warning}</li>
                     ))}
                   </ul>
-                  {importState.preview.warnings.length > 5 && (
-                    <div className="mt-2 text-[11px] text-yellow-600">Показаны только 5 предупреждений.</div>
-                  )}
                 </div>
               )}
-              <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-600">
-                <div className="font-semibold text-slate-900">Превью (первые 5 позиций)</div>
-                <ul className="mt-2 space-y-1">
-                  {importState.preview.data
-                    .flatMap((category) =>
-                      category.sub.flatMap((sub) =>
-                        sub.items.map((item) => ({
-                          category: category.title,
-                          sub: sub.title,
-                          item: item.title,
-                          sku: item.sku,
-                        })),
-                      ),
-                    )
-                    .slice(0, 5)
-                    .map((row, idx) => (
-                      <li key={`${row.category}-${row.sub}-${row.item}-${idx}`}>
-                        <span className="font-semibold text-slate-900">{row.item}</span>
-                        <span className="text-slate-500">
-                          {" "}
-                          — {row.category} / {row.sub}
-                        </span>
-                        {row.sku && <span className="text-slate-400"> ({row.sku})</span>}
-                      </li>
-                    ))}
-                </ul>
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={() => applyImport("replace")}
-                  className="inline-flex items-center justify-center rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
-                  disabled={importState.preview.errors.length > 0}
+                  className="inline-flex items-center justify-center rounded-full bg-teal-600 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-teal-500"
                 >
                   Заменить каталог
                 </button>
                 <button
                   type="button"
                   onClick={() => applyImport("merge")}
-                  className="inline-flex items-center justify-center rounded-full border border-teal-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 transition hover:bg-teal-50 disabled:cursor-not-allowed disabled:opacity-60"
-                  disabled={importState.preview.errors.length > 0}
+                  className="inline-flex items-center justify-center rounded-full border border-teal-500 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-600 transition hover:bg-teal-50"
                 >
-                  Объединить с текущим
+                  Объединить
                 </button>
                 <button
                   type="button"
                   onClick={resetImportState}
-                  className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                  className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-[11px] font-semibold text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
                 >
                   Отмена
                 </button>
@@ -617,248 +631,206 @@ export default function AdminCatalogPage() {
             </div>
           )}
         </section>
-        {selectedCategory ? (
-          <>
-            <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <header className="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h2 className="text-xl font-semibold text-slate-900">Карточка категории</h2>
-                  <p className="text-sm text-slate-600">
-                    Настройте slug, заголовок, изображение и описание. Слайдер и каталог используют эти поля.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => updateCategory("slug", slugify(selectedCategory.title))}
-                  className="rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 transition hover:border-blue-500 hover:text-blue-700"
-                >
-                  Сгенерировать slug
-                </button>
-              </header>
-              <div className="grid gap-4 md:grid-cols-2">
-                <label className="space-y-1">
-                  <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Slug</span>
-                  <input
-                    value={selectedCategory.slug}
-                    onChange={(event) => updateCategory("slug", event.target.value)}
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  />
-                </label>
-                <label className="space-y-1">
-                  <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Изображение</span>
-                  <input
-                    value={selectedCategory.image}
-                    onChange={(event) => updateCategory("image", event.target.value)}
-                    placeholder="/img/products/..."
-                    className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                  />
-                </label>
-              </div>
-              <label className="space-y-1">
-                <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Заголовок</span>
-                <input
-                  value={selectedCategory.title}
-                  onChange={(event) => updateCategory("title", event.target.value)}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                />
-              </label>
-              <label className="space-y-1">
-                <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Описание / интро</span>
-                <textarea
-                  value={selectedCategory.intro}
-                  onChange={(event) => updateCategory("intro", event.target.value)}
-                  rows={4}
-                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                />
-              </label>
-            </section>
 
-            <section className="space-y-6 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-              <header className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-semibold text-slate-900">
-                    Подкатегории ({selectedCategory.sub.length})
-                  </h2>
-                  <p className="text-sm text-slate-600">Редактируйте структуру и номенклатуру внутри каждой подкатегории.</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={addSubcategory}
-                  className="rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-blue-700 transition hover:border-blue-500 hover:bg-blue-50"
-                >
-                  + Подкатегория
-                </button>
-              </header>
-
-              <div className="space-y-6">
-                {selectedCategory.sub.map((sub, subIndex) => (
-                  <div key={sub.slug} className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
-                    <div className="mb-4 flex items-center justify-between">
-                      <h3 className="text-lg font-semibold text-slate-900">#{subIndex + 1} {sub.title}</h3>
-                      <div className="flex items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={() => updateSubcategory(subIndex, "slug", slugify(sub.title))}
-                          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 transition hover:border-blue-500 hover:text-blue-700"
-                        >
-                          slug
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => removeSubcategory(subIndex)}
-                          className="rounded-full border border-red-200 px-3 py-1 text-xs font-medium text-red-600 transition hover:border-red-400 hover:bg-red-50"
-                        >
-                          Удалить
-                        </button>
-                      </div>
-                    </div>
-                    <div className="grid gap-4 md:grid-cols-2">
-                      <label className="space-y-1">
-                        <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Slug</span>
-                        <input
-                          value={sub.slug}
-                          onChange={(event) => updateSubcategory(subIndex, "slug", event.target.value)}
-                          className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                        />
-                      </label>
-                      <label className="space-y-1">
-                        <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Название</span>
-                        <input
-                          value={sub.title}
-                          onChange={(event) => updateSubcategory(subIndex, "title", event.target.value)}
-                          className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                        />
-                      </label>
-                    </div>
-                    <label className="mt-3 block space-y-1">
-                      <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Интро</span>
-                      <textarea
-                        value={sub.intro ?? ""}
-                        onChange={(event) => updateSubcategory(subIndex, "intro", event.target.value)}
-                        rows={3}
-                        className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                      />
-                    </label>
-
-                    <div className="mt-5 space-y-4">
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm font-semibold text-slate-700">
-                          Номенклатура ({sub.items.length})
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => addItem(subIndex)}
-                          className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-blue-700 transition hover:border-blue-500 hover:bg-blue-50"
-                        >
-                          + Позиция
-                        </button>
-                      </div>
-
-                      {sub.items.length === 0 && (
-                        <div className="rounded-2xl border border-dashed border-slate-300 bg-white/60 p-4 text-sm text-slate-500">
-                          Пусто. Добавьте первую позицию.
-                        </div>
-                      )}
-
-                      <div className="space-y-4">
-                        {sub.items.map((item, itemIndex) => (
-                          <div key={item.slug} className="rounded-2xl border border-white bg-white p-4 shadow-sm">
-                            <div className="mb-3 flex items-center justify-between">
-                              <div className="text-sm font-semibold text-slate-900">
-                                {item.title} <span className="text-slate-400">#{itemIndex + 1}</span>
-                              </div>
-                              <div className="flex gap-2">
-                                <button
-                                  type="button"
-                                  onClick={() => updateItem(subIndex, itemIndex, "slug", slugify(item.title))}
-                                  className="rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-700 transition hover:border-blue-500 hover:text-blue-700"
-                                >
-                                  slug
-                                </button>
-                                <button
-                                  type="button"
-                                  onClick={() => removeItem(subIndex, itemIndex)}
-                                  className="rounded-full border border-red-200 px-3 py-1 text-xs font-medium text-red-600 transition hover:border-red-400 hover:bg-red-50"
-                                >
-                                  Удалить
-                                </button>
-                              </div>
-                            </div>
-                            <div className="grid gap-3 md:grid-cols-3">
-                              <label className="space-y-1 md:col-span-2">
-                                <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Название</span>
-                                <input
-                                  value={item.title}
-                                  onChange={(event) => updateItem(subIndex, itemIndex, "title", event.target.value)}
-                                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                                />
-                              </label>
-                              <label className="space-y-1">
-                                <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Артикул (SKU)</span>
-                                <input
-                                  value={item.sku ?? ""}
-                                  onChange={(event) => updateItem(subIndex, itemIndex, "sku", event.target.value)}
-                                  className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                                />
-                              </label>
-                            </div>
-                            <label className="mt-3 block space-y-1">
-                              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Описание</span>
-                              <textarea
-                                value={item.desc ?? ""}
-                                onChange={(event) => updateItem(subIndex, itemIndex, "desc", event.target.value)}
-                                rows={3}
-                                className="w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
-                              />
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </>
-        ) : (
-          <div className="rounded-3xl border border-dashed border-slate-200 bg-white p-8 text-center text-sm text-slate-500">
-            Выберите категорию или добавьте новую, чтобы начать.
-          </div>
-        )}
-
-        <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          <header className="flex flex-wrap items-center justify-between gap-3">
+        <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+          <header className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-slate-900">Экспорт JSON</h2>
-              <p className="text-sm text-slate-600">Скопируйте результат и замените массив `CATEGORIES` в `data/catalog.ts`.</p>
+              <h2 className="text-base font-semibold text-slate-900">Экспорт JSON</h2>
+              <p className="text-xs text-slate-500">Вставьте результат в `data/catalog.ts`.</p>
             </div>
             <button
               type="button"
-              onClick={copyToClipboard}
-              className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-blue-700 transition hover:border-blue-500 hover:bg-blue-50"
+              onClick={handleCopyJson}
+              className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-teal-600 transition hover:border-teal-400 hover:text-teal-500"
             >
               Скопировать JSON
             </button>
           </header>
           <div className="relative">
-            <pre className="max-h-[360px] overflow-auto rounded-2xl border border-slate-200 bg-slate-900/95 p-4 text-xs text-slate-100">
-              {jsonOutput}
+            <pre className="max-h-[320px] overflow-auto rounded-2xl border border-slate-200 bg-slate-900/95 p-4 text-xs text-slate-100">
+              {jsonForExport}
             </pre>
             {clipboardStatus === "success" && (
-              <div className="absolute right-4 top-4 rounded-full bg-green-500 px-3 py-1 text-xs font-semibold text-white shadow">
+              <span className="absolute right-4 top-4 rounded-full bg-emerald-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
                 Скопировано
-              </div>
+              </span>
             )}
             {clipboardStatus === "error" && (
-              <div className="absolute right-4 top-4 rounded-full bg-red-500 px-3 py-1 text-xs font-semibold text-white shadow">
-                Не удалось скопировать
-              </div>
+              <span className="absolute right-4 top-4 rounded-full bg-red-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
+                Не удалось
+              </span>
             )}
+          </div>
+        </section>
+      </aside>
+      <main className="flex-1 space-y-6">
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header className="flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">Номенклатура</h2>
+              <p className="text-sm text-slate-600">
+                Изменяйте только позиции. Для каждой строки можно выбрать категорию и подкатегорию из справочника.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleAddItem}
+              className="inline-flex items-center justify-center rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500"
+            >
+              Добавить позицию
+            </button>
+          </header>
+
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            <label className="flex flex-col">
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Категория</span>
+              <select
+                value={selectedCategoryFilter}
+                onChange={(event) => {
+                  setSelectedCategoryFilter(event.target.value);
+                  setSelectedSubcategoryFilter("all");
+                }}
+                className="mt-1 w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+              >
+                <option value="all">Все категории</option>
+                {categoryOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="flex flex-col">
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Подкатегория</span>
+              <select
+                value={selectedSubcategoryFilter}
+                onChange={(event) => setSelectedSubcategoryFilter(event.target.value)}
+                className="mt-1 w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                disabled={selectedCategoryFilter === "all"}
+              >
+                <option value="all">Все подкатегории</option>
+                {subcategoryOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
+
+          <div className="mt-6 overflow-x-auto">
+            <table className="min-w-full divide-y divide-slate-200 text-sm">
+              <thead>
+                <tr className="bg-slate-50">
+                  <th className="whitespace-nowrap px-4 py-3 text-left font-semibold uppercase tracking-[0.2em] text-slate-500">Категория</th>
+                  <th className="whitespace-nowrap px-4 py-3 text-left font-semibold uppercase tracking-[0.2em] text-slate-500">Подкатегория</th>
+                  <th className="whitespace-nowrap px-4 py-3 text-left font-semibold uppercase tracking-[0.2em] text-slate-500">Наименование</th>
+                  <th className="whitespace-nowrap px-4 py-3 text-left font-semibold uppercase tracking-[0.2em] text-slate-500">Описание</th>
+                  <th className="whitespace-nowrap px-4 py-3 text-left font-semibold uppercase tracking-[0.2em] text-slate-500">Действия</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredRows.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="px-4 py-5 text-center text-sm text-slate-500">
+                      В выбранном разделе пока нет позиций.
+                    </td>
+                  </tr>
+                )}
+                {filteredRows.map((row) => {
+                  const availableSubcategories =
+                    catalog
+                      .find((category) => category.slug === row.categorySlug)
+                      ?.sub.map((subcategory) => ({
+                        value: subcategory.slug,
+                        label: subcategory.title,
+                      })) ?? [];
+
+                  return (
+                    <tr key={row.item.slug} className="bg-white">
+                      <td className="whitespace-nowrap px-4 py-3 align-top">
+                        <select
+                          value={row.categorySlug}
+                          onChange={(event) => {
+                            const nextCategorySlug = event.target.value;
+                            const nextCategory = catalog.find((category) => category.slug === nextCategorySlug);
+                            if (!nextCategory || nextCategory.sub.length === 0) return;
+                            const fallbackSubSlug =
+                              nextCategory.sub.find((sub) => sub.slug === row.subcategorySlug)?.slug ??
+                              nextCategory.sub[0].slug;
+                            moveItem(row.categorySlug, row.subcategorySlug, row.item.slug, nextCategorySlug, fallbackSubSlug);
+                          }}
+                          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                        >
+                          {categoryOptions.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 align-top">
+                        <select
+                          value={row.subcategorySlug}
+                          onChange={(event) =>
+                            moveItem(row.categorySlug, row.subcategorySlug, row.item.slug, row.categorySlug, event.target.value)
+                          }
+                          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                        >
+                          {availableSubcategories.map((option) => (
+                            <option key={option.value} value={option.value}>
+                              {option.label}
+                            </option>
+                          ))}
+                        </select>
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        <input
+                          value={row.item.title}
+                          onChange={(event) =>
+                            updateItemInCatalog(row.categorySlug, row.subcategorySlug, row.item.slug, (item) => ({
+                              ...item,
+                              title: event.target.value,
+                              slug: slugify(event.target.value),
+                              sku: generateSku(event.target.value),
+                            }))
+                          }
+                          placeholder="Название позиции"
+                          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                        />
+                      </td>
+                      <td className="px-4 py-3 align-top">
+                        <input
+                          value={row.item.desc ?? ""}
+                          onChange={(event) =>
+                            updateItemInCatalog(row.categorySlug, row.subcategorySlug, row.item.slug, (item) => ({
+                              ...item,
+                              desc: event.target.value,
+                            }))
+                          }
+                          placeholder="Короткое описание (необязательно)"
+                          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                        />
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3 align-top">
+                        <button
+                          type="button"
+                          onClick={() =>
+                            removeItemFromCatalog(row.categorySlug, row.subcategorySlug, row.item.slug)
+                          }
+                          className="rounded-full border border-red-200 px-3 py-1 text-xs font-semibold text-red-600 transition hover:border-red-400 hover:bg-red-50"
+                        >
+                          Удалить
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
         </section>
       </main>
     </div>
   );
 }
-
-

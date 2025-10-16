@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
+const DEFAULT_EMAIL = "besmodeprod@bk.ru";
+const DEFAULT_TELEGRAM_CHAT = "@besmodeprod";
+
 const itemSchema = z.object({
   id: z.string(),
   title: z.string(),
@@ -155,8 +158,8 @@ const sendEmail = async (payload: RequestPayload) => {
   const port = process.env.REQUEST_SMTP_PORT;
   const user = process.env.REQUEST_SMTP_USER;
   const pass = process.env.REQUEST_SMTP_PASSWORD;
-  const to = process.env.REQUEST_EMAIL_TO;
-  const from = process.env.REQUEST_EMAIL_FROM ?? user;
+  const to = process.env.REQUEST_EMAIL_TO ?? DEFAULT_EMAIL;
+  const from = process.env.REQUEST_EMAIL_FROM ?? user ?? DEFAULT_EMAIL;
 
   if (!host || !port || !user || !pass || !to) {
     console.warn("Email sending skipped: SMTP credentials are missing.");
@@ -182,7 +185,7 @@ const sendEmail = async (payload: RequestPayload) => {
 
 const sendTelegram = async (payload: RequestPayload) => {
   const token = process.env.REQUEST_TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.REQUEST_TELEGRAM_CHAT_ID;
+  const chatId = process.env.REQUEST_TELEGRAM_CHAT_ID ?? DEFAULT_TELEGRAM_CHAT;
 
   if (!token || !chatId) {
     console.warn("Telegram sending skipped: bot credentials are missing.");
@@ -222,4 +225,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, message: "Не удалось отправить заявку. Попробуйте позже." }, { status: 500 });
   }
 }
-
