@@ -1,6 +1,7 @@
-"use client";
+﻿"use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState, type ChangeEvent } from "react";
+import * as XLSX from "xlsx";
 import type { Category, Item, Subcategory } from "@/data/catalog";
 import { CATEGORIES } from "@/data/catalog";
 
@@ -77,14 +78,258 @@ const slugify = (input: string) => {
     .replace(/^-|-$/g, "") || "slug";
 };
 
+type ImportSummary = {
+  categories: number;
+  subcategories: number;
+  items: number;
+};
+
+type ImportPreview = {
+  filename: string;
+  data: EditableCategory[];
+  summary: ImportSummary;
+  warnings: string[];
+  errors: string[];
+};
+
+type ImportState =
+  | { status: "idle" }
+  | { status: "loading" }
+  | { status: "ready"; preview: ImportPreview }
+  | { status: "error"; message: string };
+
+const REQUIRED_COLUMNS = ["category", "subcategory", "item"] as const;
+
+const normalizeCell = (value: unknown) => {
+  if (value === undefined || value === null) return "";
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number") return `${value}`;
+  return String(value).trim();
+};
+
+const mapRowKeys = (row: Record<string, unknown>) =>
+  Object.fromEntries(Object.entries(row).map(([key, value]) => [key.trim().toLowerCase(), value])) as Record<
+    string,
+    unknown
+  >;
+
+const cloneCategories = (data: EditableCategory[]): EditableCategory[] =>
+  data.map((category) => ({
+    ...category,
+    sub: category.sub.map((sub) => ({
+      ...sub,
+      items: sub.items.map((item) => ({ ...item })),
+    })),
+  }));
+
+const parseExcelFile = async (file: File): Promise<ImportPreview> => {
+  const buffer = await file.arrayBuffer();
+  const workbook = XLSX.read(buffer, { type: "array" });
+  const sheetName = workbook.SheetNames[0];
+  if (!sheetName) {
+    throw new Error("Файл не содержит листов.");
+  }
+  const sheet = workbook.Sheets[sheetName];
+  const rawRows = XLSX.utils.sheet_to_json<Record<string, unknown>>(sheet, { defval: "" });
+  if (rawRows.length === 0) {
+    throw new Error("Файл не содержит данных.");
+  }
+
+  const rows = rawRows.map(mapRowKeys);
+  const availableColumns = new Set(Object.keys(rows[0] ?? {}));
+  const missingColumns = REQUIRED_COLUMNS.filter((column) => !availableColumns.has(column));
+  if (missingColumns.length > 0) {
+    throw new Error(`В таблице отсутствуют обязательные колонки: ${missingColumns.join(", ")}`);
+  }
+
+  const categoryMap = new Map<string, EditableCategory>();
+  const subcategoryStore = new Map<string, Map<string, Subcategory>>();
+  const warnings = new Set<string>();
+  const errors: string[] = [];
+
+  rows.forEach((row, index) => {
+    const rowNumber = index + 2;
+    const categoryTitle = normalizeCell(row["category"]);
+    const subcategoryTitle = normalizeCell(row["subcategory"]);
+    const itemTitle = normalizeCell(row["item"]);
+
+    if (!categoryTitle || !subcategoryTitle || !itemTitle) {
+      errors.push(`Строка ${rowNumber}: заполните колонки Category, Subcategory и Item.`);
+      return;
+    }
+
+    const categorySlug = normalizeCell(row["category_slug"]) || slugify(categoryTitle);
+    const categoryIntro = normalizeCell(row["category_intro"]);
+    const categoryImage = normalizeCell(row["category_image"]);
+
+    let category = categoryMap.get(categorySlug);
+    if (!category) {
+      category = {
+        slug: categorySlug,
+        title: categoryTitle,
+        intro: categoryIntro,
+        image: categoryImage,
+        sub: [],
+      };
+      categoryMap.set(categorySlug, category);
+      subcategoryStore.set(categorySlug, new Map());
+    } else {
+      if (categoryIntro && !category.intro) category.intro = categoryIntro;
+      if (categoryImage && !category.image) category.image = categoryImage;
+    }
+
+    const subSlug = normalizeCell(row["subcategory_slug"]) || slugify(subcategoryTitle);
+    const subIntro = normalizeCell(row["subcategory_intro"]);
+    const subRange = normalizeCell(row["subcategory_range"]);
+
+    const subMap = subcategoryStore.get(categorySlug)!;
+    let subcategory = subMap.get(subSlug);
+    if (!subcategory) {
+      subcategory = {
+        slug: subSlug,
+        title: subcategoryTitle,
+        intro: subIntro,
+        range: subRange,
+        items: [],
+      };
+      subMap.set(subSlug, subcategory);
+      category.sub.push(subcategory);
+    } else {
+      if (subIntro && !subcategory.intro) subcategory.intro = subIntro;
+      if (subRange && !subcategory.range) subcategory.range = subRange;
+      if (subcategory.title !== subcategoryTitle) {
+        warnings.add(`Строка ${rowNumber}: подкатегория "${subcategoryTitle}" переопределяет название со слугом ${subSlug}.`);
+        subcategory.title = subcategoryTitle;
+      }
+    }
+
+    const itemSlug = normalizeCell(row["item_slug"]) || slugify(itemTitle);
+    const itemSku = normalizeCell(row["sku"] ?? row["item_sku"]);
+    const itemDesc = normalizeCell(row["desc"] ?? row["item_desc"]);
+
+    const existingItem = subcategory.items.find((item) => item.slug === itemSlug);
+    if (existingItem) {
+      warnings.add(`Строка ${rowNumber}: товар "${itemTitle}" перезаписал данные для слага ${itemSlug}.`);
+      existingItem.title = itemTitle;
+      existingItem.sku = itemSku || undefined;
+      existingItem.desc = itemDesc || undefined;
+    } else {
+      subcategory.items.push({
+        slug: itemSlug,
+        title: itemTitle,
+        sku: itemSku || undefined,
+        desc: itemDesc || undefined,
+      });
+    }
+  });
+
+  const data = cloneCategories(Array.from(categoryMap.values()).filter((category) => category.sub.length > 0));
+  const summary: ImportSummary = {
+    categories: data.length,
+    subcategories: data.reduce((total, category) => total + category.sub.length, 0),
+    items: data.reduce(
+      (total, category) => total + category.sub.reduce((count, subcategory) => count + subcategory.items.length, 0),
+      0,
+    ),
+  };
+
+  return {
+    filename: file.name,
+    data,
+    summary,
+    warnings: Array.from(warnings),
+    errors,
+  };
+};
+
+const mergeCategories = (base: EditableCategory[], incoming: EditableCategory[]) => {
+  const merged = new Map<string, EditableCategory>(cloneCategories(base).map((category) => [category.slug, category]));
+
+  incoming.forEach((incomingCategory) => {
+    const category = cloneCategories([incomingCategory])[0];
+    const existing = merged.get(category.slug);
+    if (!existing) {
+      merged.set(category.slug, category);
+      return;
+    }
+
+    existing.title = category.title;
+    if (category.intro) existing.intro = category.intro;
+    if (category.image) existing.image = category.image;
+
+    const subMap = new Map<string, Subcategory>(existing.sub.map((sub) => [sub.slug, sub]));
+
+    category.sub.forEach((incomingSub) => {
+      const subExisting = subMap.get(incomingSub.slug);
+      if (!subExisting) {
+        subMap.set(incomingSub.slug, incomingSub);
+        return;
+      }
+      subExisting.title = incomingSub.title;
+      if (incomingSub.intro) subExisting.intro = incomingSub.intro;
+      if (incomingSub.range) subExisting.range = incomingSub.range;
+
+      const itemMap = new Map<string, Item>(subExisting.items.map((item) => [item.slug, item]));
+      incomingSub.items.forEach((incomingItem) => {
+        itemMap.set(incomingItem.slug, incomingItem);
+      });
+      subExisting.items = Array.from(itemMap.values());
+    });
+
+    existing.sub = Array.from(subMap.values());
+  });
+
+  return Array.from(merged.values());
+};
+
 export default function AdminCatalogPage() {
   const [categories, setCategories] = useState<EditableCategory[]>(() => JSON.parse(JSON.stringify(CATEGORIES)));
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [clipboardStatus, setClipboardStatus] = useState<"idle" | "success" | "error">("idle");
+  const [importState, setImportState] = useState<ImportState>({ status: "idle" });
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const selectedCategory = categories[selectedCategoryIndex];
 
   const jsonOutput = useMemo(() => JSON.stringify(categories, null, 2), [categories]);
+
+  const handleImportFile = async (file: File) => {
+    setImportState({ status: "loading" });
+    try {
+      const preview = await parseExcelFile(file);
+      setImportState({ status: "ready", preview });
+    } catch (error) {
+      console.error("Import failed", error);
+      setImportState({
+        status: "error",
+        message: error instanceof Error ? error.message : "Не удалось обработать файл.",
+      });
+    }
+  };
+
+  const onImportInput = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    await handleImportFile(file);
+  };
+
+  const applyImport = (mode: "replace" | "merge") => {
+    if (importState.status !== "ready") return;
+    const data = cloneCategories(importState.preview.data);
+    if (mode === "replace") {
+      setCategories(data);
+      setSelectedCategoryIndex(0);
+    } else {
+      setCategories((prev) => mergeCategories(prev, data));
+    }
+    setImportState({ status: "idle" });
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const resetImportState = () => {
+    setImportState({ status: "idle" });
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  };
 
   const updateCategory = <K extends keyof EditableCategory>(field: K, value: EditableCategory[K]) => {
     setCategories((prev) =>
@@ -234,6 +479,144 @@ export default function AdminCatalogPage() {
       </aside>
 
       <main className="flex-1 space-y-8">
+        <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 className="text-xl font-semibold text-slate-900">Импорт из Excel</h2>
+              <p className="text-sm text-slate-500">
+                Загрузите файл .xlsx/.xls c колонками Category, Subcategory, Item. Дополнительные поля можно включать по мере необходимости.
+              </p>
+            </div>
+            <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-600">
+              <input ref={fileInputRef} type="file" accept=".xlsx,.xls" className="hidden" onChange={onImportInput} />
+              Выбрать файл
+            </label>
+          </header>
+          <p className="text-xs text-slate-500">
+            Скачайте{" "}
+            <a href="/templates/catalog-import.xlsx" className="font-semibold text-teal-600 hover:text-teal-500">
+              шаблон для импорта
+            </a>{" "}
+            с примером заполнения.
+          </p>
+          {importState.status === "idle" && (
+            <p className="rounded-2xl border border-dashed border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-500">
+              Поддерживаются дополнительные колонки: <code>category_intro</code>, <code>category_image</code>,{" "}
+              <code>subcategory_intro</code>, <code>subcategory_range</code>, <code>sku</code>, <code>desc</code>.
+            </p>
+          )}
+          {importState.status === "loading" && <p className="text-sm text-slate-500">Обрабатываем файл…</p>}
+          {importState.status === "error" && (
+            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              {importState.message}
+              <button
+                type="button"
+                className="ml-3 text-xs font-semibold underline"
+                onClick={resetImportState}
+              >
+                Сбросить
+              </button>
+            </div>
+          )}
+          {importState.status === "ready" && (
+            <div className="space-y-4 text-sm text-slate-700">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
+                  {importState.preview.filename}
+                </span>
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                  Категорий: {importState.preview.summary.categories}
+                </span>
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                  Подкатегорий: {importState.preview.summary.subcategories}
+                </span>
+                <span className="rounded-full bg-teal-50 px-3 py-1 text-xs font-semibold text-teal-700">
+                  Позиции: {importState.preview.summary.items}
+                </span>
+              </div>
+              {importState.preview.errors.length > 0 && (
+                <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-xs text-red-700">
+                  <div className="font-semibold text-red-800">Ошибки</div>
+                  <ul className="mt-2 space-y-1">
+                    {importState.preview.errors.slice(0, 5).map((error) => (
+                      <li key={error}>• {error}</li>
+                    ))}
+                  </ul>
+              {importState.preview.errors.length > 5 && (
+                    <div className="mt-2 text-[11px] text-red-600">
+                      Показаны только 5 ошибок. Исправьте данные и загрузите файл повторно.
+                    </div>
+                  )}
+                </div>
+              )}
+              {importState.preview.warnings.length > 0 && (
+                <div className="rounded-2xl border border-yellow-200 bg-yellow-50 px-4 py-3 text-xs text-yellow-700">
+                  <div className="font-semibold text-yellow-800">Предупреждения</div>
+                  <ul className="mt-2 space-y-1">
+                    {importState.preview.warnings.slice(0, 5).map((warning) => (
+                      <li key={warning}>• {warning}</li>
+                    ))}
+                  </ul>
+                  {importState.preview.warnings.length > 5 && (
+                    <div className="mt-2 text-[11px] text-yellow-600">Показаны только 5 предупреждений.</div>
+                  )}
+                </div>
+              )}
+              <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-600">
+                <div className="font-semibold text-slate-900">Превью (первые 5 позиций)</div>
+                <ul className="mt-2 space-y-1">
+                  {importState.preview.data
+                    .flatMap((category) =>
+                      category.sub.flatMap((sub) =>
+                        sub.items.map((item) => ({
+                          category: category.title,
+                          sub: sub.title,
+                          item: item.title,
+                          sku: item.sku,
+                        })),
+                      ),
+                    )
+                    .slice(0, 5)
+                    .map((row, idx) => (
+                      <li key={`${row.category}-${row.sub}-${row.item}-${idx}`}>
+                        <span className="font-semibold text-slate-900">{row.item}</span>
+                        <span className="text-slate-500">
+                          {" "}
+                          — {row.category} / {row.sub}
+                        </span>
+                        {row.sku && <span className="text-slate-400"> ({row.sku})</span>}
+                      </li>
+                    ))}
+                </ul>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => applyImport("replace")}
+                  className="inline-flex items-center justify-center rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={importState.preview.errors.length > 0}
+                >
+                  Заменить каталог
+                </button>
+                <button
+                  type="button"
+                  onClick={() => applyImport("merge")}
+                  className="inline-flex items-center justify-center rounded-full border border-teal-500 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-teal-600 transition hover:bg-teal-50 disabled:cursor-not-allowed disabled:opacity-60"
+                  disabled={importState.preview.errors.length > 0}
+                >
+                  Объединить с текущим
+                </button>
+                <button
+                  type="button"
+                  onClick={resetImportState}
+                  className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
+                >
+                  Отмена
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
         {selectedCategory ? (
           <>
             <section className="space-y-4 rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
@@ -477,3 +860,5 @@ export default function AdminCatalogPage() {
     </div>
   );
 }
+
+

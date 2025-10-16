@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { Category, Item, Subcategory } from "@/data/catalog";
+import { useRequest } from "@/components/providers/RequestProvider";
 
 type CatalogExplorerProps = {
   categories: Category[];
@@ -29,6 +30,8 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const paramsKey = searchParams.toString();
+  const { addItem } = useRequest();
+  const [lastAddedItem, setLastAddedItem] = useState<string | null>(null);
 
   const categoryMap = useMemo(() => new Map(categories.map((cat) => [cat.slug, cat])), [categories]);
 
@@ -71,6 +74,25 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
     setSelection(getSelectionFromParams());
   }, [getSelectionFromParams]);
 
+  useEffect(() => {
+    const params = new URLSearchParams(paramsKey);
+    if (selection.category) params.set("category", selection.category);
+    else params.delete("category");
+    if (selection.subcategory) params.set("subcategory", selection.subcategory);
+    else params.delete("subcategory");
+    if (selection.item) params.set("item", selection.item);
+    else params.delete("item");
+    const nextKey = params.toString();
+    if (nextKey === paramsKey) return;
+    router.replace(nextKey ? `${pathname}?${nextKey}` : pathname, { scroll: false });
+  }, [selection, paramsKey, pathname, router]);
+
+  useEffect(() => {
+    if (!lastAddedItem) return;
+    const timer = window.setTimeout(() => setLastAddedItem(null), 2200);
+    return () => window.clearTimeout(timer);
+  }, [lastAddedItem]);
+
   const selectedCategory: Category | null = selection.category
     ? categoryMap.get(selection.category) ?? null
     : null;
@@ -79,29 +101,12 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
   const selectedItem: Item | null =
     selectedSubcategory?.items.find((itm) => itm.slug === selection.item) ?? null;
 
-  const updateQuery = useCallback(
-    (next: SelectionState) => {
-      const params = new URLSearchParams(paramsKey);
-      if (next.category) params.set("category", next.category);
-      else params.delete("category");
-      if (next.subcategory) params.set("subcategory", next.subcategory);
-      else params.delete("subcategory");
-      if (next.item) params.set("item", next.item);
-      else params.delete("item");
-      const query = params.toString();
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false });
-    },
-    [paramsKey, pathname, router],
-  );
-
   const closeModal = useCallback(() => {
     setSelection((prev) => {
       if (!prev.item) return prev;
-      const next = { ...prev, item: null };
-      updateQuery(next);
-      return next;
+      return { ...prev, item: null };
     });
-  }, [updateQuery]);
+  }, []);
 
   useEffect(() => {
     if (!selectedItem) return;
@@ -125,7 +130,6 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         prev.category === slug
           ? { category: null, subcategory: null, item: null }
           : { category: slug, subcategory: null, item: null };
-      updateQuery(next);
       return next;
     });
   };
@@ -137,7 +141,6 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         prev.subcategory === slug
           ? { category: prev.category, subcategory: null, item: null }
           : { category: prev.category, subcategory: slug, item: null };
-      updateQuery(next);
       return next;
     });
   };
@@ -149,10 +152,20 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         prev.item === slug
           ? { category: prev.category, subcategory: prev.subcategory, item: null }
           : { category: prev.category, subcategory: prev.subcategory, item: slug };
-      updateQuery(next);
       return next;
     });
   };
+
+  const handleAddSelectedToRequest = useCallback(() => {
+    if (!selectedCategory || !selectedSubcategory || !selectedItem) return;
+    addItem({
+      id: selectedItem.slug,
+      title: selectedItem.title,
+      category: selectedCategory.title,
+      subcategory: selectedSubcategory.title,
+    });
+    setLastAddedItem(selectedItem.slug);
+  }, [addItem, selectedCategory, selectedSubcategory, selectedItem]);
 
   const hasCategory = Boolean(selectedCategory);
   const hasSubcategory = Boolean(selectedCategory && selectedSubcategory);
@@ -295,7 +308,7 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                       <div className="text-sm font-semibold text-slate-900">{itm.title}</div>
                     </div>
                     <div className="ml-auto text-xs font-semibold uppercase tracking-[0.1em] text-teal-600 transition group-hover:text-teal-700">
-                      Подробнее
+                      Добавить
                     </div>
                   </button>
                 );
@@ -311,6 +324,11 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
           role="dialog"
           aria-modal="true"
           aria-labelledby="catalog-item-title"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              closeModal();
+            }
+          }}
         >
           <div className="relative w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl">
             <button
@@ -355,10 +373,16 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-full border border-teal-500 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-teal-600 transition hover:bg-teal-50"
+                  onClick={handleAddSelectedToRequest}
                 >
-                  Добавить в спецификацию
+                  Добавить в заявку
                 </button>
               </div>
+              {lastAddedItem === selectedItem.slug && (
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">
+                  Добавлено в заявку.
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -366,3 +390,11 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
     </div>
   );
 }
+
+
+
+
+
+
+
+
