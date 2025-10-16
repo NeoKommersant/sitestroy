@@ -405,7 +405,9 @@ export async function downloadRequestPdf(payload: PdfRequestPayload) {
   );
 
   const pdfBytes = await doc.save();
-  const blob = new Blob([pdfBytes], { type: "application/pdf" });
+  const buffer = new ArrayBuffer(pdfBytes.length);
+  new Uint8Array(buffer).set(pdfBytes);
+  const blob = new Blob([buffer], { type: "application/pdf" });
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
