@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import type { Category, Item, Subcategory } from "@/data/catalog";
+import type { Category, Item, Subcategory } from "@/types/catalog";
 import { useRequest } from "@/components/providers/RequestProvider";
 
 type CatalogExplorerProps = {

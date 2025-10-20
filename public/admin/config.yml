@@ -1,0 +1,43 @@
+backend:
+  name: github
+  repo: NeoKommersant/sitestroy
+  branch: main
+  squash_merges: true
+
+media_folder: "public/img/catalog"
+public_folder: "/img/catalog"
+
+collections:
+  - name: "catalog"
+    label: "Каталог"
+    description: "Категории, подкатегории и товары"
+    files:
+      - label: "Данные каталога"
+        name: "categories"
+        file: "data/catalog.yml"
+        format: "yaml"
+        fields:
+          - label: "Категории"
+            name: "categories"
+            widget: list
+            fields:
+              - { label: "Слаг", name: "slug", widget: string }
+              - { label: "Название", name: "title", widget: string }
+              - { label: "Картинка", name: "image", widget: image }
+              - { label: "Описание", name: "intro", widget: text, required: false }
+              - label: "Подкатегории"
+                name: "sub"
+                widget: list
+                fields:
+                  - { label: "Слаг", name: "slug", widget: string }
+                  - { label: "Название", name: "title", widget: string }
+                  - { label: "Описание", name: "intro", widget: text, required: false }
+                  - { label: "Диапазон", name: "range", widget: string, required: false }
+                  - label: "Товары"
+                    name: "items"
+                    widget: list
+                    fields:
+                      - { label: "Слаг", name: "slug", widget: string }
+                      - { label: "Название", name: "title", widget: string }
+                      - { label: "Артикул", name: "sku", widget: string, required: false }
+                      - { label: "Описание", name: "desc", widget: text, required: false }

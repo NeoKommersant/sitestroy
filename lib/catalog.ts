@@ -1,24 +1,78 @@
-import { CATEGORIES, type Category, type Subcategory, type Item } from "@/data/catalog";
+import fs from "fs";
+import path from "path";
+import yaml from "js-yaml";
+import type { CatalogData, Category, Subcategory, Item } from "@/types/catalog";
 
-export const getCategories = (): Category[] => CATEGORIES;
+const catalogFilePath = path.join(process.cwd(), "data", "catalog.yml");
 
-export const getCategory = (slug: string): Category | undefined =>
-  CATEGORIES.find(c => c.slug === slug);
+const readCatalog = (): Category[] => {
+  const content = fs.readFileSync(catalogFilePath, "utf8");
+  const parsed = yaml.load(content) as CatalogData | undefined;
+  if (!parsed || !Array.isArray(parsed.categories)) {
+    throw new Error("Invalid catalog.yml format");
+  }
+  return parsed.categories;
+};
+
+const getCatalog = (): Category[] => {
+  if (process.env.NODE_ENV === "production") {
+    if (!globalThis.__catalogCache) {
+      globalThis.__catalogCache = readCatalog();
+    }
+    return globalThis.__catalogCache as Category[];
+  }
+  return readCatalog();
+};
+
+declare global {
+  var __catalogCache: Category[] | undefined;
+}
+
+const cloneCatalog = (catalog: Category[]): Category[] =>
+  catalog.map((category) => ({
+    ...category,
+    sub: category.sub.map((sub) => ({
+      ...sub,
+      items: sub.items.map((item) => ({ ...item })),
+    })),
+  }));
+
+export const getCategories = (): Category[] => cloneCatalog(getCatalog());
+
+export const getCategory = (slug: string): Category | undefined => {
+  const category = getCatalog().find(c => c.slug === slug);
+  return category ? cloneCatalog([category])[0] : undefined;
+};
 
 export const getSubcategory = (catSlug: string, subSlug: string):
   { cat: Category; sub: Subcategory } | undefined => {
-  const cat = getCategory(catSlug);
+  const cat = getCatalog().find(c => c.slug === catSlug);
   if (!cat) return;
   const sub = cat.sub.find(s => s.slug === subSlug);
   if (!sub) return;
-  return { cat, sub };
+  return {
+    cat: cloneCatalog([cat])[0],
+    sub: {
+      ...sub,
+      items: sub.items.map((item) => ({ ...item })),
+    },
+  };
 };
 
 export const getItem = (catSlug: string, subSlug: string, itemSlug: string):
   { cat: Category; sub: Subcategory; item: Item } | undefined => {
-  const ctx = getSubcategory(catSlug, subSlug);
-  if (!ctx) return;
-  const item = ctx.sub.items.find(i => i.slug === itemSlug);
+  const cat = getCatalog().find(c => c.slug === catSlug);
+  if (!cat) return;
+  const sub = cat.sub.find(s => s.slug === subSlug);
+  if (!sub) return;
+  const item = sub.items.find(i => i.slug === itemSlug);
   if (!item) return;
-  return { cat: ctx.cat, sub: ctx.sub, item };
+  return {
+    cat: cloneCatalog([cat])[0],
+    sub: {
+      ...sub,
+      items: sub.items.map((itm) => ({ ...itm })),
+    },
+    item: { ...item },
+  };
 };
