@@ -5,9 +5,9 @@ export const COMPANY_INFO = {
   inn: "7701234567",
   kpp: "770101001",
   ogrn: "1234567890123",
-  phone: "+7 (495) 123-45-67",
-  email: "sales@sitestroy.ru",
+  phone: "+7 (978) 651-72-51",
+  email: "besmodeprod@bk.ru",
   website: "https://sitestroy.ru",
-  telegram: "https://t.me/stroyalliance",
+  telegram: "https://t.me/besmodeprod",
 };
 
