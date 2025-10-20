@@ -1,13 +1,13 @@
 import fs from "fs";
 import path from "path";
-import yaml from "js-yaml";
+import { load } from "js-yaml";
 import type { CatalogData, Category, Subcategory, Item } from "@/types/catalog";
 
 const catalogFilePath = path.join(process.cwd(), "data", "catalog.yml");
 
 const readCatalog = (): Category[] => {
   const content = fs.readFileSync(catalogFilePath, "utf8");
-  const parsed = yaml.load(content) as CatalogData | undefined;
+  const parsed = load(content) as CatalogData | undefined;
   if (!parsed || !Array.isArray(parsed.categories)) {
     throw new Error("Invalid catalog.yml format");
   }
