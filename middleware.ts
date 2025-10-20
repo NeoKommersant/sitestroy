@@ -34,4 +34,4 @@ export function middleware(req: NextRequest) {
   return authRequiredResponse();
 }
 
-export const config = { matcher: ["/admin/:path*"] };
+export const config = { matcher: ["/admin", "/admin/:path*"] };
