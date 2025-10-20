@@ -27,10 +27,16 @@ export async function POST(request: Request) {
 
     const token = process.env.GITHUB_TOKEN;
     if (!token) {
-      return NextResponse.json({ error: "Missing GitHub token" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Missing GitHub token" },
+        { status: 500 },
+      );
     }
 
-    const yamlContent = dump({ categories: body.catalog }, { lineWidth: 120, noRefs: true });
+    const yamlContent = dump(
+      { categories: body.catalog },
+      { lineWidth: 120, noRefs: true },
+    );
     const encodedContent = Buffer.from(yamlContent, "utf8").toString("base64");
 
     const getResponse = await fetch(GITHUB_CONTENTS_URL, {
@@ -73,7 +79,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ status: "ok" });
   } catch (error) {
     return NextResponse.json(
-      { error: "Unexpected error", details: error instanceof Error ? error.message : String(error) },
+      {
+        error: "Unexpected error",
+        details: error instanceof Error ? error.message : String(error),
+      },
       { status: 500 },
     );
   }
