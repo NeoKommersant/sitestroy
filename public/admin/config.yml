@@ -1,4 +1,4 @@
-﻿backend:
+backend:
   name: github
   repo: NeoKommersant/sitestroy
   branch: main

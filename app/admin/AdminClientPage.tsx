@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 import { useMemo, useRef, useState, type ChangeEvent } from "react";
 import * as XLSX from "xlsx";
 import { dump } from "js-yaml";
@@ -635,15 +635,18 @@ export default function AdminClientPage({
       });
       const raw = await response.text();
       let payload: { error?: string; message?: string } | null = null;
-      try {
-        payload = raw ? (JSON.parse(raw) as typeof payload) : null;
-      } catch {
-        payload = null;
+      if (raw) {
+        try {
+          payload = JSON.parse(raw) as { error?: string; message?: string };
+        } catch {
+          payload = null;
+        }
       }
       if (!response.ok) {
         const detail =
-          (payload && (payload.error || payload.message)) ||
-          (raw ? raw : "Не удалось сохранить каталог");
+          payload?.error ??
+          payload?.message ??
+          (raw || "Не удалось сохранить каталог");
         console.error("Failed to save catalog", detail);
         setSaveMessage(detail);
         setSaveStatus("error");
