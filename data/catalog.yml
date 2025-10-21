@@ -11,141 +11,1101 @@ categories:
         intro: Напорные полиэтиленовые трубы ПЭ100/ПЭ100-RC для магистралей и распределительных сетей.
         range: Диаметры Ø110–Ø900 мм, SDR 11–17.
         items:
-          - slug: truba-pnd-sdr11-160
-            title: Труба ПНД SDR11 Ø160 мм
-            desc: Напорная труба из ПЭ100 для магистральных линий с рабочим давлением до 1,6 МПа.
-          - slug: truba-pnd-sdr17-110
-            title: Труба ПНД SDR17 Ø110 мм, бухта 200 м
-            desc: Гибкая труба для разводящих сетей и частного строительства, устойчивая к коррозии.
-          - slug: fiting-pnd-elektrosvarka
-            title: Электросварные фитинги ПНД
-            desc: Муфты, отводы и тройники для герметичного соединения труб ПЭ с применением сварочных аппаратов.
+          - slug: truba-pe-100-pn6-sdr-26-d50h2
+            title: Труба ПЭ 100-PN6 SDR 26 D50х2
+            sku: TRUBA_PE_100_PN6_SDR_26_D50H2
+          - slug: truba-pe-100-pn6-sdr-26-d63h25
+            title: Труба ПЭ 100-PN6 SDR 26 D63х2,5
+            sku: TRUBA_PE_100_PN6_SDR_26_D63H25
+          - slug: truba-pe-100-pn6-sdr-26-d75h29
+            title: Труба ПЭ 100-PN6 SDR 26 D75х2,9
+            sku: TRUBA_PE_100_PN6_SDR_26_D75H29
+          - slug: truba-pe-100-pn6-sdr-26-d90h35
+            title: Труба ПЭ 100-PN6 SDR 26 D90х3,5
+            sku: TRUBA_PE_100_PN6_SDR_26_D90H35
+          - slug: truba-pe-100-pn6-sdr-26-d110h42
+            title: Труба ПЭ 100-PN6 SDR 26 D110х4,2
+            sku: TRUBA_PE_100_PN6_SDR_26_D110H42
+          - slug: truba-pe-100-pn6-sdr-26-d125h48
+            title: Труба ПЭ 100-PN6 SDR 26 D125х4,8
+            sku: TRUBA_PE_100_PN6_SDR_26_D125H48
+          - slug: truba-pe-100-pn6-sdr-26-d140h54
+            title: Труба ПЭ 100-PN6 SDR 26 D140х5,4
+            sku: TRUBA_PE_100_PN6_SDR_26_D140H54
+          - slug: truba-pe-100-pn6-sdr-26-d160h62
+            title: Труба ПЭ 100-PN6 SDR 26 D160х6,2
+            sku: TRUBA_PE_100_PN6_SDR_26_D160H62
+          - slug: truba-pe-100-pn6-sdr-26-d180h69
+            title: Труба ПЭ 100-PN6 SDR 26 D180х6,9
+            sku: TRUBA_PE_100_PN6_SDR_26_D180H69
+          - slug: truba-pe-100-pn6-sdr-26-d200h77
+            title: Труба ПЭ 100-PN6 SDR 26 D200х7,7
+            sku: TRUBA_PE_100_PN6_SDR_26_D200H77
+          - slug: truba-pe-100-pn6-sdr-26-d225h86
+            title: Труба ПЭ 100-PN6 SDR 26 D225х8,6
+            sku: TRUBA_PE_100_PN6_SDR_26_D225H86
+          - slug: truba-pe-100-pn6-sdr-26-d250h96
+            title: Труба ПЭ 100-PN6 SDR 26 D250х9,6
+            sku: TRUBA_PE_100_PN6_SDR_26_D250H96
+          - slug: truba-pe-100-pn6-sdr-26-d280h107
+            title: Труба ПЭ 100-PN6 SDR 26 D280х10,7
+            sku: TRUBA_PE_100_PN6_SDR_26_D280H107
+          - slug: truba-pe-100-pn6-sdr-26-d315h121
+            title: Труба ПЭ 100-PN6 SDR 26 D315х12,1
+            sku: TRUBA_PE_100_PN6_SDR_26_D315H121
+          - slug: truba-pe-100-pn6-sdr-26-d355h136
+            title: Труба ПЭ 100-PN6 SDR 26 D355х13,6
+            sku: TRUBA_PE_100_PN6_SDR_26_D355H136
+          - slug: truba-pe-100-pn6-sdr-26-d400h153
+            title: Труба ПЭ 100-PN6 SDR 26 D400х15,3
+            sku: TRUBA_PE_100_PN6_SDR_26_D400H153
+          - slug: truba-pe-100-pn6-sdr-26-d450h172
+            title: Труба ПЭ 100-PN6 SDR 26 D450х17,2
+            sku: TRUBA_PE_100_PN6_SDR_26_D450H172
+          - slug: truba-pe-100-pn6-sdr-26-d500h191
+            title: Труба ПЭ 100-PN6 SDR 26 D500х19,1
+            sku: TRUBA_PE_100_PN6_SDR_26_D500H191
+          - slug: truba-pe-100-pn6-sdr-26-d560h214
+            title: Труба ПЭ 100-PN6 SDR 26 D560х21,4
+            sku: TRUBA_PE_100_PN6_SDR_26_D560H214
+          - slug: truba-pe-100-pn6-sdr-26-d630h241
+            title: Труба ПЭ 100-PN6 SDR 26 D630х24,1
+            sku: TRUBA_PE_100_PN6_SDR_26_D630H241
+          - slug: truba-pe-100-pn6-sdr-26-d710h272
+            title: Труба ПЭ 100-PN6 SDR 26 D710х27,2
+            sku: TRUBA_PE_100_PN6_SDR_26_D710H272
+          - slug: truba-pe-100-pn6-sdr-26-d800h306
+            title: Труба ПЭ 100-PN6 SDR 26 D800х30,6
+            sku: TRUBA_PE_100_PN6_SDR_26_D800H306
+          - slug: truba-pe-100-pn6-sdr-26-d900h344
+            title: Труба ПЭ 100-PN6 SDR 26 D900х34,4
+            sku: TRUBA_PE_100_PN6_SDR_26_D900H344
+          - slug: truba-pe-100-pn6-sdr-26-d1000h382
+            title: Труба ПЭ 100-PN6 SDR 26 D1000х38,2
+            sku: TRUBA_PE_100_PN6_SDR_26_D1000H382
+          - slug: truba-pe-100-pn6-sdr-26-d1200h459
+            title: Труба ПЭ 100-PN6 SDR 26 D1200х45,9
+            sku: TRUBA_PE_100_PN6_SDR_26_D1200H459
+          - slug: truba-pe-100-pn6-sdr-26-d1400h535
+            title: Труба ПЭ 100-PN6 SDR 26 D1400х53,5
+            sku: TRUBA_PE_100_PN6_SDR_26_D1400H535
+          - slug: truba-pe-100-pn6-sdr-26-d1600h612
+            title: Труба ПЭ 100-PN6 SDR 26 D1600х61,2
+            sku: TRUBA_PE_100_PN6_SDR_26_D1600H612
+          - slug: truba-pe-100-pn8-sdr-21-d40x2
+            title: Труба ПЭ 100-PN8 SDR 21 D40x2
+            sku: TRUBA_PE_100_PN8_SDR_21_D40X2
+          - slug: truba-pe-100-pn8-sdr-21-d50x24
+            title: Труба ПЭ 100-PN8 SDR 21 D50x2,4
+            sku: TRUBA_PE_100_PN8_SDR_21_D50X24
+          - slug: truba-pe-100-pn8-sdr-21-d63x3
+            title: Труба ПЭ 100-PN8 SDR 21 D63x3
+            sku: TRUBA_PE_100_PN8_SDR_21_D63X3
+          - slug: truba-pe-100-pn8-sdr-21-d75x36
+            title: Труба ПЭ 100-PN8 SDR 21 D75x3,6
+            sku: TRUBA_PE_100_PN8_SDR_21_D75X36
+          - slug: truba-pe-100-pn8-sdr-21-d90x43
+            title: Труба ПЭ 100-PN8 SDR 21 D90x4,3
+            sku: TRUBA_PE_100_PN8_SDR_21_D90X43
+          - slug: truba-pe-100-pn8-sdr-21-d110x53
+            title: Труба ПЭ 100-PN8 SDR 21 D110x5,3
+            sku: TRUBA_PE_100_PN8_SDR_21_D110X53
+          - slug: truba-pe-100-pn8-sdr-21-d125x6
+            title: Труба ПЭ 100-PN8 SDR 21 D125x6
+            sku: TRUBA_PE_100_PN8_SDR_21_D125X6
+          - slug: truba-pe-100-pn8-sdr-21-d140x67
+            title: Труба ПЭ 100-PN8 SDR 21 D140x6,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D140X67
+          - slug: truba-pe-100-pn8-sdr-21-d160x77
+            title: Труба ПЭ 100-PN8 SDR 21 D160x7,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D160X77
+          - slug: truba-pe-100-pn8-sdr-21-d180x86
+            title: Труба ПЭ 100-PN8 SDR 21 D180x8,6
+            sku: TRUBA_PE_100_PN8_SDR_21_D180X86
+          - slug: truba-pe-100-pn8-sdr-21-d200x96
+            title: Труба ПЭ 100-PN8 SDR 21 D200x9,6
+            sku: TRUBA_PE_100_PN8_SDR_21_D200X96
+          - slug: truba-pe-100-pn8-sdr-21-d225x108
+            title: Труба ПЭ 100-PN8 SDR 21 D225x10,8
+            sku: TRUBA_PE_100_PN8_SDR_21_D225X108
+          - slug: truba-pe-100-pn8-sdr-21-d250x119
+            title: Труба ПЭ 100-PN8 SDR 21 D250x11,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D250X119
+          - slug: truba-pe-100-pn8-sdr-21-d280x134
+            title: Труба ПЭ 100-PN8 SDR 21 D280x13,4
+            sku: TRUBA_PE_100_PN8_SDR_21_D280X134
+          - slug: truba-pe-100-pn8-sdr-21-d315x15
+            title: Труба ПЭ 100-PN8 SDR 21 D315x15
+            sku: TRUBA_PE_100_PN8_SDR_21_D315X15
+          - slug: truba-pe-100-pn8-sdr-21-d355x169
+            title: Труба ПЭ 100-PN8 SDR 21 D355x16,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D355X169
+          - slug: truba-pe-100-pn8-sdr-21-d400x191
+            title: Труба ПЭ 100-PN8 SDR 21 D400x19,1
+            sku: TRUBA_PE_100_PN8_SDR_21_D400X191
+          - slug: truba-pe-100-pn8-sdr-21-d450x215
+            title: Труба ПЭ 100-PN8 SDR 21 D450x21,5
+            sku: TRUBA_PE_100_PN8_SDR_21_D450X215
+          - slug: truba-pe-100-pn8-sdr-21-d500x239
+            title: Труба ПЭ 100-PN8 SDR 21 D500x23,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D500X239
+          - slug: truba-pe-100-pn8-sdr-21-d560x267
+            title: Труба ПЭ 100-PN8 SDR 21 D560x26,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D560X267
+          - slug: truba-pe-100-pn8-sdr-21-d630x30
+            title: Труба ПЭ 100-PN8 SDR 21 D630x30
+            sku: TRUBA_PE_100_PN8_SDR_21_D630X30
+          - slug: truba-pe-100-pn8-sdr-21-d710x339
+            title: Труба ПЭ 100-PN8 SDR 21 D710x33,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D710X339
+          - slug: truba-pe-100-pn8-sdr-21-d800x381
+            title: Труба ПЭ 100-PN8 SDR 21 D800x38,1
+            sku: TRUBA_PE_100_PN8_SDR_21_D800X381
+          - slug: truba-pe-100-pn8-sdr-21-d900x429
+            title: Труба ПЭ 100-PN8 SDR 21 D900x42,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D900X429
+          - slug: truba-pe-100-pn8-sdr-21-d1000x477
+            title: Труба ПЭ 100-PN8 SDR 21 D1000x47,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D1000X477
+          - slug: truba-pe-100-pn8-sdr-21-d1200x572
+            title: Труба ПЭ 100-PN8 SDR 21 D1200x57,2
+            sku: TRUBA_PE_100_PN8_SDR_21_D1200X572
+          - slug: truba-pe-100-pn8-sdr-21-d1400x667
+            title: Труба ПЭ 100-PN8 SDR 21 D1400x66,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D1400X667
+          - slug: truba-pe-100-pn8-sdr-21-d1600x762
+            title: Труба ПЭ 100-PN8 SDR 21 D1600x76,2
+            sku: TRUBA_PE_100_PN8_SDR_21_D1600X762
+          - slug: truba-pe-100-pn10-sdr-17-d32x2
+            title: Труба ПЭ 100-PN10 SDR 17 D32x2
+            sku: TRUBA_PE_100_PN10_SDR_17_D32X2
+          - slug: truba-pe-100-pn10-sdr-17-d40x24
+            title: Труба ПЭ 100-PN10 SDR 17 D40x2,4
+            sku: TRUBA_PE_100_PN10_SDR_17_D40X24
+          - slug: truba-pe-100-pn10-sdr-17-d50x3
+            title: Труба ПЭ 100-PN10 SDR 17 D50x3
+            sku: TRUBA_PE_100_PN10_SDR_17_D50X3
+          - slug: truba-pe-100-pn10-sdr-17-d63x38
+            title: Труба ПЭ 100-PN10 SDR 17 D63x3,8
+            sku: TRUBA_PE_100_PN10_SDR_17_D63X38
+          - slug: truba-pe-100-pn10-sdr-17-d75x45
+            title: Труба ПЭ 100-PN10 SDR 17 D75x4,5
+            sku: TRUBA_PE_100_PN10_SDR_17_D75X45
+          - slug: truba-pe-100-pn10-sdr-17-d90x54
+            title: Труба ПЭ 100-PN10 SDR 17 D90x5,4
+            sku: TRUBA_PE_100_PN10_SDR_17_D90X54
+          - slug: truba-pe-100-pn10-sdr-17-d110x66
+            title: Труба ПЭ 100-PN10 SDR 17 D110x6,6
+            sku: TRUBA_PE_100_PN10_SDR_17_D110X66
+          - slug: truba-pe-100-pn10-sdr-17-d125x74
+            title: Труба ПЭ 100-PN10 SDR 17 D125x7,4
+            sku: TRUBA_PE_100_PN10_SDR_17_D125X74
+          - slug: truba-pe-100-pn10-sdr-17-d140x83
+            title: Труба ПЭ 100-PN10 SDR 17 D140x8,3
+            sku: TRUBA_PE_100_PN10_SDR_17_D140X83
+          - slug: truba-pe-100-pn10-sdr-17-d160x95
+            title: Труба ПЭ 100-PN10 SDR 17 D160x9,5
+            sku: TRUBA_PE_100_PN10_SDR_17_D160X95
+          - slug: truba-pe-100-pn10-sdr-17-d180x107
+            title: Труба ПЭ 100-PN10 SDR 17 D180x10,7
+            sku: TRUBA_PE_100_PN10_SDR_17_D180X107
+          - slug: truba-pe-100-pn10-sdr-17-d200x119
+            title: Труба ПЭ 100-PN10 SDR 17 D200x11,9
+            sku: TRUBA_PE_100_PN10_SDR_17_D200X119
+          - slug: truba-pe-100-pn10-sdr-17-d225x134
+            title: Труба ПЭ 100-PN10 SDR 17 D225x13,4
+            sku: TRUBA_PE_100_PN10_SDR_17_D225X134
+          - slug: truba-pe-100-pn10-sdr-17-d250x148
+            title: Труба ПЭ 100-PN10 SDR 17 D250x14,8
+            sku: TRUBA_PE_100_PN10_SDR_17_D250X148
+          - slug: truba-pe-100-pn10-sdr-17-d280x166
+            title: Труба ПЭ 100-PN10 SDR 17 D280x16,6
+            sku: TRUBA_PE_100_PN10_SDR_17_D280X166
+          - slug: truba-pe-100-pn10-sdr-17-d315x187
+            title: Труба ПЭ 100-PN10 SDR 17 D315x18,7
+            sku: TRUBA_PE_100_PN10_SDR_17_D315X187
+          - slug: truba-pe-100-pn10-sdr-17-d355x211
+            title: Труба ПЭ 100-PN10 SDR 17 D355x21,1
+            sku: TRUBA_PE_100_PN10_SDR_17_D355X211
+          - slug: truba-pe-100-pn10-sdr-17-d400x237
+            title: Труба ПЭ 100-PN10 SDR 17 D400x23,7
+            sku: TRUBA_PE_100_PN10_SDR_17_D400X237
+          - slug: truba-pe-100-pn10-sdr-17-d450x267
+            title: Труба ПЭ 100-PN10 SDR 17 D450x26,7
+            sku: TRUBA_PE_100_PN10_SDR_17_D450X267
+          - slug: truba-pe-100-pn10-sdr-17-d500x297
+            title: Труба ПЭ 100-PN10 SDR 17 D500x29,7
+            sku: TRUBA_PE_100_PN10_SDR_17_D500X297
+          - slug: truba-pe-100-pn10-sdr-17-d560x332
+            title: Труба ПЭ 100-PN10 SDR 17 D560x33,2
+            sku: TRUBA_PE_100_PN10_SDR_17_D560X332
+          - slug: truba-pe-100-pn10-sdr-17-d630x374
+            title: Труба ПЭ 100-PN10 SDR 17 D630x37,4
+            sku: TRUBA_PE_100_PN10_SDR_17_D630X374
+          - slug: truba-pe-100-pn10-sdr-17-d710x421
+            title: Труба ПЭ 100-PN10 SDR 17 D710x42,1
+            sku: TRUBA_PE_100_PN10_SDR_17_D710X421
+          - slug: truba-pe-100-pn10-sdr-17-d800x474
+            title: Труба ПЭ 100-PN10 SDR 17 D800x47,4
+            sku: TRUBA_PE_100_PN10_SDR_17_D800X474
+          - slug: truba-pe-100-pn10-sdr-17-d900x533
+            title: Труба ПЭ 100-PN10 SDR 17 D900x53,3
+            sku: TRUBA_PE_100_PN10_SDR_17_D900X533
+          - slug: truba-pe-100-pn10-sdr-17-d1000x593
+            title: Труба ПЭ 100-PN10 SDR 17 D1000x59,3
+            sku: TRUBA_PE_100_PN10_SDR_17_D1000X593
+          - slug: truba-pe-100-pn10-sdr-17-d1200x711
+            title: Труба ПЭ 100-PN10 SDR 17 D1200x71,1
+            sku: TRUBA_PE_100_PN10_SDR_17_D1200X711
+          - slug: truba-pe-100-pn10-sdr-17-d1400x83
+            title: Труба ПЭ 100-PN10 SDR 17 D1400x83
+            sku: TRUBA_PE_100_PN10_SDR_17_D1400X83
+          - slug: truba-pe-100-pn10-sdr-17-d1600x948
+            title: Труба ПЭ 100-PN10 SDR 17 D1600x94,8
+            sku: TRUBA_PE_100_PN10_SDR_17_D1600X948
+          - slug: truba-pe-100-pn125-sdr-136-d25x2
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D25x2
+            sku: TRUBA_PE_100_PN125_SDR_136_D25X2
+          - slug: truba-pe-100-pn125-sdr-136-d32x24
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D32x2,4
+            sku: TRUBA_PE_100_PN125_SDR_136_D32X24
+          - slug: truba-pe-100-pn125-sdr-136-d40x3
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D40x3
+            sku: TRUBA_PE_100_PN125_SDR_136_D40X3
+          - slug: truba-pe-100-pn125-sdr-136-d50x37
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D50x3,7
+            sku: TRUBA_PE_100_PN125_SDR_136_D50X37
+          - slug: truba-pe-100-pn125-sdr-136-d63x47
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D63x4,7
+            sku: TRUBA_PE_100_PN125_SDR_136_D63X47
+          - slug: truba-pe-100-pn125-sdr-136-d75x56
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D75x5,6
+            sku: TRUBA_PE_100_PN125_SDR_136_D75X56
+          - slug: truba-pe-100-pn125-sdr-136-d90x67
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D90x6,7
+            sku: TRUBA_PE_100_PN125_SDR_136_D90X67
+          - slug: truba-pe-100-pn125-sdr-136-d110x81
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D110x8,1
+            sku: TRUBA_PE_100_PN125_SDR_136_D110X81
+          - slug: truba-pe-100-pn125-sdr-136-d125x92
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D125x9,2
+            sku: TRUBA_PE_100_PN125_SDR_136_D125X92
+          - slug: truba-pe-100-pn125-sdr-136-d140x103
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D140x10,3
+            sku: TRUBA_PE_100_PN125_SDR_136_D140X103
+          - slug: truba-pe-100-pn125-sdr-136-d160x118
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D160x11,8
+            sku: TRUBA_PE_100_PN125_SDR_136_D160X118
+          - slug: truba-pe-100-pn125-sdr-136-d180x133
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D180x13,3
+            sku: TRUBA_PE_100_PN125_SDR_136_D180X133
+          - slug: truba-pe-100-pn125-sdr-136-d200x147
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D200x14,7
+            sku: TRUBA_PE_100_PN125_SDR_136_D200X147
+          - slug: truba-pe-100-pn125-sdr-136-d225x166
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D225x16,6
+            sku: TRUBA_PE_100_PN125_SDR_136_D225X166
+          - slug: truba-pe-100-pn125-sdr-136-d250x184
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D250x18,4
+            sku: TRUBA_PE_100_PN125_SDR_136_D250X184
+          - slug: truba-pe-100-pn125-sdr-136-d280x206
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D280x20,6
+            sku: TRUBA_PE_100_PN125_SDR_136_D280X206
+          - slug: truba-pe-100-pn125-sdr-136-d315x232
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D315x23,2
+            sku: TRUBA_PE_100_PN125_SDR_136_D315X232
+          - slug: truba-pe-100-pn125-sdr-136-d355x261
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D355x26,1
+            sku: TRUBA_PE_100_PN125_SDR_136_D355X261
+          - slug: truba-pe-100-pn125-sdr-136-d400x294
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D400x29,4
+            sku: TRUBA_PE_100_PN125_SDR_136_D400X294
+          - slug: truba-pe-100-pn125-sdr-136-d450x331
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D450x33,1
+            sku: TRUBA_PE_100_PN125_SDR_136_D450X331
+          - slug: truba-pe-100-pn125-sdr-136-d500x368
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D500x36,8
+            sku: TRUBA_PE_100_PN125_SDR_136_D500X368
+          - slug: truba-pe-100-pn125-sdr-136-d560x412
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D560x41,2
+            sku: TRUBA_PE_100_PN125_SDR_136_D560X412
+          - slug: truba-pe-100-pn125-sdr-136-d630x463
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D630x46,3
+            sku: TRUBA_PE_100_PN125_SDR_136_D630X463
+          - slug: truba-pe-100-pn125-sdr-136-d710x522
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D710x52,2
+            sku: TRUBA_PE_100_PN125_SDR_136_D710X522
+          - slug: truba-pe-100-pn125-sdr-136-d800x588
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D800x58,8
+            sku: TRUBA_PE_100_PN125_SDR_136_D800X588
+          - slug: truba-pe-100-pn125-sdr-136-d900x661
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D900x66,1
+            sku: TRUBA_PE_100_PN125_SDR_136_D900X661
+          - slug: truba-pe-100-pn125-sdr-136-d1000x735
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D1000x73,5
+            sku: TRUBA_PE_100_PN125_SDR_136_D1000X735
+          - slug: truba-pe-100-pn125-sdr-136-d1200x882
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D1200x88,2
+            sku: TRUBA_PE_100_PN125_SDR_136_D1200X882
+          - slug: truba-pe-100-pn125-sdr-136-d1400x1028
+            title: Труба ПЭ 100-PN12,5 SDR 13,6 D1400x102,8
+            sku: TRUBA_PE_100_PN125_SDR_136_D1400X1028
+          - slug: truba-pe-100-pn16-sdr-11-d20x2
+            title: Труба ПЭ 100-PN16 SDR 11 D20x2
+            sku: TRUBA_PE_100_PN16_SDR_11_D20X2
+          - slug: truba-pe-100-pn16-sdr-11-d25x23
+            title: Труба ПЭ 100-PN16 SDR 11 D25x2,3
+            sku: TRUBA_PE_100_PN16_SDR_11_D25X23
+          - slug: truba-pe-100-pn16-sdr-11-d32x3
+            title: Труба ПЭ 100-PN16 SDR 11 D32x3
+            sku: TRUBA_PE_100_PN16_SDR_11_D32X3
+          - slug: truba-pe-100-pn16-sdr-11-d40x37
+            title: Труба ПЭ 100-PN16 SDR 11 D40x3,7
+            sku: TRUBA_PE_100_PN16_SDR_11_D40X37
+          - slug: truba-pe-100-pn16-sdr-11-d50x46
+            title: Труба ПЭ 100-PN16 SDR 11 D50x4,6
+            sku: TRUBA_PE_100_PN16_SDR_11_D50X46
+          - slug: truba-pe-100-pn16-sdr-11-d63x58
+            title: Труба ПЭ 100-PN16 SDR 11 D63x5,8
+            sku: TRUBA_PE_100_PN16_SDR_11_D63X58
+          - slug: truba-pe-100-pn16-sdr-11-d75x68
+            title: Труба ПЭ 100-PN16 SDR 11 D75x6,8
+            sku: TRUBA_PE_100_PN16_SDR_11_D75X68
+          - slug: truba-pe-100-pn16-sdr-11-d90x82
+            title: Труба ПЭ 100-PN16 SDR 11 D90x8,2
+            sku: TRUBA_PE_100_PN16_SDR_11_D90X82
+          - slug: truba-pe-100-pn16-sdr-11-d110x10
+            title: Труба ПЭ 100-PN16 SDR 11 D110x10
+            sku: TRUBA_PE_100_PN16_SDR_11_D110X10
+          - slug: truba-pe-100-pn16-sdr-11-d125x114
+            title: Труба ПЭ 100-PN16 SDR 11 D125x11,4
+            sku: TRUBA_PE_100_PN16_SDR_11_D125X114
+          - slug: truba-pe-100-pn16-sdr-11-d140x127
+            title: Труба ПЭ 100-PN16 SDR 11 D140x12,7
+            sku: TRUBA_PE_100_PN16_SDR_11_D140X127
+          - slug: truba-pe-100-pn16-sdr-11-d160x146
+            title: Труба ПЭ 100-PN16 SDR 11 D160x14,6
+            sku: TRUBA_PE_100_PN16_SDR_11_D160X146
+          - slug: truba-pe-100-pn16-sdr-11-d180x164
+            title: Труба ПЭ 100-PN16 SDR 11 D180x16,4
+            sku: TRUBA_PE_100_PN16_SDR_11_D180X164
+          - slug: truba-pe-100-pn16-sdr-11-d200x182
+            title: Труба ПЭ 100-PN16 SDR 11 D200x18,2
+            sku: TRUBA_PE_100_PN16_SDR_11_D200X182
+          - slug: truba-pe-100-pn16-sdr-11-d225x205
+            title: Труба ПЭ 100-PN16 SDR 11 D225x20,5
+            sku: TRUBA_PE_100_PN16_SDR_11_D225X205
+          - slug: truba-pe-100-pn16-sdr-11-d250x227
+            title: Труба ПЭ 100-PN16 SDR 11 D250x22,7
+            sku: TRUBA_PE_100_PN16_SDR_11_D250X227
+          - slug: truba-pe-100-pn16-sdr-11-d280x254
+            title: Труба ПЭ 100-PN16 SDR 11 D280x25,4
+            sku: TRUBA_PE_100_PN16_SDR_11_D280X254
+          - slug: truba-pe-100-pn16-sdr-11-d315x286
+            title: Труба ПЭ 100-PN16 SDR 11 D315x28,6
+            sku: TRUBA_PE_100_PN16_SDR_11_D315X286
+          - slug: truba-pe-100-pn16-sdr-11-d355x322
+            title: Труба ПЭ 100-PN16 SDR 11 D355x32,2
+            sku: TRUBA_PE_100_PN16_SDR_11_D355X322
+          - slug: truba-pe-100-pn16-sdr-11-d400x363
+            title: Труба ПЭ 100-PN16 SDR 11 D400x36,3
+            sku: TRUBA_PE_100_PN16_SDR_11_D400X363
+          - slug: truba-pe-100-pn16-sdr-11-d450x409
+            title: Труба ПЭ 100-PN16 SDR 11 D450x40,9
+            sku: TRUBA_PE_100_PN16_SDR_11_D450X409
+          - slug: truba-pe-100-pn16-sdr-11-d500x454
+            title: Труба ПЭ 100-PN16 SDR 11 D500x45,4
+            sku: TRUBA_PE_100_PN16_SDR_11_D500X454
+          - slug: truba-pe-100-pn16-sdr-11-d560x508
+            title: Труба ПЭ 100-PN16 SDR 11 D560x50,8
+            sku: TRUBA_PE_100_PN16_SDR_11_D560X508
+          - slug: truba-pe-100-pn16-sdr-11-d630x572
+            title: Труба ПЭ 100-PN16 SDR 11 D630x57,2
+            sku: TRUBA_PE_100_PN16_SDR_11_D630X572
+          - slug: truba-pe-100-pn16-sdr-11-d710x645
+            title: Труба ПЭ 100-PN16 SDR 11 D710x64,5
+            sku: TRUBA_PE_100_PN16_SDR_11_D710X645
+          - slug: truba-pe-100-pn16-sdr-11-d800x726
+            title: Труба ПЭ 100-PN16 SDR 11 D800x72,6
+            sku: TRUBA_PE_100_PN16_SDR_11_D800X726
+          - slug: truba-pe-100-pn16-sdr-11-d900x817
+            title: Труба ПЭ 100-PN16 SDR 11 D900x81,7
+            sku: TRUBA_PE_100_PN16_SDR_11_D900X817
+          - slug: truba-pe-100-pn16-sdr-11-d1000x902
+            title: Труба ПЭ 100-PN16 SDR 11 D1000x90,2
+            sku: TRUBA_PE_100_PN16_SDR_11_D1000X902
+          - slug: truba-pe-100-pn16-sdr-11-d1200x988
+            title: Труба ПЭ 100-PN16 SDR 11 D1200x98,8
+            sku: TRUBA_PE_100_PN16_SDR_11_D1200X988
+          - slug: truba-pe-100-pn20-sdr-9-d16x2
+            title: Труба ПЭ 100-PN20 SDR 9 D16x2
+            sku: TRUBA_PE_100_PN20_SDR_9_D16X2
+          - slug: truba-pe-100-pn20-sdr-9-d20x23
+            title: Труба ПЭ 100-PN20 SDR 9 D20x2,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D20X23
+          - slug: truba-pe-100-pn20-sdr-9-d25x3
+            title: Труба ПЭ 100-PN20 SDR 9 D25x3
+            sku: TRUBA_PE_100_PN20_SDR_9_D25X3
+          - slug: truba-pe-100-pn20-sdr-9-d32x36
+            title: Труба ПЭ 100-PN20 SDR 9 D32x3,6
+            sku: TRUBA_PE_100_PN20_SDR_9_D32X36
+          - slug: truba-pe-100-pn20-sdr-9-d40x45
+            title: Труба ПЭ 100-PN20 SDR 9 D40x4,5
+            sku: TRUBA_PE_100_PN20_SDR_9_D40X45
+          - slug: truba-pe-100-pn20-sdr-9-d50x56
+            title: Труба ПЭ 100-PN20 SDR 9 D50x5,6
+            sku: TRUBA_PE_100_PN20_SDR_9_D50X56
+          - slug: truba-pe-100-pn20-sdr-9-d63x71
+            title: Труба ПЭ 100-PN20 SDR 9 D63x7,1
+            sku: TRUBA_PE_100_PN20_SDR_9_D63X71
+          - slug: truba-pe-100-pn20-sdr-9-d75x84
+            title: Труба ПЭ 100-PN20 SDR 9 D75x8,4
+            sku: TRUBA_PE_100_PN20_SDR_9_D75X84
+          - slug: truba-pe-100-pn20-sdr-9-d90x101
+            title: Труба ПЭ 100-PN20 SDR 9 D90x10,1
+            sku: TRUBA_PE_100_PN20_SDR_9_D90X101
+          - slug: truba-pe-100-pn20-sdr-9-d110x123
+            title: Труба ПЭ 100-PN20 SDR 9 D110x12,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D110X123
+          - slug: truba-pe-100-pn20-sdr-9-d125x14
+            title: Труба ПЭ 100-PN20 SDR 9 D125x14
+            sku: TRUBA_PE_100_PN20_SDR_9_D125X14
+          - slug: truba-pe-100-pn20-sdr-9-d140x157
+            title: Труба ПЭ 100-PN20 SDR 9 D140x15,7
+            sku: TRUBA_PE_100_PN20_SDR_9_D140X157
+          - slug: truba-pe-100-pn20-sdr-9-d160x179
+            title: Труба ПЭ 100-PN20 SDR 9 D160x17,9
+            sku: TRUBA_PE_100_PN20_SDR_9_D160X179
+          - slug: truba-pe-100-pn20-sdr-9-d180x201
+            title: Труба ПЭ 100-PN20 SDR 9 D180x20,1
+            sku: TRUBA_PE_100_PN20_SDR_9_D180X201
+          - slug: truba-pe-100-pn20-sdr-9-d200x224
+            title: Труба ПЭ 100-PN20 SDR 9 D200x22,4
+            sku: TRUBA_PE_100_PN20_SDR_9_D200X224
+          - slug: truba-pe-100-pn20-sdr-9-d225x252
+            title: Труба ПЭ 100-PN20 SDR 9 D225x25,2
+            sku: TRUBA_PE_100_PN20_SDR_9_D225X252
+          - slug: truba-pe-100-pn20-sdr-9-d250x279
+            title: Труба ПЭ 100-PN20 SDR 9 D250x27,9
+            sku: TRUBA_PE_100_PN20_SDR_9_D250X279
+          - slug: truba-pe-100-pn20-sdr-9-d280x313
+            title: Труба ПЭ 100-PN20 SDR 9 D280x31,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D280X313
+          - slug: truba-pe-100-pn20-sdr-9-d315x352
+            title: Труба ПЭ 100-PN20 SDR 9 D315x35,2
+            sku: TRUBA_PE_100_PN20_SDR_9_D315X352
+          - slug: truba-pe-100-pn20-sdr-9-d355x397
+            title: Труба ПЭ 100-PN20 SDR 9 D355x39,7
+            sku: TRUBA_PE_100_PN20_SDR_9_D355X397
+          - slug: truba-pe-100-pn20-sdr-9-d400x447
+            title: Труба ПЭ 100-PN20 SDR 9 D400x44,7
+            sku: TRUBA_PE_100_PN20_SDR_9_D400X447
+          - slug: truba-pe-100-pn20-sdr-9-d450x503
+            title: Труба ПЭ 100-PN20 SDR 9 D450x50,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D450X503
+          - slug: truba-pe-100-pn20-sdr-9-d500x558
+            title: Труба ПЭ 100-PN20 SDR 9 D500x55,8
+            sku: TRUBA_PE_100_PN20_SDR_9_D500X558
+          - slug: truba-pe-100-pn20-sdr-9-d560x625
+            title: Труба ПЭ 100-PN20 SDR 9 D560x62,5
+            sku: TRUBA_PE_100_PN20_SDR_9_D560X625
+          - slug: truba-pe-100-pn20-sdr-9-d630x703
+            title: Труба ПЭ 100-PN20 SDR 9 D630x70,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D630X703
+          - slug: truba-pe-100-pn20-sdr-9-d710x793
+            title: Труба ПЭ 100-PN20 SDR 9 D710x79,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D710X793
+          - slug: truba-pe-100-pn20-sdr-9-d800x893
+            title: Труба ПЭ 100-PN20 SDR 9 D800x89,3
+            sku: TRUBA_PE_100_PN20_SDR_9_D800X893
       - slug: truby-metallicheskie
         title: Трубы металлические
         intro: Стальные и нержавеющие трубы для наружных и внутренних сетей высокого давления.
         range: Диаметры Ø57–Ø530 мм, стенка 3–12 мм.
         items:
-          - slug: truba-st108x4
-            title: Труба стальная электросварная Ø108×4 мм
-            desc: Труба по ГОСТ 10704-91 для магистральных линий и технологических нужд.
-          - slug: truba-vgp-76
-            title: Труба ВГП оцинкованная Ø76 мм
-            desc: Легкая магистраль для внутренних сетей и обвязки насосных станций.
-          - slug: truba-aisi304-57x3
-            title: Труба нержавеющая AISI 304 Ø57×3 мм
-            desc: Коррозионностойкая труба для пищевых и химически активных сред.
+          - slug: truba-vgp-15h25
+            title: Труба ВГП 15х2,5
+            sku: TRUBA_VGP_15H25
+          - slug: truba-vgp-15h28
+            title: Труба ВГП 15х2,8
+            sku: TRUBA_VGP_15H28
+          - slug: truba-vgp-15h32
+            title: Труба ВГП 15х3,2
+            sku: TRUBA_VGP_15H32
+          - slug: truba-vgp-20h28
+            title: Труба ВГП 20х2,8
+            sku: TRUBA_VGP_20H28
+          - slug: truba-vgp-20h32
+            title: Труба ВГП 20х3,2
+            sku: TRUBA_VGP_20H32
+          - slug: truba-vgp-25h25
+            title: Труба ВГП 25х2,5
+            sku: TRUBA_VGP_25H25
+          - slug: truba-vgp-25h32
+            title: Труба ВГП 25х3,2
+            sku: TRUBA_VGP_25H32
+          - slug: truba-vgp-32h25
+            title: Труба ВГП 32х2,5
+            sku: TRUBA_VGP_32H25
+          - slug: truba-vgp-32h28
+            title: Труба ВГП 32х2,8
+            sku: TRUBA_VGP_32H28
+          - slug: truba-vgp-32h32
+            title: Труба ВГП 32х3,2
+            sku: TRUBA_VGP_32H32
+          - slug: truba-vgp-40h3
+            title: Труба ВГП 40х3
+            sku: TRUBA_VGP_40H3
+          - slug: truba-vgp-40h35
+            title: Труба ВГП 40х3,5
+            sku: TRUBA_VGP_40H35
+          - slug: truba-vgp-50h28
+            title: Труба ВГП 50х2,8
+            sku: TRUBA_VGP_50H28
+          - slug: truba-vgp-50h3
+            title: Труба ВГП 50х3
+            sku: TRUBA_VGP_50H3
+          - slug: truba-vgp-50h35
+            title: Труба ВГП 50х3,5
+            sku: TRUBA_VGP_50H35
+          - slug: truba-vgp-65h25
+            title: Труба ВГП 65х2,5
+            sku: TRUBA_VGP_65H25
+          - slug: truba-vgp-65h4
+            title: Труба ВГП 65х4
+            sku: TRUBA_VGP_65H4
+          - slug: truba-vgp-80h4
+            title: Труба ВГП 80х4
+            sku: TRUBA_VGP_80H4
+          - slug: truba-elektrosvarnaya-57h3
+            title: Труба электросварная 57х3
+            sku: TRUBA_ELEKTROSVARNAYA_57H3
+          - slug: truba-elektrosvarnaya-57h35
+            title: Труба электросварная 57х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_57H35
+          - slug: truba-elektrosvarnaya-57h4
+            title: Труба электросварная 57х4
+            sku: TRUBA_ELEKTROSVARNAYA_57H4
+          - slug: truba-elektrosvarnaya-76h3
+            title: Труба электросварная 76х3
+            sku: TRUBA_ELEKTROSVARNAYA_76H3
+          - slug: truba-elektrosvarnaya-76h35
+            title: Труба электросварная 76х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_76H35
+          - slug: truba-elektrosvarnaya-76h4
+            title: Труба электросварная 76х4
+            sku: TRUBA_ELEKTROSVARNAYA_76H4
+          - slug: truba-elektrosvarnaya-89h3
+            title: Труба электросварная 89х3
+            sku: TRUBA_ELEKTROSVARNAYA_89H3
+          - slug: truba-elektrosvarnaya-89h35
+            title: Труба электросварная 89х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_89H35
+          - slug: truba-elektrosvarnaya-89h4
+            title: Труба электросварная 89х4
+            sku: TRUBA_ELEKTROSVARNAYA_89H4
+          - slug: truba-elektrosvarnaya-108h35
+            title: Труба электросварная 108х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_108H35
+          - slug: truba-elektrosvarnaya-108h4
+            title: Труба электросварная 108х4
+            sku: TRUBA_ELEKTROSVARNAYA_108H4
+          - slug: truba-elektrosvarnaya-108h5
+            title: Труба электросварная 108х5
+            sku: TRUBA_ELEKTROSVARNAYA_108H5
+          - slug: truba-elektrosvarnaya-159h3
+            title: Труба электросварная 159х3
+            sku: TRUBA_ELEKTROSVARNAYA_159H3
+          - slug: truba-elektrosvarnaya-159h35
+            title: Труба электросварная 159х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_159H35
+          - slug: truba-elektrosvarnaya-159h4
+            title: Труба электросварная 159х4
+            sku: TRUBA_ELEKTROSVARNAYA_159H4
+          - slug: truba-elektrosvarnaya-325h5
+            title: Труба электросварная 325х5
+            sku: TRUBA_ELEKTROSVARNAYA_325H5
+          - slug: truba-elektrosvarnaya-325h8
+            title: Труба электросварная 325х8
+            sku: TRUBA_ELEKTROSVARNAYA_325H8
+          - slug: truba-elektrosvarnaya-325h9
+            title: Труба электросварная 325х9
+            sku: TRUBA_ELEKTROSVARNAYA_325H9
       - slug: truby-chugunnye
         title: Трубы чугунные
         intro: Высокопрочные чугунные трубопроводы для сложных участков и подземной прокладки.
         range: Диаметры DN80–DN400, класс К8–К12.
         items:
-          - slug: truba-vchshg-dn100
-            title: Труба ВЧШГ DN100 класс К9
-            desc: С напорной фасонной частью и цинковым покрытием для коммунальных сетей.
-          - slug: truba-chugun-dn150
-            title: Муфтовая труба ЧК DN150
-            desc: Традиционная система с фасонными частями для реконструкции сетей.
-          - slug: fasonnye-chugun-vchshg
-            title: Фасонные части ВЧШГ
-            desc: Отводы, тройники и переходы для сборки напорных линий из труб ВЧШГ.
+          - slug: truba-chugunnaya-vchshg-du80
+            title: Труба чугунная ВЧШГ ДУ80
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU80
+          - slug: truba-chugunnaya-vchshg-du100
+            title: Труба чугунная ВЧШГ ДУ100
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU100
+          - slug: truba-chugunnaya-vchshg-du125
+            title: Труба чугунная ВЧШГ ДУ125
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU125
+          - slug: truba-chugunnaya-vchshg-du150
+            title: Труба чугунная ВЧШГ ДУ150
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU150
+          - slug: truba-chugunnaya-vchshg-du200
+            title: Труба чугунная ВЧШГ ДУ200
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU200
+          - slug: truba-chugunnaya-vchshg-du250
+            title: Труба чугунная ВЧШГ ДУ250
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU250
+          - slug: truba-chugunnaya-vchshg-du300
+            title: Труба чугунная ВЧШГ ДУ300
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU300
+          - slug: truba-chugunnaya-vchshg-du350
+            title: Труба чугунная ВЧШГ ДУ350
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU350
+          - slug: truba-chugunnaya-vchshg-du400
+            title: Труба чугунная ВЧШГ ДУ400
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU400
+          - slug: truba-chugunnaya-vchshg-du500
+            title: Труба чугунная ВЧШГ ДУ500
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU500
+          - slug: truba-chugunnaya-vchshg-du600
+            title: Труба чугунная ВЧШГ ДУ600
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU600
+          - slug: truba-chugunnaya-vchshg-du700
+            title: Труба чугунная ВЧШГ ДУ700
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU700
+          - slug: truba-chugunnaya-vchshg-du800
+            title: Труба чугунная ВЧШГ ДУ800
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU800
+          - slug: truba-chugunnaya-vchshg-du900
+            title: Труба чугунная ВЧШГ ДУ900
+            sku: TRUBA_CHUGUNNAYA_VCHSHG_DU900
+          - slug: truba-chugugnnaya-sml-du50
+            title: Труба чугугнная SML ДУ50
+            sku: TRUBA_CHUGUGNNAYA_SML_DU50
+          - slug: truba-chugugnnaya-sml-du70
+            title: Труба чугугнная SML ДУ70
+            sku: TRUBA_CHUGUGNNAYA_SML_DU70
+          - slug: truba-chugugnnaya-sml-du100
+            title: Труба чугугнная SML ДУ100
+            sku: TRUBA_CHUGUGNNAYA_SML_DU100
+          - slug: truba-chugugnnaya-sml-du125
+            title: Труба чугугнная SML ДУ125
+            sku: TRUBA_CHUGUGNNAYA_SML_DU125
+          - slug: truba-chugugnnaya-sml-du150
+            title: Труба чугугнная SML ДУ150
+            sku: TRUBA_CHUGUGNNAYA_SML_DU150
+          - slug: truba-chugugnnaya-sml-du200
+            title: Труба чугугнная SML ДУ200
+            sku: TRUBA_CHUGUGNNAYA_SML_DU200
+          - slug: truba-chugugnnaya-sml-du250
+            title: Труба чугугнная SML ДУ250
+            sku: TRUBA_CHUGUGNNAYA_SML_DU250
       - slug: fitingi-soedinitelnye
         title: Соединительные элементы и фитинги
         intro: Решения для монтажа трубопроводов из стали, ПЭ и чугуна.
         range: Диапазон диаметров Ø20–Ø400 мм.
         items:
-          - slug: adapter-pe-stal
-            title: Фланцевые адаптеры ПЭ-сталь
-            desc: Стальные втулки и уплотнения для перехода с ПЭ на стальные коллекторы.
-          - slug: kompressionnye-fitingi-pnd
-            title: Компрессионные фитинги ПНД
-            desc: Муфты, уголки и тройники для сборки трубопроводов без сварки.
-          - slug: sharovye-krany-pnd
-            title: Шаровые краны ПНД латунные
-            desc: Запорные элементы для ответвлений и ремонтных работ на полиэтиленовых сетях.
+          - slug: kompressionnye-fitingi
+            title: Компрессионные фитинги
+            sku: KOMPRESSIONNYE_FITINGI
+          - slug: litye-fitingi-dlya-pnd-trub
+            title: Литые фитинги для ПНД труб
+            sku: LITYE_FITINGI_DLYA_PND_TRUB
+          - slug: segmentnye-fitingi
+            title: Сегментные фитинги
+            sku: SEGMENTNYE_FITINGI
+          - slug: elektrosvarnye-fitingi
+            title: Электросварные фитинги
+            sku: ELEKTROSVARNYE_FITINGI
       - slug: zapornaya-armatura
         title: Запорная арматура
         intro: Задвижки, клапаны и краны для управления потоками воды.
         range: Ду50–Ду400, давление до PN25.
         items:
-          - slug: zadvizhka-30s41nzh-d200
-            title: Задвижка 30с41нж Ду200
-            desc: Клиновая задвижка с выдвижным шпинделем для магистралей высокого давления.
-          - slug: zadvizhka-shibernaya-nerzh
-            title: Задвижка шиберная нержавеющая
-            desc: Универсальное решение для сетей с повышенной загрязненностью.
-          - slug: klapan-obratnyy-du150
-            title: Клапан обратный поворотный Ду150
-            desc: Защищает насосное оборудование от гидроудара и обратного потока.
+          - slug: zadvizhka-s-obrezinennym-klinom
+            title: Задвижка с обрезиненным клином
+            sku: ZADVIZHKA_S_OBREZINENNYM_KLINOM
+          - slug: shibernaya-zadvizhka
+            title: Шиберная задвижка
+            sku: SHIBERNAYA_ZADVIZHKA
+          - slug: povorotno-diskovyy-zatvor
+            title: Поворотно-дисковый затвор
+            sku: POVOROTNO_DISKOVYY_ZATVOR
+          - slug: klapan
+            title: Клапан
+            sku: KLAPAN
+          - slug: filtr
+            title: Фильтр
+            sku: FILTR
       - slug: nasosnye-stantsii
         title: Насосные станции
         intro: Повышающие, пожарные и хозяйственно-питьевые насосные станции.
         range: Производительность 10–250 л/с, давление до 16 бар.
         items:
-          - slug: sts-bpv160
-            title: Повышающая станция BPV-160
-            desc: Компактная установка с автоматикой частотного регулирования.
-          - slug: modulnaya-nasosnaya-bb
-            title: Модульная насосная станция в блок-боксе
-            desc: Блок-контейнер с готовыми инженерными системами для быстрого запуска.
-          - slug: pozharnaya-nasosnaya-nfpa
-            title: Пожарная насосная станция NFPA
-            desc: Станция с резервированием, соответствует требованиям МЧС и NFPA.
+          - slug: vertikalnaya-d1000
+            title: Вертикальная D1000
+            sku: VERTIKALNAYA_D1000
+          - slug: vertikalnaya-d1100
+            title: Вертикальная D1100
+            sku: VERTIKALNAYA_D1100
+          - slug: vertikalnaya-d1200
+            title: Вертикальная D1200
+            sku: VERTIKALNAYA_D1200
+          - slug: vertikalnaya-d1400
+            title: Вертикальная D1400
+            sku: VERTIKALNAYA_D1400
+          - slug: vertikalnaya-d1500
+            title: Вертикальная D1500
+            sku: VERTIKALNAYA_D1500
+          - slug: vertikalnaya-d1600
+            title: Вертикальная D1600
+            sku: VERTIKALNAYA_D1600
+          - slug: vertikalnaya-d1800
+            title: Вертикальная D1800
+            sku: VERTIKALNAYA_D1800
+          - slug: vertikalnaya-d2000
+            title: Вертикальная D2000
+            sku: VERTIKALNAYA_D2000
+          - slug: vertikalnaya-d2300
+            title: Вертикальная D2300
+            sku: VERTIKALNAYA_D2300
+          - slug: vertikalnaya-d2500
+            title: Вертикальная D2500
+            sku: VERTIKALNAYA_D2500
+          - slug: vertikalnaya-d3000
+            title: Вертикальная D3000
+            sku: VERTIKALNAYA_D3000
+          - slug: vertikalnaya-d3200
+            title: Вертикальная D3200
+            sku: VERTIKALNAYA_D3200
+          - slug: vertikalnaya-d3600
+            title: Вертикальная D3600
+            sku: VERTIKALNAYA_D3600
+          - slug: vertikalnaya-d4200
+            title: Вертикальная D4200
+            sku: VERTIKALNAYA_D4200
+          - slug: gorizontalnaya-d1000
+            title: Горизонтальная D1000
+            sku: GORIZONTALNAYA_D1000
+          - slug: gorizontalnaya-d1500
+            title: Горизонтальная D1500
+            sku: GORIZONTALNAYA_D1500
+          - slug: gorizontalnaya-d2000
+            title: Горизонтальная D2000
+            sku: GORIZONTALNAYA_D2000
+          - slug: gorizontalnaya-d2500
+            title: Горизонтальная D2500
+            sku: GORIZONTALNAYA_D2500
+          - slug: gorizontalnaya-d3000
+            title: Горизонтальная D3000
+            sku: GORIZONTALNAYA_D3000
+          - slug: gorizontalnaya-d3600
+            title: Горизонтальная D3600
+            sku: GORIZONTALNAYA_D3600
+          - slug: gorizontalnaya-d4200
+            title: Горизонтальная D4200
+            sku: GORIZONTALNAYA_D4200
+          - slug: suhaya-d1000
+            title: Сухая D1000
+            sku: SUHAYA_D1000
+          - slug: suhaya-d1500
+            title: Сухая D1500
+            sku: SUHAYA_D1500
+          - slug: suhaya-d2000
+            title: Сухая D2000
+            sku: SUHAYA_D2000
+          - slug: suhaya-d2500
+            title: Сухая D2500
+            sku: SUHAYA_D2500
+          - slug: suhaya-d3000
+            title: Сухая D3000
+            sku: SUHAYA_D3000
+          - slug: suhaya-d3600
+            title: Сухая D3600
+            sku: SUHAYA_D3600
+          - slug: suhaya-d4200
+            title: Сухая D4200
+            sku: SUHAYA_D4200
+          - slug: rvs-50-m3
+            title: РВС-50 м3
+            sku: RVS_50_M3
       - slug: rezervuary-dlya-vody
         title: Резервуары для воды
         intro: Стальные и пластиковые емкости для хранения запаса воды и пожарных резервов.
         range: Объём 10–5000 м³, исполнение надземное и подземное.
         items:
-          - slug: rvs-1000
-            title: Резервуар стальной РВС-1000
-            desc: Стационарный вертикальный резервуар объемом 1000 м³ с лестницами и ограждением.
-          - slug: podzemnaya-emkost-25
-            title: Подземная емкость ПНД 25 м³
-            desc: Герметичная емкость для питьевой воды, допускает заглубление до 4 м.
-          - slug: sekcionnyy-rezervuar-nerzh
-            title: Секционный резервуар из нержавеющей стали
-            desc: Сборно-секционная емкость для помещений с повышенными требованиями к санитарии.
+          - slug: rvs-100-m3
+            title: РВС-100 м3
+            sku: RVS_100_M3
+          - slug: rvs-200-m3
+            title: РВС-200 м3
+            sku: RVS_200_M3
+          - slug: rvs-300-m3
+            title: РВС-300 м3
+            sku: RVS_300_M3
+          - slug: rvs-400-m3
+            title: РВС-400 м3
+            sku: RVS_400_M3
+          - slug: rvs-500-m3
+            title: РВС-500 м3
+            sku: RVS_500_M3
+          - slug: rvs-600-m3
+            title: РВС-600 м3
+            sku: RVS_600_M3
+          - slug: rvs-700-m3
+            title: РВС-700 м3
+            sku: RVS_700_M3
+          - slug: rvs-800-m3
+            title: РВС-800 м3
+            sku: RVS_800_M3
+          - slug: rvs-1000-m3
+            title: РВС-1000 м3
+            sku: RVS_1000_M3
+          - slug: rvs-2000-m3
+            title: РВС-2000 м3
+            sku: RVS_2000_M3
+          - slug: rvs-3000-m3
+            title: РВС-3000 м3
+            sku: RVS_3000_M3
+          - slug: rvs-5000-m3
+            title: РВС-5000 м3
+            sku: RVS_5000_M3
+          - slug: rgs-3-m3
+            title: РГС-3 м3
+            sku: RGS_3_M3
+          - slug: rgs-5-m3
+            title: РГС-5 м3
+            sku: RGS_5_M3
+          - slug: rgs-10-m3
+            title: РГС-10 м3
+            sku: RGS_10_M3
+          - slug: rgs-15-m3
+            title: РГС-15 м3
+            sku: RGS_15_M3
+          - slug: rgs-20-m3
+            title: РГС-20 м3
+            sku: RGS_20_M3
+          - slug: rgs-25-m3
+            title: РГС-25 м3
+            sku: RGS_25_M3
+          - slug: rgs-30-m3
+            title: РГС-30 м3
+            sku: RGS_30_M3
+          - slug: rgs-50-m3
+            title: РГС-50 м3
+            sku: RGS_50_M3
+          - slug: rgs-60-m3
+            title: РГС-60 м3
+            sku: RGS_60_M3
+          - slug: rgs-70-m3
+            title: РГС-70 м3
+            sku: RGS_70_M3
+          - slug: rgs-75-m3
+            title: РГС-75 м3
+            sku: RGS_75_M3
+          - slug: rgs-100-m3
+            title: РГС-100 м3
+            sku: RGS_100_M3
+          - slug: rgs-120-m3
+            title: РГС-120 м3
+            sku: RGS_120_M3
+          - slug: rgs-150-m3
+            title: РГС-150 м3
+            sku: RGS_150_M3
+          - slug: rgs-200-m3
+            title: РГС-200 м3
+            sku: RGS_200_M3
+          - slug: rgsn-3-m3
+            title: РГСН-3 м3
+            sku: RGSN_3_M3
+          - slug: rgsn-5-m3
+            title: РГСН-5 м3
+            sku: RGSN_5_M3
+          - slug: rgsn-10-m3
+            title: РГСН-10 м3
+            sku: RGSN_10_M3
+          - slug: rgsn-15-m3
+            title: РГСН-15 м3
+            sku: RGSN_15_M3
+          - slug: rgsn-20-m3
+            title: РГСН-20 м3
+            sku: RGSN_20_M3
+          - slug: rgsn-25-m3
+            title: РГСН-25 м3
+            sku: RGSN_25_M3
+          - slug: rgsn-30-m3
+            title: РГСН-30 м3
+            sku: RGSN_30_M3
+          - slug: rgsn-40-m3
+            title: РГСН-40 м3
+            sku: RGSN_40_M3
+          - slug: rgsn-50-m3
+            title: РГСН-50 м3
+            sku: RGSN_50_M3
+          - slug: rgsn-60-m3
+            title: РГСН-60 м3
+            sku: RGSN_60_M3
+          - slug: rgsn-75-m3
+            title: РГСН-75 м3
+            sku: RGSN_75_M3
+          - slug: rgsn-80-m3
+            title: РГСН-80 м3
+            sku: RGSN_80_M3
+          - slug: rgsn-100-m3
+            title: РГСН-100 м3
+            sku: RGSN_100_M3
+          - slug: rgsp-3-m3
+            title: РГСП-3 м3
+            sku: RGSP_3_M3
+          - slug: rgsp-5-m3
+            title: РГСП-5 м3
+            sku: RGSP_5_M3
+          - slug: rgsp-10-m3
+            title: РГСП-10 м3
+            sku: RGSP_10_M3
+          - slug: rgsp-15-m3
+            title: РГСП-15 м3
+            sku: RGSP_15_M3
+          - slug: rgsp-20-m3
+            title: РГСП-20 м3
+            sku: RGSP_20_M3
+          - slug: rgsp-25-m3
+            title: РГСП-25 м3
+            sku: RGSP_25_M3
+          - slug: rgsp-30-m3
+            title: РГСП-30 м3
+            sku: RGSP_30_M3
+          - slug: rgsp-50-m3
+            title: РГСП-50 м3
+            sku: RGSP_50_M3
+          - slug: rgsp-60-m3
+            title: РГСП-60 м3
+            sku: RGSP_60_M3
+          - slug: rgsp-70-m3
+            title: РГСП-70 м3
+            sku: RGSP_70_M3
+          - slug: rgsp-75-m3
+            title: РГСП-75 м3
+            sku: RGSP_75_M3
+          - slug: rgsp-80-m3
+            title: РГСП-80 м3
+            sku: RGSP_80_M3
+          - slug: rgsp-100-m3
+            title: РГСП-100 м3
+            sku: RGSP_100_M3
+          - slug: rgsd-3-m3
+            title: РГСД-3 м3
+            sku: RGSD_3_M3
+          - slug: rgsd-10-m3
+            title: РГСД-10 м3
+            sku: RGSD_10_M3
+          - slug: rgsd-15-m3
+            title: РГСД-15 м3
+            sku: RGSD_15_M3
+          - slug: rgsd-25-m3
+            title: РГСД-25 м3
+            sku: RGSD_25_M3
+          - slug: rgsd-30-m3
+            title: РГСД-30 м3
+            sku: RGSD_30_M3
+          - slug: rgsd-35-m3
+            title: РГСД-35 м3
+            sku: RGSD_35_M3
+          - slug: rgsd-40-m3
+            title: РГСД-40 м3
+            sku: RGSD_40_M3
+          - slug: rgsd-50-m3
+            title: РГСД-50 м3
+            sku: RGSD_50_M3
+          - slug: rgsd-75-m3
+            title: РГСД-75 м3
+            sku: RGSD_75_M3
+          - slug: rgsd-100-m3
+            title: РГСД-100 м3
+            sku: RGSD_100_M3
+          - slug: ep-3-m3
+            title: ЕП-3 м3
+            sku: EP_3_M3
+          - slug: ep-4-m3
+            title: ЕП-4 м3
+            sku: EP_4_M3
+          - slug: ep-5-m3
+            title: ЕП-5 м3
+            sku: EP_5_M3
+          - slug: ep-6-m3
+            title: ЕП-6 м3
+            sku: EP_6_M3
+          - slug: ep-8-m3
+            title: ЕП-8 м3
+            sku: EP_8_M3
+          - slug: ep-10-m3
+            title: ЕП-10 м3
+            sku: EP_10_M3
+          - slug: ep-125-m3
+            title: ЕП-12,5 м3
+            sku: EP_125_M3
+          - slug: ep-15-m3
+            title: ЕП-15 м3
+            sku: EP_15_M3
+          - slug: ep-16-m3
+            title: ЕП-16 м3
+            sku: EP_16_M3
+          - slug: ep-20-m3
+            title: ЕП-20 м3
+            sku: EP_20_M3
+          - slug: ep-25-m3
+            title: ЕП-25 м3
+            sku: EP_25_M3
+          - slug: ep-30-m3
+            title: ЕП-30 м3
+            sku: EP_30_M3
+          - slug: ep-32-m3
+            title: ЕП-32 м3
+            sku: EP_32_M3
+          - slug: ep-40-m3
+            title: ЕП-40 м3
+            sku: EP_40_M3
+          - slug: ep-50-m3
+            title: ЕП-50 м3
+            sku: EP_50_M3
+          - slug: ep-60-m3
+            title: ЕП-60 м3
+            sku: EP_60_M3
+          - slug: ep-75-m3
+            title: ЕП-75 м3
+            sku: EP_75_M3
+          - slug: ep-80-m3
+            title: ЕП-80 м3
+            sku: EP_80_M3
+          - slug: ep-100-m3
+            title: ЕП-100 м3
+            sku: EP_100_M3
+          - slug: ep-200-m3
+            title: ЕП-200 м3
+            sku: EP_200_M3
       - slug: kolodtsy-vodosnabzhenie
         title: Колодцы
         intro: Смотровые, водомерные и распределительные колодцы для сетей.
         range: Диаметр 1000–2000 мм, глубина до 12 м.
         items:
-          - slug: plastikovyj-kolodec-1200
-            title: Сборный пластиковый колодец Ø1200 мм
-            desc: Готовое решение с телескопической горловиной и лестницей из нержавеющей стали.
-          - slug: kolodec-ks109
-            title: Колодец из ЖБИ КС 10.9
-            desc: Классическое исполнение из железобетонных колец с герметизацией швов.
-          - slug: vodomernyy-kolodec-utepl
-            title: Водомерный колодец с утеплением
-            desc: Готовый блок для установки узлов учета и автоматизации.
+          - slug: polietilenovye
+            title: Полиэтиленовые
+            sku: POLIETILENOVYE
+          - slug: zhelezobetonnye
+            title: Железобетонные
+            sku: ZHELEZOBETONNYE
       - slug: vodoochistnye-stancii
         title: Водоочистные станции и фильтры
         intro: Решения для подготовки питьевой и технической воды, включая UF и RO системы.
         range: Производительность 5–500 м³/ч, уровни очистки I–III ступени.
         items:
-          - slug: uf-install-10
-            title: Установка ультрафильтрации 10 м³/ч
-            desc: Контейнерная линия механической и сорбционной очистки воды.
-          - slug: filtr-obezzhelezivaniya
-            title: Фильтр обезжелезивания напорный
-            desc: Фильтрующий модуль с автоматическим клапаном управления.
-          - slug: osmos-konteyner
-            title: Система обратного осмоса контейнерная
-            desc: Комплекс для получения питьевой воды с минерализацией и хранением.
+          - slug: los
+            title: ЛОС
+            sku: LOS
       - slug: uslugi-proektirovanie-montazh
         title: Услуги проектирования и монтажа
         intro: Инжиниринг, монтаж и пусконаладка объектов водоснабжения.
         range: От предпроектных обследований до ввода объекта в эксплуатацию.
-        items:
-          - slug: proekt-setey-vodosnab
-            title: Проектирование сетей водоснабжения
-            desc: Разработка П и РД, гидравлический расчет и согласование в ресурсоснабжающих организациях.
-          - slug: montazh-nasosnyh-stanciy
-            title: Монтаж насосных станций и КНС
-            desc: Комплекс строительно-монтажных работ с шефмонтажом производителя оборудования.
-          - slug: pnr-gidroispytaniya
-            title: ПНР и гидравлические испытания
-            desc: Пусконаладочные работы, опрессовка и сдача в эксплуатацию.
+        items: []
   - slug: stroymaterialy
     title: Строительные материалы
     image: /img/products/obshhestroitelnye-materialy.webp
@@ -156,141 +1116,228 @@ categories:
         intro: Поставки арматуры, балок, листового и сортового проката.
         range: Сортамент от арматуры Ø6 до балок 40Б2, сталь С245–С345.
         items:
-          - slug: balka-30b1
-            title: Балка двутавровая 30Б1
-            desc: Сертификат соответствия и ультразвуковой контроль по запросу.
-          - slug: armatura-a500c-16
-            title: Арматура A500C Ø16
-            desc: Поставляется в прутках 11,7 м и бухтах, резка в размер.
-          - slug: list-stal-8mm
-            title: Лист стальной 8 мм
-            desc: Горячекатаный лист, возможна плазменная резка и гибка.
+          - slug: armatura-f8-a500
+            title: Арматура Ф8 А500
+            sku: ARMATURA_F8_A500
+          - slug: armatura-f10-a500
+            title: Арматура Ф10 А500
+            sku: ARMATURA_F10_A500
+          - slug: armatura-f12-a500
+            title: Арматура Ф12 А500
+            sku: ARMATURA_F12_A500
+          - slug: armatura-f14-a500
+            title: Арматура Ф14 А500
+            sku: ARMATURA_F14_A500
+          - slug: armatura-f16-a500
+            title: Арматура Ф16 А500
+            sku: ARMATURA_F16_A500
+          - slug: ugolok-32h32h3
+            title: Уголок 32х32х3
+            sku: UGOLOK_32H32H3
+          - slug: ugolok-40h40h4
+            title: Уголок 40х40х4
+            sku: UGOLOK_40H40H4
+          - slug: ugolok-50h50h4
+            title: Уголок 50х50х4
+            sku: UGOLOK_50H50H4
+          - slug: ugolok-63h63h5
+            title: Уголок 63х63х5
+            sku: UGOLOK_63H63H5
+          - slug: shveller-10p
+            title: Швеллер 10П
+            sku: SHVELLER_10P
+          - slug: shveller-12p
+            title: Швеллер 12П
+            sku: SHVELLER_12P
+          - slug: truba-profilnaya-15h15h15
+            title: Труба профильная 15х15х1,5
+            sku: TRUBA_PROFILNAYA_15H15H15
+          - slug: truba-profilnaya-40h20h2
+            title: Труба профильная 40х20х2
+            sku: TRUBA_PROFILNAYA_40H20H2
+          - slug: truba-profilnaya-40h20h3
+            title: Труба профильная 40х20х3
+            sku: TRUBA_PROFILNAYA_40H20H3
+          - slug: truba-profilnaya-40h40h2
+            title: Труба профильная 40х40х2
+            sku: TRUBA_PROFILNAYA_40H40H2
+          - slug: truba-profilnaya-40h40h3
+            title: Труба профильная 40х40х3
+            sku: TRUBA_PROFILNAYA_40H40H3
+          - slug: truba-profilnaya-50h25h2
+            title: Труба профильная 50х25х2
+            sku: TRUBA_PROFILNAYA_50H25H2
+          - slug: truba-profilnaya-50h30h2
+            title: Труба профильная 50х30х2
+            sku: TRUBA_PROFILNAYA_50H30H2
+          - slug: truba-profilnaya-50h50h2
+            title: Труба профильная 50х50х2
+            sku: TRUBA_PROFILNAYA_50H50H2
+          - slug: truba-profilnaya-60h30h2
+            title: Труба профильная 60х30х2
+            sku: TRUBA_PROFILNAYA_60H30H2
+          - slug: truba-profilnaya-60h30h3
+            title: Труба профильная 60х30х3
+            sku: TRUBA_PROFILNAYA_60H30H3
+          - slug: truba-profilnaya-60h40h2
+            title: Труба профильная 60х40х2
+            sku: TRUBA_PROFILNAYA_60H40H2
+          - slug: truba-profilnaya-60h40h3
+            title: Труба профильная 60х40х3
+            sku: TRUBA_PROFILNAYA_60H40H3
+          - slug: truba-profilnaya-60h60h2
+            title: Труба профильная 60х60х2
+            sku: TRUBA_PROFILNAYA_60H60H2
+          - slug: truba-profilnaya-60h60h3
+            title: Труба профильная 60х60х3
+            sku: TRUBA_PROFILNAYA_60H60H3
+          - slug: truba-profilnaya-80h40h2
+            title: Труба профильная 80х40х2
+            sku: TRUBA_PROFILNAYA_80H40H2
+          - slug: truba-profilnaya-80h40h3
+            title: Труба профильная 80х40х3
+            sku: TRUBA_PROFILNAYA_80H40H3
+          - slug: truba-profilnaya-80h60h2
+            title: Труба профильная 80х60х2
+            sku: TRUBA_PROFILNAYA_80H60H2
+          - slug: truba-profilnaya-80h60h3
+            title: Труба профильная 80х60х3
+            sku: TRUBA_PROFILNAYA_80H60H3
+          - slug: truba-profilnaya-80h80h2
+            title: Труба профильная 80х80х2
+            sku: TRUBA_PROFILNAYA_80H80H2
+          - slug: truba-profilnaya-80h80h3
+            title: Труба профильная 80х80х3
+            sku: TRUBA_PROFILNAYA_80H80H3
+          - slug: truba-profilnaya-100h100h3
+            title: Труба профильная 100х100х3
+            sku: TRUBA_PROFILNAYA_100H100H3
+          - slug: truba-profilnaya-100h50h3
+            title: Труба профильная 100х50х3
+            sku: TRUBA_PROFILNAYA_100H50H3
+          - slug: list-gk-6h1500h6000
+            title: Лист г/к 6х1500х6000
+            sku: LIST_GK_6H1500H6000
+          - slug: list-gk-8h1500h6000
+            title: Лист г/к 8х1500х6000
+            sku: LIST_GK_8H1500H6000
+          - slug: list-gk-10h1500h6000
+            title: Лист г/к 10х1500х6000
+            sku: LIST_GK_10H1500H6000
       - slug: pilomaterialy
         title: Пиломатериалы
         intro: Поставки камерной сушки, строганых изделий и фанеры.
         range: Сечения 25×100–200×200 мм, влажность 10–22%.
         items:
-          - slug: doska-50-150-6
-            title: Доска обрезная 50×150×6 м
-            desc: Хвойные породы, влажность 18%, сорт 1–2.
-          - slug: brus-100
-            title: Брус строганый 100×100 мм
-            desc: Сушка до 16%, точная геометрия и фаска.
-          - slug: fanera-fk-18
-            title: Фанера ФК 18 мм
-            desc: Ламинирование по запросу, пригодна для бетонных работ.
+          - slug: brus-40h40h6000
+            title: Брус 40х40х6000
+            sku: BRUS_40H40H6000
+          - slug: brus-50h50h6000
+            title: Брус 50х50х6000
+            sku: BRUS_50H50H6000
+          - slug: brus-100h150h6000
+            title: Брус 100х150х6000
+            sku: BRUS_100H150H6000
+          - slug: brus-100h100h6000
+            title: Брус 100х100х6000
+            sku: BRUS_100H100H6000
+          - slug: obreznaya-doska-150h150h6000
+            title: Обрезная доска 150х150х6000
+            sku: OBREZNAYA_DOSKA_150H150H6000
+          - slug: obreznaya-doska-20h100h6000
+            title: Обрезная доска 20х100х6000
+            sku: OBREZNAYA_DOSKA_20H100H6000
+          - slug: obreznaya-doska-20h120h6000
+            title: Обрезная доска 20х120х6000
+            sku: OBREZNAYA_DOSKA_20H120H6000
+          - slug: obreznaya-doska-20h150h6000
+            title: Обрезная доска 20х150х6000
+            sku: OBREZNAYA_DOSKA_20H150H6000
+          - slug: obreznaya-doska-25h100h6000
+            title: Обрезная доска 25х100х6000
+            sku: OBREZNAYA_DOSKA_25H100H6000
+          - slug: obreznaya-doska-25h150h6000
+            title: Обрезная доска 25х150х6000
+            sku: OBREZNAYA_DOSKA_25H150H6000
+          - slug: obreznaya-doska-30h100h6000
+            title: Обрезная доска 30х100х6000
+            sku: OBREZNAYA_DOSKA_30H100H6000
+          - slug: obreznaya-doska-30h150h6000
+            title: Обрезная доска 30х150х6000
+            sku: OBREZNAYA_DOSKA_30H150H6000
+          - slug: obreznaya-doska-32h100h6000
+            title: Обрезная доска 32х100х6000
+            sku: OBREZNAYA_DOSKA_32H100H6000
+          - slug: obreznaya-doska-32h150h6000
+            title: Обрезная доска 32х150х6000
+            sku: OBREZNAYA_DOSKA_32H150H6000
+          - slug: obreznaya-doska-40h100h6000
+            title: Обрезная доска 40х100х6000
+            sku: OBREZNAYA_DOSKA_40H100H6000
+          - slug: obreznaya-doska-40h150h6000
+            title: Обрезная доска 40х150х6000
+            sku: OBREZNAYA_DOSKA_40H150H6000
+          - slug: obreznaya-doska-50h100h6000
+            title: Обрезная доска 50х100х6000
+            sku: OBREZNAYA_DOSKA_50H100H6000
+          - slug: obreznaya-doska-50h150h6000
+            title: Обрезная доска 50х150х6000
+            sku: OBREZNAYA_DOSKA_50H150H6000
+          - slug: reyka-20h40h6000
+            title: Рейка 20х40х6000
+            sku: REYKA_20H40H6000
+          - slug: reyka-20h20h6000
+            title: Рейка 20х20х6000
+            sku: REYKA_20H20H6000
+          - slug: reyka-20h30h6000
+            title: Рейка 20х30х6000
+            sku: REYKA_20H30H6000
+          - slug: evrovagonka-125h96
+            title: Евровагонка 12,5х96
+            sku: EVROVAGONKA_125H96
+          - slug: imitaciya-brusa-20h130
+            title: Имитация бруса 20х130
+            sku: IMITACIYA_BRUSA_20H130
       - slug: inertnye-materialy
         title: Инертные материалы
         intro: Щебень, песок, отсевы с поставкой навалом и в биг-бэгах.
         range: Фракции 0–5, 5–20, 20–40, 40–70 мм, доставка 24/7.
-        items:
-          - slug: shcheben-20-40
-            title: Щебень гранитный 20–40
-            desc: Фракция 20–40 мм, прочность 1200, морозостойкость F300.
-          - slug: pesok-myityj
-            title: Песок мытый
-            desc: Среднезернистый, соответствует ГОСТ 8736-2014, доставка круглосуточно.
-          - slug: otsev-0-5
-            title: Отсев фракции 0–5
-            desc: Используется для подсыпки и приготовления бетонных смесей.
+        items: []
       - slug: zhbi
         title: Железобетонные изделия
         intro: Плиты, сваи, кольца, бордюры — готовые решения и изготовление по чертежам.
         range: Серии 1.141, 1.415, сваи С 30–45, кольца КС 10–20.
-        items:
-          - slug: plita-pk-60-12-8
-            title: Плита перекрытия ПК 60-12-8
-            desc: Доставка на объект транспортом или железной дорогой.
-          - slug: svai-s-30
-            title: Сваи железобетонные С 30.30-8
-            desc: Проходят пропарку и марочный контроль, поставка комплектами.
-          - slug: kolco-ks-15-9
-            title: Кольцо КС 15.9
-            desc: Для инженерных колодцев, изготовление крышек и днищ.
+        items: []
       - slug: beton-rastvory
         title: Бетон и растворы
         intro: Производство и доставка бетонов любых марок, включая специальные составы.
         range: Марки B7,5–B40, подвижность П2–П5, морозостойкость F100–F300.
-        items:
-          - slug: beton-b25
-            title: Бетон B25 П4 F200
-            desc: Поставка автобетоносмесителями, контроль лаборатории.
-          - slug: rastvor-m150
-            title: Раствор цементно-песчаный М150
-            desc: Стабильные характеристики, доставка миксерами или самовывоз.
-          - slug: beton-scc
-            title: Самоуплотняющийся бетон SCC
-            desc: Высокая подвижность, идеален для сложных форм и армирования.
+        items: []
       - slug: kirpich-bloki
         title: Кирпич и блоки
         intro: Керамический, силикатный, клинкер и газобетон от проверенных производителей.
         range: Кирпич М100–М200, блоки D300–D600, форматы 2,1 НФ и выше.
-        items:
-          - slug: kirpich-m150
-            title: Кирпич керамический М150
-            desc: Полнотелый и пустотелый, поставка на поддонах с пленкой.
-          - slug: gazobeton-d500
-            title: Блок газобетонный D500 600×300×200
-            desc: Точная геометрия и пазогребневое соединение.
-          - slug: kirpich-klinker
-            title: Кирпич облицовочный клинкерный
-            desc: Большой выбор фактур и цветов, морозостойкость от F200.
+        items: []
       - slug: teploizolyaciya
         title: Теплоизоляция
         intro: Минеральные и полимерные утеплители для стен, кровель и инженерных систем.
         range: Плотность 30–200 кг/м³, толщины 30–200 мм.
-        items:
-          - slug: minplita-100
-            title: Плиты минераловатные 100 мм
-            desc: Плотность 45 кг/м³, негорючий материал класс НГ.
-          - slug: xps-50
-            title: Экструдированный пенополистирол 50 мм
-            desc: Высокая прочность на сжатие, влагостойкость и низкая теплопроводность.
-          - slug: bazaltovyj-mat
-            title: Базальтовый мат в рулоне
-            desc: Для трубопроводов и резервуаров, поставка с алюминиевой фольгой.
+        items: []
       - slug: gidroizolyaciya-membrany
         title: Гидроизоляция и мембраны
         intro: Материалы для защиты конструкций от влаги, напорной и безнапорной воды.
         range: Толщина 1–4 мм, стойкость к давлению до 1,0 МПа.
-        items:
-          - slug: tekhnoelast
-            title: Гидроизоляция рулонная Техноэласт
-            desc: Полимерно-битумный материал с армированной основой.
-          - slug: tpo-membrana
-            title: Полимерная мембрана ТПО 1,5 мм
-            desc: Сварка горячим воздухом, высокая стойкость к ультрафиолету.
-          - slug: pronik-gidro
-            title: Проникающая гидроизоляция для бетона
-            desc: Создает водонепроницаемый слой внутри структуры бетона.
+        items: []
       - slug: setka-provoloka
         title: Сетки и проволока строительная
         intro: Арматурные и кладочные сетки, проволока ВР-1 и низкоуглеродистая.
         range: Ячейки 50×50–200×200 мм, диаметр проволоки 2–8 мм.
-        items:
-          - slug: setka-50-50
-            title: Сетка сварная 50×50×4 мм
-            desc: Оцинкованная и черная, поставка картами и рулонами.
-          - slug: setka-dorozhnaya
-            title: Арматурная сетка дорожная 100×100×6
-            desc: Используется в бетонных покрытиях и плитах.
-          - slug: provoloka-vr1-4
-            title: Проволока ВР-1 Ø4 мм
-            desc: Высокая прочность на растяжение, в бухтах по 1 тонне.
+        items: []
       - slug: opalubka-vspomog
         title: Опалубка и вспомогательные материалы
         intro: Щиты, стойки, крепеж и расходники для монолитного строительства.
         range: Щиты 0,3–3 м, стойки 1,7–5,5 м, допустимая нагрузка до 40 кН.
-        items:
-          - slug: shity-opalubki-stalnye
-            title: Щиты опалубки стальные 3×0,5 м
-            desc: Совместимы с большинством систем, поставка комплектами с замками.
-          - slug: stoiki-tele-35
-            title: Телескопические стойки 3,5 м
-            desc: Регулируемая высота, цинковое покрытие и комплект оголовков.
-          - slug: fanera-laminirovannaya-18
-            title: Фанера ламинированная 18 мм
-            desc: Может использоваться до 50 циклов, поставляется в упаковке производителя.
+        items: []
   - slug: gazosnabzhenie
     title: Газоснабжение
     image: /img/products/gazosnabzhenie.webp
@@ -303,113 +1350,575 @@ categories:
         intro: Бесшовные, сварные и предизолированные трубы для наружных газопроводов.
         range: Диаметры Ø57–Ø530 мм, давление до 1,2 МПа.
         items:
-          - slug: truba-stal-159x5
-            title: Труба стальная 159×5 ГОСТ 8732
-            desc: Для средне- и высоконапорных газопроводов, поставка с заводской изоляцией.
-          - slug: truba-ppu-219
-            title: Труба ППУ 219/315
-            desc: Предизолированная труба с системой оперативного дистанционного контроля.
-          - slug: truba-stal-otsink-du50
-            title: Труба стальная оцинкованная Ду50
-            desc: Для разводящих сетей и газификации объектов малоэтажного строительства.
+          - slug: truba-pe-100-sdr-26-d50h23
+            title: Труба ПЭ 100 SDR 26 D50х2,3
+            sku: TRUBA_PE_100_SDR_26_D50H23
+          - slug: truba-pe-100-sdr-26-d63h25
+            title: Труба ПЭ 100 SDR 26 D63х2,5
+            sku: TRUBA_PE_100_SDR_26_D63H25
+          - slug: truba-pe-100-sdr-26-d75h29
+            title: Труба ПЭ 100 SDR 26 D75х2,9
+            sku: TRUBA_PE_100_SDR_26_D75H29
+          - slug: truba-pe-100-sdr-26-d90h35
+            title: Труба ПЭ 100 SDR 26 D90х3,5
+            sku: TRUBA_PE_100_SDR_26_D90H35
+          - slug: truba-pe-100-sdr-26-d110h42
+            title: Труба ПЭ 100 SDR 26 D110х4,2
+            sku: TRUBA_PE_100_SDR_26_D110H42
+          - slug: truba-pe-100-sdr-26-d125h48
+            title: Труба ПЭ 100 SDR 26 D125х4,8
+            sku: TRUBA_PE_100_SDR_26_D125H48
+          - slug: truba-pe-100-sdr-26-d140h54
+            title: Труба ПЭ 100 SDR 26 D140х5,4
+            sku: TRUBA_PE_100_SDR_26_D140H54
+          - slug: truba-pe-100-sdr-26-d160h62
+            title: Труба ПЭ 100 SDR 26 D160х6,2
+            sku: TRUBA_PE_100_SDR_26_D160H62
+          - slug: truba-pe-100-sdr-26-d180h69
+            title: Труба ПЭ 100 SDR 26 D180х6,9
+            sku: TRUBA_PE_100_SDR_26_D180H69
+          - slug: truba-pe-100-sdr-26-d200h77
+            title: Труба ПЭ 100 SDR 26 D200х7,7
+            sku: TRUBA_PE_100_SDR_26_D200H77
+          - slug: truba-pe-100-sdr-26-d225h86
+            title: Труба ПЭ 100 SDR 26 D225х8,6
+            sku: TRUBA_PE_100_SDR_26_D225H86
+          - slug: truba-pe-100-sdr-26-d250h96
+            title: Труба ПЭ 100 SDR 26 D250х9,6
+            sku: TRUBA_PE_100_SDR_26_D250H96
+          - slug: truba-pe-100-sdr-26-d280h107
+            title: Труба ПЭ 100 SDR 26 D280х10,7
+            sku: TRUBA_PE_100_SDR_26_D280H107
+          - slug: truba-pe-100-sdr-26-d315h121
+            title: Труба ПЭ 100 SDR 26 D315х12,1
+            sku: TRUBA_PE_100_SDR_26_D315H121
+          - slug: truba-pe-100-sdr-26-d355h136
+            title: Труба ПЭ 100 SDR 26 D355х13,6
+            sku: TRUBA_PE_100_SDR_26_D355H136
+          - slug: truba-pe-100-sdr-26-d400h153
+            title: Труба ПЭ 100 SDR 26 D400х15,3
+            sku: TRUBA_PE_100_SDR_26_D400H153
+          - slug: truba-pe-100-sdr-26-d450h172
+            title: Труба ПЭ 100 SDR 26 D450х17,2
+            sku: TRUBA_PE_100_SDR_26_D450H172
+          - slug: truba-pe-100-sdr-26-d500h191
+            title: Труба ПЭ 100 SDR 26 D500х19,1
+            sku: TRUBA_PE_100_SDR_26_D500H191
+          - slug: truba-pe-100-sdr-26-d560h214
+            title: Труба ПЭ 100 SDR 26 D560х21,4
+            sku: TRUBA_PE_100_SDR_26_D560H214
+          - slug: truba-pe-100-sdr-26-d630h241
+            title: Труба ПЭ 100 SDR 26 D630х24,1
+            sku: TRUBA_PE_100_SDR_26_D630H241
+          - slug: truba-pe-100-sdr-21-d40x23
+            title: Труба ПЭ 100 SDR 21 D40x2,3
+            sku: TRUBA_PE_100_SDR_21_D40X23
+          - slug: truba-pe-100-pn8-sdr-21-d50x24
+            title: Труба ПЭ 100-PN8 SDR 21 D50x2,4
+            sku: TRUBA_PE_100_PN8_SDR_21_D50X24
+          - slug: truba-pe-100-pn8-sdr-21-d63x3
+            title: Труба ПЭ 100-PN8 SDR 21 D63x3
+            sku: TRUBA_PE_100_PN8_SDR_21_D63X3
+          - slug: truba-pe-100-pn8-sdr-21-d75x36
+            title: Труба ПЭ 100-PN8 SDR 21 D75x3,6
+            sku: TRUBA_PE_100_PN8_SDR_21_D75X36
+          - slug: truba-pe-100-pn8-sdr-21-d90x43
+            title: Труба ПЭ 100-PN8 SDR 21 D90x4,3
+            sku: TRUBA_PE_100_PN8_SDR_21_D90X43
+          - slug: truba-pe-100-pn8-sdr-21-d110x53
+            title: Труба ПЭ 100-PN8 SDR 21 D110x5,3
+            sku: TRUBA_PE_100_PN8_SDR_21_D110X53
+          - slug: truba-pe-100-pn8-sdr-21-d125x6
+            title: Труба ПЭ 100-PN8 SDR 21 D125x6
+            sku: TRUBA_PE_100_PN8_SDR_21_D125X6
+          - slug: truba-pe-100-pn8-sdr-21-d140x67
+            title: Труба ПЭ 100-PN8 SDR 21 D140x6,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D140X67
+          - slug: truba-pe-100-pn8-sdr-21-d160x77
+            title: Труба ПЭ 100-PN8 SDR 21 D160x7,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D160X77
+          - slug: truba-pe-100-pn8-sdr-21-d180x86
+            title: Труба ПЭ 100-PN8 SDR 21 D180x8,6
+            sku: TRUBA_PE_100_PN8_SDR_21_D180X86
+          - slug: truba-pe-100-pn8-sdr-21-d200x96
+            title: Труба ПЭ 100-PN8 SDR 21 D200x9,6
+            sku: TRUBA_PE_100_PN8_SDR_21_D200X96
+          - slug: truba-pe-100-pn8-sdr-21-d225x108
+            title: Труба ПЭ 100-PN8 SDR 21 D225x10,8
+            sku: TRUBA_PE_100_PN8_SDR_21_D225X108
+          - slug: truba-pe-100-pn8-sdr-21-d250x119
+            title: Труба ПЭ 100-PN8 SDR 21 D250x11,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D250X119
+          - slug: truba-pe-100-pn8-sdr-21-d280x134
+            title: Труба ПЭ 100-PN8 SDR 21 D280x13,4
+            sku: TRUBA_PE_100_PN8_SDR_21_D280X134
+          - slug: truba-pe-100-pn8-sdr-21-d315x15
+            title: Труба ПЭ 100-PN8 SDR 21 D315x15
+            sku: TRUBA_PE_100_PN8_SDR_21_D315X15
+          - slug: truba-pe-100-pn8-sdr-21-d355x169
+            title: Труба ПЭ 100-PN8 SDR 21 D355x16,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D355X169
+          - slug: truba-pe-100-pn8-sdr-21-d400x191
+            title: Труба ПЭ 100-PN8 SDR 21 D400x19,1
+            sku: TRUBA_PE_100_PN8_SDR_21_D400X191
+          - slug: truba-pe-100-pn8-sdr-21-d450x215
+            title: Труба ПЭ 100-PN8 SDR 21 D450x21,5
+            sku: TRUBA_PE_100_PN8_SDR_21_D450X215
+          - slug: truba-pe-100-pn8-sdr-21-d500x239
+            title: Труба ПЭ 100-PN8 SDR 21 D500x23,9
+            sku: TRUBA_PE_100_PN8_SDR_21_D500X239
+          - slug: truba-pe-100-pn8-sdr-21-d560x267
+            title: Труба ПЭ 100-PN8 SDR 21 D560x26,7
+            sku: TRUBA_PE_100_PN8_SDR_21_D560X267
+          - slug: truba-pe-100-pn8-sdr-21-d630x30
+            title: Труба ПЭ 100-PN8 SDR 21 D630x30
+            sku: TRUBA_PE_100_PN8_SDR_21_D630X30
+          - slug: truba-pe-100-sdr-176-d32x23
+            title: Труба ПЭ 100 SDR 17,6 D32x2,3
+            sku: TRUBA_PE_100_SDR_176_D32X23
+          - slug: truba-pe-100-sdr-176-d40x23
+            title: Труба ПЭ 100 SDR 17,6 D40x2,3
+            sku: TRUBA_PE_100_SDR_176_D40X23
+          - slug: truba-pe-100-sdr-176-d50x29
+            title: Труба ПЭ 100 SDR 17,6 D50x2,9
+            sku: TRUBA_PE_100_SDR_176_D50X29
+          - slug: truba-pe-100-sdr-176-d63x36
+            title: Труба ПЭ 100 SDR 17,6 D63x3,6
+            sku: TRUBA_PE_100_SDR_176_D63X36
+          - slug: truba-pe-100-sdr-176-d75x43
+            title: Труба ПЭ 100 SDR 17,6 D75x4,3
+            sku: TRUBA_PE_100_SDR_176_D75X43
+          - slug: truba-pe-100-sdr-176-d90x52
+            title: Труба ПЭ 100 SDR 17,6 D90x5,2
+            sku: TRUBA_PE_100_SDR_176_D90X52
+          - slug: truba-pe-100-sdr-176-d110x63
+            title: Труба ПЭ 100 SDR 17,6 D110x6,3
+            sku: TRUBA_PE_100_SDR_176_D110X63
+          - slug: truba-pe-100-sdr-176-d125x71
+            title: Труба ПЭ 100 SDR 17,6 D125x7,1
+            sku: TRUBA_PE_100_SDR_176_D125X71
+          - slug: truba-pe-100-sdr-176-d140x8
+            title: Труба ПЭ 100 SDR 17,6 D140x8
+            sku: TRUBA_PE_100_SDR_176_D140X8
+          - slug: truba-pe-100-sdr-176-d160x91
+            title: Труба ПЭ 100 SDR 17,6 D160x9,1
+            sku: TRUBA_PE_100_SDR_176_D160X91
+          - slug: truba-pe-100-sdr-176-d180x103
+            title: Труба ПЭ 100 SDR 17,6 D180x10,3
+            sku: TRUBA_PE_100_SDR_176_D180X103
+          - slug: truba-pe-100-sdr-176-d200x114
+            title: Труба ПЭ 100 SDR 17,6 D200x11,4
+            sku: TRUBA_PE_100_SDR_176_D200X114
+          - slug: truba-pe-100-sdr-176-d225x128
+            title: Труба ПЭ 100 SDR 17,6 D225x12,8
+            sku: TRUBA_PE_100_SDR_176_D225X128
+          - slug: truba-pe-100-sdr-176-d250x142
+            title: Труба ПЭ 100 SDR 17,6 D250x14,2
+            sku: TRUBA_PE_100_SDR_176_D250X142
+          - slug: truba-pe-100-sdr-176-d280x159
+            title: Труба ПЭ 100 SDR 17,6 D280x15,9
+            sku: TRUBA_PE_100_SDR_176_D280X159
+          - slug: truba-pe-100-sdr-176-d315x179
+            title: Труба ПЭ 100 SDR 17,6 D315x17,9
+            sku: TRUBA_PE_100_SDR_176_D315X179
+          - slug: truba-pe-100-sdr-176-d355x202
+            title: Труба ПЭ 100 SDR 17,6 D355x20,2
+            sku: TRUBA_PE_100_SDR_176_D355X202
+          - slug: truba-pe-100-sdr-176-d400x228
+            title: Труба ПЭ 100 SDR 17,6 D400x22,8
+            sku: TRUBA_PE_100_SDR_176_D400X228
+          - slug: truba-pe-100-sdr-176-d450x256
+            title: Труба ПЭ 100 SDR 17,6 D450x25,6
+            sku: TRUBA_PE_100_SDR_176_D450X256
+          - slug: truba-pe-100-sdr-176-d500x284
+            title: Труба ПЭ 100 SDR 17,6 D500x28,4
+            sku: TRUBA_PE_100_SDR_176_D500X284
+          - slug: truba-pe-100-sdr-176-d560x319
+            title: Труба ПЭ 100 SDR 17,6 D560x31,9
+            sku: TRUBA_PE_100_SDR_176_D560X319
+          - slug: truba-pe-100-sdr-176-d630x358
+            title: Труба ПЭ 100 SDR 17,6 D630x35,8
+            sku: TRUBA_PE_100_SDR_176_D630X358
+          - slug: truba-pe-100-sdr-136-d25x23
+            title: Труба ПЭ 100 SDR 13,6 D25x2,3
+            sku: TRUBA_PE_100_SDR_136_D25X23
+          - slug: truba-pe-100-sdr-136-d32x24
+            title: Труба ПЭ 100 SDR 13,6 D32x2,4
+            sku: TRUBA_PE_100_SDR_136_D32X24
+          - slug: truba-pe-100-sdr-136-d40x3
+            title: Труба ПЭ 100 SDR 13,6 D40x3
+            sku: TRUBA_PE_100_SDR_136_D40X3
+          - slug: truba-pe-100-sdr-136-d50x37
+            title: Труба ПЭ 100 SDR 13,6 D50x3,7
+            sku: TRUBA_PE_100_SDR_136_D50X37
+          - slug: truba-pe-100-sdr-136-d63x47
+            title: Труба ПЭ 100 SDR 13,6 D63x4,7
+            sku: TRUBA_PE_100_SDR_136_D63X47
+          - slug: truba-pe-100-sdr-136-d75x56
+            title: Труба ПЭ 100 SDR 13,6 D75x5,6
+            sku: TRUBA_PE_100_SDR_136_D75X56
+          - slug: truba-pe-100-sdr-136-d90x67
+            title: Труба ПЭ 100 SDR 13,6 D90x6,7
+            sku: TRUBA_PE_100_SDR_136_D90X67
+          - slug: truba-pe-100-sdr-136-d110x81
+            title: Труба ПЭ 100 SDR 13,6 D110x8,1
+            sku: TRUBA_PE_100_SDR_136_D110X81
+          - slug: truba-pe-100-sdr-136-d125x92
+            title: Труба ПЭ 100 SDR 13,6 D125x9,2
+            sku: TRUBA_PE_100_SDR_136_D125X92
+          - slug: truba-pe-100-sdr-136-d140x103
+            title: Труба ПЭ 100 SDR 13,6 D140x10,3
+            sku: TRUBA_PE_100_SDR_136_D140X103
+          - slug: truba-pe-100-sdr-136-d160x118
+            title: Труба ПЭ 100 SDR 13,6 D160x11,8
+            sku: TRUBA_PE_100_SDR_136_D160X118
+          - slug: truba-pe-100-sdr-136-d180x133
+            title: Труба ПЭ 100 SDR 13,6 D180x13,3
+            sku: TRUBA_PE_100_SDR_136_D180X133
+          - slug: truba-pe-100-sdr-136-d200x147
+            title: Труба ПЭ 100 SDR 13,6 D200x14,7
+            sku: TRUBA_PE_100_SDR_136_D200X147
+          - slug: truba-pe-100-sdr-136-d225x166
+            title: Труба ПЭ 100 SDR 13,6 D225x16,6
+            sku: TRUBA_PE_100_SDR_136_D225X166
+          - slug: truba-pe-100-sdr-136-d250x184
+            title: Труба ПЭ 100 SDR 13,6 D250x18,4
+            sku: TRUBA_PE_100_SDR_136_D250X184
+          - slug: truba-pe-100-sdr-136-d280x206
+            title: Труба ПЭ 100 SDR 13,6 D280x20,6
+            sku: TRUBA_PE_100_SDR_136_D280X206
+          - slug: truba-pe-100-sdr-136-d315x232
+            title: Труба ПЭ 100 SDR 13,6 D315x23,2
+            sku: TRUBA_PE_100_SDR_136_D315X232
+          - slug: truba-pe-100-sdr-136-d355x261
+            title: Труба ПЭ 100 SDR 13,6 D355x26,1
+            sku: TRUBA_PE_100_SDR_136_D355X261
+          - slug: truba-pe-100-sdr-136-d400x294
+            title: Труба ПЭ 100 SDR 13,6 D400x29,4
+            sku: TRUBA_PE_100_SDR_136_D400X294
+          - slug: truba-pe-100-sdr-136-d450x331
+            title: Труба ПЭ 100 SDR 13,6 D450x33,1
+            sku: TRUBA_PE_100_SDR_136_D450X331
+          - slug: truba-pe-100-sdr-136-d500x368
+            title: Труба ПЭ 100 SDR 13,6 D500x36,8
+            sku: TRUBA_PE_100_SDR_136_D500X368
+          - slug: truba-pe-100-sdr-136-d560x412
+            title: Труба ПЭ 100 SDR 13,6 D560x41,2
+            sku: TRUBA_PE_100_SDR_136_D560X412
+          - slug: truba-pe-100-sdr-136-d630x463
+            title: Труба ПЭ 100 SDR 13,6 D630x46,3
+            sku: TRUBA_PE_100_SDR_136_D630X463
+          - slug: truba-pe-100-sdr-11-d25x23
+            title: Труба ПЭ 100 SDR 11 D25x2,3
+            sku: TRUBA_PE_100_SDR_11_D25X23
+          - slug: truba-pe-100-sdr-11-d32x3
+            title: Труба ПЭ 100 SDR 11 D32x3
+            sku: TRUBA_PE_100_SDR_11_D32X3
+          - slug: truba-pe-100-sdr-11-d40x37
+            title: Труба ПЭ 100 SDR 11 D40x3,7
+            sku: TRUBA_PE_100_SDR_11_D40X37
+          - slug: truba-pe-100-sdr-11-d50x46
+            title: Труба ПЭ 100 SDR 11 D50x4,6
+            sku: TRUBA_PE_100_SDR_11_D50X46
+          - slug: truba-pe-100-sdr-11-d63x58
+            title: Труба ПЭ 100 SDR 11 D63x5,8
+            sku: TRUBA_PE_100_SDR_11_D63X58
+          - slug: truba-pe-100-sdr-11-d75x68
+            title: Труба ПЭ 100 SDR 11 D75x6,8
+            sku: TRUBA_PE_100_SDR_11_D75X68
+          - slug: truba-pe-100-sdr-11-d90x82
+            title: Труба ПЭ 100 SDR 11 D90x8,2
+            sku: TRUBA_PE_100_SDR_11_D90X82
+          - slug: truba-pe-100-sdr-11-d110x10
+            title: Труба ПЭ 100 SDR 11 D110x10
+            sku: TRUBA_PE_100_SDR_11_D110X10
+          - slug: truba-pe-100-sdr-11-d125x114
+            title: Труба ПЭ 100 SDR 11 D125x11,4
+            sku: TRUBA_PE_100_SDR_11_D125X114
+          - slug: truba-pe-100-sdr-11-d140x127
+            title: Труба ПЭ 100 SDR 11 D140x12,7
+            sku: TRUBA_PE_100_SDR_11_D140X127
+          - slug: truba-pe-100-sdr-11-d160x146
+            title: Труба ПЭ 100 SDR 11 D160x14,6
+            sku: TRUBA_PE_100_SDR_11_D160X146
+          - slug: truba-pe-100-sdr-11-d180x164
+            title: Труба ПЭ 100 SDR 11 D180x16,4
+            sku: TRUBA_PE_100_SDR_11_D180X164
+          - slug: truba-pe-100-sdr-11-d200x182
+            title: Труба ПЭ 100 SDR 11 D200x18,2
+            sku: TRUBA_PE_100_SDR_11_D200X182
+          - slug: truba-pe-100-sdr-11-d225x205
+            title: Труба ПЭ 100 SDR 11 D225x20,5
+            sku: TRUBA_PE_100_SDR_11_D225X205
+          - slug: truba-pe-100-sdr-11-d250x227
+            title: Труба ПЭ 100 SDR 11 D250x22,7
+            sku: TRUBA_PE_100_SDR_11_D250X227
+          - slug: truba-pe-100-sdr-11-d280x254
+            title: Труба ПЭ 100 SDR 11 D280x25,4
+            sku: TRUBA_PE_100_SDR_11_D280X254
+          - slug: truba-pe-100-sdr-11-d315x286
+            title: Труба ПЭ 100 SDR 11 D315x28,6
+            sku: TRUBA_PE_100_SDR_11_D315X286
+          - slug: truba-pe-100-sdr-11-d355x322
+            title: Труба ПЭ 100 SDR 11 D355x32,2
+            sku: TRUBA_PE_100_SDR_11_D355X322
+          - slug: truba-pe-100-sdr-11-d400x362
+            title: Труба ПЭ 100 SDR 11 D400x36,2
+            sku: TRUBA_PE_100_SDR_11_D400X362
+          - slug: truba-pe-100-sdr-11-d450x409
+            title: Труба ПЭ 100 SDR 11 D450x40,9
+            sku: TRUBA_PE_100_SDR_11_D450X409
+          - slug: truba-pe-100-sdr-11-d500x455
+            title: Труба ПЭ 100 SDR 11 D500x45,5
+            sku: TRUBA_PE_100_SDR_11_D500X455
+          - slug: truba-pe-100-sdr-11-d560x509
+            title: Труба ПЭ 100 SDR 11 D560x50,9
+            sku: TRUBA_PE_100_SDR_11_D560X509
+          - slug: truba-pe-100-sdr-11-d630x573
+            title: Труба ПЭ 100 SDR 11 D630x57,3
+            sku: TRUBA_PE_100_SDR_11_D630X573
+          - slug: truba-pe-100-sdr-9-d25x3
+            title: Труба ПЭ 100 SDR 9 D25x3
+            sku: TRUBA_PE_100_SDR_9_D25X3
+          - slug: truba-pe-100-sdr-9-d32x36
+            title: Труба ПЭ 100 SDR 9 D32x3,6
+            sku: TRUBA_PE_100_SDR_9_D32X36
+          - slug: truba-pe-100-sdr-9-d40x45
+            title: Труба ПЭ 100 SDR 9 D40x4,5
+            sku: TRUBA_PE_100_SDR_9_D40X45
+          - slug: truba-pe-100-sdr-9-d50x56
+            title: Труба ПЭ 100 SDR 9 D50x5,6
+            sku: TRUBA_PE_100_SDR_9_D50X56
+          - slug: truba-pe-100-sdr-9-d63x71
+            title: Труба ПЭ 100 SDR 9 D63x7,1
+            sku: TRUBA_PE_100_SDR_9_D63X71
+          - slug: truba-pe-100-sdr-9-d75x84
+            title: Труба ПЭ 100 SDR 9 D75x8,4
+            sku: TRUBA_PE_100_SDR_9_D75X84
+          - slug: truba-pe-100-sdr-9-d90x101
+            title: Труба ПЭ 100 SDR 9 D90x10,1
+            sku: TRUBA_PE_100_SDR_9_D90X101
+          - slug: truba-pe-100-sdr-9-d110x123
+            title: Труба ПЭ 100 SDR 9 D110x12,3
+            sku: TRUBA_PE_100_SDR_9_D110X123
+          - slug: truba-pe-100-sdr-9-d125x14
+            title: Труба ПЭ 100 SDR 9 D125x14
+            sku: TRUBA_PE_100_SDR_9_D125X14
+          - slug: truba-pe-100-sdr-9-d140x157
+            title: Труба ПЭ 100 SDR 9 D140x15,7
+            sku: TRUBA_PE_100_SDR_9_D140X157
+          - slug: truba-pe-100-sdr-9-d160x179
+            title: Труба ПЭ 100 SDR 9 D160x17,9
+            sku: TRUBA_PE_100_SDR_9_D160X179
+          - slug: truba-pe-100-sdr-9-d180x201
+            title: Труба ПЭ 100 SDR 9 D180x20,1
+            sku: TRUBA_PE_100_SDR_9_D180X201
+          - slug: truba-pe-100-sdr-9-d200x224
+            title: Труба ПЭ 100 SDR 9 D200x22,4
+            sku: TRUBA_PE_100_SDR_9_D200X224
+          - slug: truba-pe-100-sdr-9-d225x252
+            title: Труба ПЭ 100 SDR 9 D225x25,2
+            sku: TRUBA_PE_100_SDR_9_D225X252
+          - slug: truba-pe-100-sdr-9-d250x279
+            title: Труба ПЭ 100 SDR 9 D250x27,9
+            sku: TRUBA_PE_100_SDR_9_D250X279
+          - slug: truba-pe-100-sdr-9-d280x313
+            title: Труба ПЭ 100 SDR 9 D280x31,3
+            sku: TRUBA_PE_100_SDR_9_D280X313
+          - slug: truba-pe-100-sdr-9-d315x352
+            title: Труба ПЭ 100 SDR 9 D315x35,2
+            sku: TRUBA_PE_100_SDR_9_D315X352
+          - slug: truba-pe-100-sdr-9-d355x397
+            title: Труба ПЭ 100 SDR 9 D355x39,7
+            sku: TRUBA_PE_100_SDR_9_D355X397
+          - slug: truba-pe-100-sdr-9-d400x447
+            title: Труба ПЭ 100 SDR 9 D400x44,7
+            sku: TRUBA_PE_100_SDR_9_D400X447
+          - slug: truba-pe-100-sdr-9-d450x503
+            title: Труба ПЭ 100 SDR 9 D450x50,3
+            sku: TRUBA_PE_100_SDR_9_D450X503
+          - slug: truba-pe-100-sdr-9-d500x558
+            title: Труба ПЭ 100 SDR 9 D500x55,8
+            sku: TRUBA_PE_100_SDR_9_D500X558
+          - slug: truba-pe-100-sdr-9-d560x625
+            title: Труба ПЭ 100 SDR 9 D560x62,5
+            sku: TRUBA_PE_100_SDR_9_D560X625
+          - slug: truba-pe-100-sdr-9-d630x703
+            title: Труба ПЭ 100 SDR 9 D630x70,3
+            sku: TRUBA_PE_100_SDR_9_D630X703
+          - slug: truba-vgp-15h25
+            title: Труба ВГП 15х2,5
+            sku: TRUBA_VGP_15H25
+          - slug: truba-vgp-15h28
+            title: Труба ВГП 15х2,8
+            sku: TRUBA_VGP_15H28
+          - slug: truba-vgp-15h32
+            title: Труба ВГП 15х3,2
+            sku: TRUBA_VGP_15H32
+          - slug: truba-vgp-20h28
+            title: Труба ВГП 20х2,8
+            sku: TRUBA_VGP_20H28
+          - slug: truba-vgp-20h32
+            title: Труба ВГП 20х3,2
+            sku: TRUBA_VGP_20H32
+          - slug: truba-vgp-25h25
+            title: Труба ВГП 25х2,5
+            sku: TRUBA_VGP_25H25
+          - slug: truba-vgp-25h32
+            title: Труба ВГП 25х3,2
+            sku: TRUBA_VGP_25H32
+          - slug: truba-vgp-32h25
+            title: Труба ВГП 32х2,5
+            sku: TRUBA_VGP_32H25
+          - slug: truba-vgp-32h28
+            title: Труба ВГП 32х2,8
+            sku: TRUBA_VGP_32H28
+          - slug: truba-vgp-32h32
+            title: Труба ВГП 32х3,2
+            sku: TRUBA_VGP_32H32
+          - slug: truba-vgp-40h3
+            title: Труба ВГП 40х3
+            sku: TRUBA_VGP_40H3
+          - slug: truba-vgp-40h35
+            title: Труба ВГП 40х3,5
+            sku: TRUBA_VGP_40H35
+          - slug: truba-vgp-50h28
+            title: Труба ВГП 50х2,8
+            sku: TRUBA_VGP_50H28
+          - slug: truba-vgp-50h3
+            title: Труба ВГП 50х3
+            sku: TRUBA_VGP_50H3
+          - slug: truba-vgp-50h35
+            title: Труба ВГП 50х3,5
+            sku: TRUBA_VGP_50H35
+          - slug: truba-vgp-65h25
+            title: Труба ВГП 65х2,5
+            sku: TRUBA_VGP_65H25
+          - slug: truba-vgp-65h4
+            title: Труба ВГП 65х4
+            sku: TRUBA_VGP_65H4
+          - slug: truba-vgp-80h4
+            title: Труба ВГП 80х4
+            sku: TRUBA_VGP_80H4
+          - slug: truba-elektrosvarnaya-57h3
+            title: Труба электросварная 57х3
+            sku: TRUBA_ELEKTROSVARNAYA_57H3
+          - slug: truba-elektrosvarnaya-57h35
+            title: Труба электросварная 57х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_57H35
+          - slug: truba-elektrosvarnaya-57h4
+            title: Труба электросварная 57х4
+            sku: TRUBA_ELEKTROSVARNAYA_57H4
+          - slug: truba-elektrosvarnaya-76h3
+            title: Труба электросварная 76х3
+            sku: TRUBA_ELEKTROSVARNAYA_76H3
+          - slug: truba-elektrosvarnaya-76h35
+            title: Труба электросварная 76х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_76H35
+          - slug: truba-elektrosvarnaya-76h4
+            title: Труба электросварная 76х4
+            sku: TRUBA_ELEKTROSVARNAYA_76H4
+          - slug: truba-elektrosvarnaya-89h3
+            title: Труба электросварная 89х3
+            sku: TRUBA_ELEKTROSVARNAYA_89H3
+          - slug: truba-elektrosvarnaya-89h35
+            title: Труба электросварная 89х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_89H35
+          - slug: truba-elektrosvarnaya-89h4
+            title: Труба электросварная 89х4
+            sku: TRUBA_ELEKTROSVARNAYA_89H4
+          - slug: truba-elektrosvarnaya-108h35
+            title: Труба электросварная 108х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_108H35
+          - slug: truba-elektrosvarnaya-108h4
+            title: Труба электросварная 108х4
+            sku: TRUBA_ELEKTROSVARNAYA_108H4
+          - slug: truba-elektrosvarnaya-108h5
+            title: Труба электросварная 108х5
+            sku: TRUBA_ELEKTROSVARNAYA_108H5
+          - slug: truba-elektrosvarnaya-159h3
+            title: Труба электросварная 159х3
+            sku: TRUBA_ELEKTROSVARNAYA_159H3
+          - slug: truba-elektrosvarnaya-159h35
+            title: Труба электросварная 159х3,5
+            sku: TRUBA_ELEKTROSVARNAYA_159H35
+          - slug: truba-elektrosvarnaya-159h4
+            title: Труба электросварная 159х4
+            sku: TRUBA_ELEKTROSVARNAYA_159H4
+          - slug: truba-elektrosvarnaya-325h5
+            title: Труба электросварная 325х5
+            sku: TRUBA_ELEKTROSVARNAYA_325H5
+          - slug: truba-elektrosvarnaya-325h8
+            title: Труба электросварная 325х8
+            sku: TRUBA_ELEKTROSVARNAYA_325H8
+          - slug: truba-elektrosvarnaya-325h9
+            title: Труба электросварная 325х9
+            sku: TRUBA_ELEKTROSVARNAYA_325H9
       - slug: zapornaya-armatura-gaz
         title: Запорная арматура
         intro: Краны шаровые, задвижки и клапаны для газовых сетей.
         range: Ду25–Ду400, давление до PN40.
-        items:
-          - slug: kran-sharovoy-du100
-            title: Кран шаровой фланцевый Ду100
-            desc: Полный проход, комплектуется рукояткой или редуктором.
-          - slug: kran-sharovoy-podzemnyj-du50
-            title: Кран шаровой подземный Ду50
-            desc: Удлиненный шток, поставляется с катодной защитой.
-          - slug: zadvizhka-gaz-du200
-            title: Задвижка клиновая газовая Ду200
-            desc: Исполнение с герметичным уплотнением и защитным покрытием.
+        items: []
       - slug: uzly-ucheta-gaza
         title: Узлы учёта газа
         intro: Комплектные шкафные и блочные узлы учета, счетчики и корректора.
         range: Расход 40–10 000 м³/ч, давление до 1,6 МПа.
-        items:
-          - slug: uzel-ucheta-ek270
-            title: Узел учета газа на базе ЭК270
-            desc: Корректор, датчики давления и температуры, шкафной обогреваемый бокс.
-          - slug: shkafnyy-uzel-ucheta
-            title: Шкафный узел учета среднего давления
-            desc: Сборка под требования Газпрома, быстрая доставка и пуск.
-          - slug: komplekt-izmer-ultra
-            title: Комплект измерительный ультразвуковой
-            desc: Высокая точность учета, интерфейсы Modbus и архив событий.
+        items: []
       - slug: gazoregulyatornye-punkty
         title: Газорегуляторные пункты
         intro: ГРП, ГРПШ, ПРГ и шкафные установки для понижения давления.
         range: Входное давление до 1,2 МПа, расход 25–10 000 м³/ч.
-        items:
-          - slug: grpsh-10
-            title: ГРПШ-10-2НУ1
-            desc: Две линии редуцирования, фильтр, подогрев, шкаф IP54.
-          - slug: gru-modulnoe-06
-            title: ГРУ модульное до 0,6 МПа
-            desc: Контейнерный блок с автоматикой и газоанализаторами.
-          - slug: prg-uteplennyj
-            title: Пункт редуцирования газа в утепленном шкафу
-            desc: Компактное решение для распределительных сетей в городской черте.
+        items: []
       - slug: rezervuary-gaz
         title: Резервуары
         intro: Наземные и подземные емкости для хранения СУГ и природного газа.
         range: Объём 5–200 м³, рабочее давление до 1,6 МПа.
-        items:
-          - slug: rezervuar-sug-20
-            title: Резервуар СУГ 20 м³
-            desc: Горизонтальная емкость с антикоррозионным покрытием и арматурой.
-          - slug: ballony-propan-50
-            title: Баллоны пропановые 50 л
-            desc: Поставка комплектами с рампами и запорной арматурой.
-          - slug: emkost-biogaz-100
-            title: Емкость буферная для биогаза 100 м³
-            desc: Стальной резервуар с азотной подушкой и системой контроля давления.
+        items: []
       - slug: fitingi-gaz
         title: Соединительные элементы
         intro: Фланцы, компенсаторы и вставки для монтажа газопроводов.
         range: Ду25–Ду400, температурный диапазон −40…+200 °C.
         items:
-          - slug: flancy-du150
-            title: Фланцы стальные приварные Ду150
-            desc: Материал Ст20, обработанные привалочные поверхности, комплект шпилек.
-          - slug: izoliruyushchie-vstavki
-            title: Изолирующие вставки для газопроводов
-            desc: Предохраняют от блуждающих токов и исключают коррозию.
-          - slug: kompensatory-linzovye
-            title: Компенсаторы линзовые
-            desc: Снимают температурные напряжения и гидроудары.
+          - slug: fiting
+            title: Фитинг
+            sku: FITING
+          - slug: kran-muftovyy
+            title: Кран муфтовый
+            sku: KRAN_MUFTOVYY
+          - slug: kran-flancevyy
+            title: Кран фланцевый
+            sku: KRAN_FLANCEVYY
+          - slug: kran-celnosvarnoy
+            title: Кран цельносварной
+            sku: KRAN_CELNOSVARNOY
+          - slug: kran-svarnoy
+            title: Кран сварной
+            sku: KRAN_SVARNOY
+          - slug: zadvizhka-s-obrezinennym-klinom
+            title: Задвижка с обрезиненным клином
+            sku: ZADVIZHKA_S_OBREZINENNYM_KLINOM
+          - slug: gazovaya-zadvizhka
+            title: Газовая задвижка
+            sku: GAZOVAYA_ZADVIZHKA
+          - slug: zadvizhka-shibernaya
+            title: Задвижка шиберная
+            sku: ZADVIZHKA_SHIBERNAYA
+          - slug: zadvizhka-nozhevaya
+            title: Задвижка ножевая
+            sku: ZADVIZHKA_NOZHEVAYA
+          - slug: zadvizhka-klinovaya
+            title: Задвижка клиновая
+            sku: ZADVIZHKA_KLINOVAYA
       - slug: izolyaciya-gaz
         title: Изоляционные материалы и покрытия
         intro: Комплексы внешней и внутренней защиты газопроводов.
         range: Толщина 2–6 мм, температурный диапазон −60…+120 °C.
-        items:
-          - slug: lenta-pvh-izolyaciya
-            title: Лента ПВХ для изоляции труб
-            desc: Применяется в системах комбинированной изоляции и ремонте стыков.
-          - slug: mastika-hpm
-            title: Мастика битумная ХПМ
-            desc: Содержит полимерные добавки, образует стойкий к растрескиванию слой.
-          - slug: poluretanovaya-izolyaciya-styk
-            title: Полиуретановая изоляция для стыков
-            desc: Комплекты кожухов и заливочные составы для труб ППУ.
+        items: []
       - slug: uslugi-proekt-montazh-gaz
         title: Услуги проектирования и монтажа
         intro: Инжиниринг, строительно-монтажные работы и пуск газа.
         range: От ТЭО и проекта до шефмонтажа и запуска ГРП.
-        items:
-          - slug: proekt-gaz-seti
-            title: Проектирование газораспределительных сетей
-            desc: Разработка проектной документации, согласование в Горгазе и контроль строительства.
-          - slug: montazh-grp-uzly
-            title: Монтаж ГРП и узлов учета
-            desc: Строительно-монтажные работы, проверка герметичности и подключение.
-          - slug: pnr-pusk-gaza
-            title: ПНР и пуск газа
-            desc: Пусконаладочные работы, настройка автоматики и катодной защиты.
+        items: []
   - slug: elektrosnabzhenie
     title: Электроснабжение
     image: /img/products/elektrosnabzhenie.webp
@@ -419,142 +1928,286 @@ categories:
         title: Опоры освещения
         intro: Стальные, композитные и декоративные опоры для улиц и территорий.
         range: Высота 4–18 м, ветровые районы I–VII.
-        items:
-          - slug: opora-kk-10
-            title: Опора круглоконическая 10 м
-            desc: Оцинкованная опора с люком обслуживания и закладным элементом.
-          - slug: opora-granenaya-12
-            title: Опора граненая 12 м оцинкованная
-            desc: Повышенная жесткость для ветровых районов и прожекторов.
-          - slug: opora-dekor-park
-            title: Опора декоративная паркового типа
-            desc: Комплектуется кронштейнами и энергоэффективными светильниками.
+        items: []
       - slug: silovye-kabeli
         title: Силовые кабели
         intro: Медные и алюминиевые кабели до 35 кВ, в том числе низкотоксичные исполнения.
         range: Сечения 1×16–4×400 мм², напряжение 0,4–35 кВ.
         items:
-          - slug: kabel-vvgng-4x95
-            title: Кабель ВВГнг(А)-LS 4×95
-            desc: Для прокладки в стояках и помещениях с повышенными требованиями пожарной безопасности.
-          - slug: kabel-avbbshv-3x240
-            title: Кабель АВБбШв 3×240
-            desc: Бронированный кабель для прокладки в грунте и кабельных сооружениях.
-          - slug: kabel-kpvpg-3x50
-            title: Кабель КПвПг 3×50
-            desc: Герметичный кабель для подземной прокладки в трубах и канализации.
+          - slug: kabel-vvg
+            title: Кабель ВВГ
+            sku: KABEL_VVG
+          - slug: kabel-vvgnga
+            title: Кабель ВВГнг(А)
+            sku: KABEL_VVGNGA
+          - slug: kabel-vvgnga-ls
+            title: Кабель ВВГнг(А)-LS
+            sku: KABEL_VVGNGA_LS
+          - slug: kabel-vvgnga-lsltx
+            title: Кабель ВВГнг(А)-LSLTx
+            sku: KABEL_VVGNGA_LSLTX
+          - slug: kabel-vvgnga-frls
+            title: Кабель ВВГнг(A)-FRLS
+            sku: KABEL_VVGNGA_FRLS
+          - slug: kabel-vvgnga-frlsltx
+            title: Кабель ВВГнг(А)-FRLSLTx
+            sku: KABEL_VVGNGA_FRLSLTX
+          - slug: kabel-vbshv
+            title: Кабель ВБШв
+            sku: KABEL_VBSHV
+          - slug: kabel-vbshvnga
+            title: Кабель ВБШвнг(А)
+            sku: KABEL_VBSHVNGA
+          - slug: kabel-vbshvnga-ls
+            title: Кабель ВБШвнг(А)-LS
+            sku: KABEL_VBSHVNGA_LS
+          - slug: kabel-vbshvnga-frls
+            title: Кабель ВБШвнг(А)-FRLS
+            sku: KABEL_VBSHVNGA_FRLS
+          - slug: kabel-vbshvnga-frlsltx
+            title: Кабель ВБШвнг(А)-FRLSLTx
+            sku: KABEL_VBSHVNGA_FRLSLTX
+          - slug: kabel-pvvgnga-ls
+            title: Кабель ПвВГнг(А)-LS
+            sku: KABEL_PVVGNGA_LS
+          - slug: kabel-pvbshv
+            title: Кабель ПвБШв
+            sku: KABEL_PVBSHV
+          - slug: kabel-pvbshp
+            title: Кабель ПвБШп
+            sku: KABEL_PVBSHP
+          - slug: kabel-pvbshvnga
+            title: Кабель ПвБШвнг(А)
+            sku: KABEL_PVBSHVNGA
+          - slug: kabel-pvbshvnga-ls
+            title: Кабель ПвБШвнг(А)-LS
+            sku: KABEL_PVBSHVNGA_LS
+          - slug: kabel-pvpgnga-hf
+            title: Кабель ПвПГнг(А)-HF
+            sku: KABEL_PVPGNGA_HF
+          - slug: kabel-pvpgnga-frhf
+            title: Кабель ПвПГнг(А)-FRHF
+            sku: KABEL_PVPGNGA_FRHF
+          - slug: kabel-pvbpnga-hf
+            title: Кабель ПвБПнг(А)-HF
+            sku: KABEL_PVBPNGA_HF
+          - slug: kabel-pvbpnga-frhf
+            title: Кабель ПвБПнг(А)-FRHF
+            sku: KABEL_PVBPNGA_FRHF
+          - slug: kabel-ppgnga-hf
+            title: Кабель ППГнг(А)-HF
+            sku: KABEL_PPGNGA_HF
+          - slug: kabel-ppgnga-frhf
+            title: Кабель ППГнг(А)-FRHF
+            sku: KABEL_PPGNGA_FRHF
+          - slug: kabel-kgtp
+            title: Кабель КГТП
+            sku: KABEL_KGTP
+          - slug: kabel-avvg
+            title: Кабель АВВГ
+            sku: KABEL_AVVG
+          - slug: kabel-avvgnga
+            title: Кабель АВВГнг(А)
+            sku: KABEL_AVVGNGA
+          - slug: kabel-avvgnga-ls
+            title: Кабель АВВГнг(А)-LS
+            sku: KABEL_AVVGNGA_LS
+          - slug: kabel-avbshv
+            title: Кабель АВБШв
+            sku: KABEL_AVBSHV
+          - slug: kabel-avbshvnga
+            title: Кабель АВБШвнг(А)
+            sku: KABEL_AVBSHVNGA
+          - slug: kabel-avbshvnga-ls
+            title: Кабель АВБШвнг(А)-LS
+            sku: KABEL_AVBSHVNGA_LS
+          - slug: kabel-apvvg
+            title: Кабель АПвВГ
+            sku: KABEL_APVVG
+          - slug: kabel-apvvgnga
+            title: Кабель АПвВГнг(А)
+            sku: KABEL_APVVGNGA
+          - slug: kabel-apvvgnga-ls
+            title: Кабель АПвВГнг(А)-LS
+            sku: KABEL_APVVGNGA_LS
+          - slug: kabel-apvbshv
+            title: Кабель АПвБШв
+            sku: KABEL_APVBSHV
+          - slug: kabel-apvbshp
+            title: Кабель АПвБШп
+            sku: KABEL_APVBSHP
+          - slug: kabel-apvbshvnga
+            title: Кабель АПвБШвнг(А)
+            sku: KABEL_APVBSHVNGA
+          - slug: kabel-apvbshvnga-ls
+            title: Кабель АПвБШвнг(А)-LS
+            sku: KABEL_APVBSHVNGA_LS
+          - slug: kabel-apvpgnga-hf
+            title: Кабель АПвПГнг(А)-HF
+            sku: KABEL_APVPGNGA_HF
+          - slug: kabel-appgnga-hf
+            title: Кабель АППГнг(А)-HF
+            sku: KABEL_APPGNGA_HF
       - slug: sip-provoda
         title: СИП-провода
         intro: Самонесущие изолированные провода для воздушных линий 0,4–20 кВ.
         range: Сечения 2×16–4×240 мм², климатическое исполнение УХЛ1.
         items:
-          - slug: sip-2a-3x70
-            title: Провод СИП-2А 3×70+54,6
-            desc: Эксплуатация в жестких климатических условиях, срок службы до 40 лет.
-          - slug: sip-4-4x16
-            title: Провод СИП-4 4×16
-            desc: Оптимальное решение для подключений частного сектора и малоэтажных объектов.
-          - slug: komplekt-anker-sip
-            title: Комплект анкерных зажимов СИП
-            desc: Готовый набор для подвеса и ответвлений воздушных линий.
+          - slug: provod-a
+            title: Провод А
+            sku: PROVOD_A
+          - slug: provod-as
+            title: Провод АС
+            sku: PROVOD_AS
+          - slug: provod-sip-1
+            title: Провод СИП-1
+            sku: PROVOD_SIP_1
+          - slug: provod-sip-2
+            title: Провод СИП-2
+            sku: PROVOD_SIP_2
+          - slug: provod-sip-3
+            title: Провод СИП-3
+            sku: PROVOD_SIP_3
+          - slug: provod-sip-4
+            title: Провод СИП-4
+            sku: PROVOD_SIP_4
       - slug: kabelnaya-armatura
         title: Кабельная арматура и изоляторы
         intro: Муфты, концевые заделки, изоляторы и крепежные элементы.
         range: На напряжение 0,4–35 кВ, кабели Ø16–Ø120 мм.
         items:
-          - slug: kontsevye-mufty-10kv
-            title: Концевые муфты 10 кВ
-            desc: Термоусаживаемые и холодной усадки комплекты для силовых кабелей.
-          - slug: izolyator-ps70
-            title: Изоляторы стеклянные ПС70
-            desc: Высокопрочная стекломасса и оцинкованная арматура.
-          - slug: perehodnye-mufty-termo
-            title: Переходные муфты термоусаживаемые
-            desc: Используются при ремонте и модернизации кабельных линий.
+          - slug: izolyator-shpu
+            title: Изолятор ШПУ
+            sku: IZOLYATOR_SHPU
+          - slug: izolyator-shpk
+            title: Изолятор ШПК
+            sku: IZOLYATOR_SHPK
+          - slug: izolyator-shf
+            title: Изолятор ШФ
+            sku: IZOLYATOR_SHF
+          - slug: izolyator-io
+            title: Изолятор ИО
+            sku: IZOLYATOR_IO
+          - slug: izolyator-lkp
+            title: Изолятор ЛКП
+            sku: IZOLYATOR_LKP
+          - slug: izolyator-lkpn
+            title: Изолятор ЛКПн
+            sku: IZOLYATOR_LKPN
+          - slug: izolyator-lkk
+            title: Изолятор ЛКК
+            sku: IZOLYATOR_LKK
+          - slug: izolyator-lki
+            title: Изолятор ЛКИ
+            sku: IZOLYATOR_LKI
+          - slug: izolyator-lkpi
+            title: Изолятор ЛКПИ
+            sku: IZOLYATOR_LKPI
+          - slug: izolyator-lgk
+            title: Изолятор ЛГК
+            sku: IZOLYATOR_LGK
+          - slug: izolyator-lk
+            title: Изолятор ЛК
+            sku: IZOLYATOR_LK
+          - slug: izolyator-lok
+            title: Изолятор ЛОК
+            sku: IZOLYATOR_LOK
+          - slug: izolyator-shsk
+            title: Изолятор ШСК
+            sku: IZOLYATOR_SHSK
+          - slug: spiralnaya-vyazka
+            title: Спиральная вязка
+            sku: SPIRALNAYA_VYAZKA
+          - slug: izolyator-iosk
+            title: Изолятор ИОСК
+            sku: IZOLYATOR_IOSK
+          - slug: izolyator-osk
+            title: Изолятор ОСК
+            sku: IZOLYATOR_OSK
+          - slug: izolyator-ipk
+            title: Изолятор ИПК
+            sku: IZOLYATOR_IPK
+          - slug: izolyator-kpskr
+            title: Изолятор КПСКр
+            sku: IZOLYATOR_KPSKR
+          - slug: izolyator-fspkr
+            title: Изолятор ФСПКр
+            sku: IZOLYATOR_FSPKR
+          - slug: izolyator-pspkr
+            title: Изолятор ПСПКр
+            sku: IZOLYATOR_PSPKR
+          - slug: izolyator-nspk
+            title: Изолятор НСПК
+            sku: IZOLYATOR_NSPK
+          - slug: izolyator-nspkr
+            title: Изолятор  НСПКр
+            sku: IZOLYATOR_NSPKR
+          - slug: izolyator-nskr
+            title: Изолятор НСКр
+            sku: IZOLYATOR_NSKR
+          - slug: izolyator-pskr
+            title: Изолятор ПСКр
+            sku: IZOLYATOR_PSKR
+          - slug: izolyator-fskr
+            title: Изолятор ФСКр
+            sku: IZOLYATOR_FSKR
+          - slug: izolyator-kskr
+            title: Изолятор КСКр
+            sku: IZOLYATOR_KSKR
+          - slug: izolyator-asp
+            title: Изолятор АСП
+            sku: IZOLYATOR_ASP
+          - slug: izolyator-app
+            title: Изолятор АПП
+            sku: IZOLYATOR_APP
+          - slug: izolyator-apr
+            title: Изолятор АПР
+            sku: IZOLYATOR_APR
+          - slug: izolyator-uhl
+            title: Изолятор УХЛ
+            sku: IZOLYATOR_UHL
+          - slug: izolyator-iok
+            title: Изолятор ИОК
+            sku: IZOLYATOR_IOK
+          - slug: izolyator-aspr
+            title: Изолятор АСПр
+            sku: IZOLYATOR_ASPR
+          - slug: izolyator-aspk
+            title: Изолятор АСПк
+            sku: IZOLYATOR_ASPK
+          - slug: izolyator-itas
+            title: Изолятор ИТАС
+            sku: IZOLYATOR_ITAS
       - slug: transformatornye-podstancii
         title: Трансформаторные подстанции
         intro: Блочно-модульные КТП, комплектные распределительные устройства и шкафы учета.
         range: Мощность 250–2500 кВА, классы напряжения 6/10/35 кВ.
-        items:
-          - slug: ktp-10-04-1000
-            title: КТП 10/0,4 кВ 1000 кВА
-            desc: Комплектуется трансформатором, РУ-10 кВ и РУ-0,4 кВ в утепленном блоке.
-          - slug: ptn-35-bm
-            title: Блочно-модульная подстанция 35 кВ
-            desc: Модульный комплекс для промышленных площадок с АСУ ТП.
-          - slug: ktp-630-budka
-            title: Комплектная трансформаторная будка 630 кВА
-            desc: Компактное решение для строительства и временного электроснабжения.
+        items: []
       - slug: shchitovoe-oborudovanie
         title: Щитовое оборудование
         intro: Распределительные и силовые щиты, шкафы автоматики и управления.
         range: Токовые нагрузки до 4000 А, IP31–IP55.
-        items:
-          - slug: grsh-04kv
-            title: Главный распределительный щит ГРЩ 0,4 кВ
-            desc: Конфигурируется под проект, комплектуется автоматами и устройствами учета.
-          - slug: avr-400a
-            title: Щит АВР 400 А
-            desc: Обеспечивает бесперебойность питания между двумя вводами.
-          - slug: shchit-upravleniya-nasosami
-            title: Щит управления насосами
-            desc: С частотными преобразователями, контроллером и диспетчеризацией.
+        items: []
       - slug: zazemlenie-molniezashita
         title: Заземление и молниезащита
         intro: Комплектующие для контуров заземления и наружной молниезащиты.
         range: Сечения токоотводов 25–70 мм², сопротивление ≤4 Ом.
-        items:
-          - slug: kontur-zazemleniya
-            title: Контур заземления оцинкованный
-            desc: Комплект стержней и соединителей для монтажа токоотводов.
-          - slug: molniepriemniki-sterzh
-            title: Молниеприемники стержневые
-            desc: Поставляются с монтажными кронштейнами и токоотводами.
-          - slug: uzip
-            title: Устройства защиты от импульсных перенапряжений
-            desc: Разряжают импульсы грозовых и коммутационных перенапряжений.
+        items: []
       - slug: ulichnoe-osveshchenie
         title: Осветительное оборудование для улиц и промзон
         intro: Энергоэффективные светильники и прожекторы для наружного применения.
         range: Мощность 30–400 Вт, световой поток 4 000–55 000 лм.
-        items:
-          - slug: svetilnik-60w-ip66
-            title: Светильник ЖКХ 60 Вт IP66
-            desc: LED-светильник с управлением по фотореле и классом защиты IP66.
-          - slug: prom-svet-150
-            title: Промышленный светильник 150 Вт
-            desc: Для цехов и складов, драйвер с резервом по мощности.
-          - slug: svet-konsol-120-dali
-            title: Светильник консольный 120 Вт DALI
-            desc: Поддерживает диммирование и удаленный контроль освещения.
+        items: []
       - slug: montazhnye-materialy-elektro
         title: Монтажные материалы
         intro: 'Все для прокладки кабеля: лотки, металлорукава, наконечники, гермовводы.'
         range: Ширина лотков 50–600 мм, температуры −60…+90 °C.
-        items:
-          - slug: kabelnye-lotki
-            title: Кабельные лотки оцинкованные
-            desc: Перфорированные и сплошные лотки с полным набором аксессуаров.
-          - slug: metallorukav-gidro
-            title: Металлорукав гидроизоляционный
-            desc: Степень защиты до IP67, устойчив к агрессивным средам.
-          - slug: nakonechniki-tml
-            title: Наконечники ТМЛ
-            desc: Луженые медные наконечники для опрессовки кабельных жил.
+        items: []
       - slug: uslugi-montazh-elektro
         title: Услуги монтажа и пусконаладки
         intro: Комплексные работы по монтажу кабельных линий и электрооборудования.
         range: От монтажа ЛЭП и КЛ до ПНР РУ 0,4–35 кВ.
-        items:
-          - slug: montazh-kabelnyh-liniy
-            title: Монтаж кабельных линий и КТП
-            desc: Прокладка, концевые заделки, сдача в Ростехнадзор.
-          - slug: pnr-elektro-04-10
-            title: ПНР электрооборудования 0,4–10 кВ
-            desc: Наладка РУ, проверка защит и испытания изоляции.
-          - slug: ispytaniya-elektro
-            title: Испытания и измерения электроустановок
-            desc: Полный пакет протоколов, проверка контуров заземления и УЗО.
+        items: []
   - slug: vodootvedenie
     title: Водоотведение
     image: /img/products/vodootvedenie.webp
@@ -564,128 +2217,47 @@ categories:
         title: Трубы канализационные
         intro: Пластиковые, чугунные и стеклопластиковые трубы для наружной и внутренней канализации.
         range: Диаметр Ø110–Ø1000 мм, кольцевая жесткость SN4–SN16.
-        items:
-          - slug: truba-pvh-sn8-200
-            title: Труба ПВХ SN8 Ø200 мм
-            desc: Гофрированная труба для наружной самотечной канализации с кольцевой жесткостью SN8.
-          - slug: truba-pp-vnut-110
-            title: Труба ПП для внутренней канализации Ø110 мм
-            desc: Бесшумная система с минеральным наполнителем, класс пожарной безопасности В1.
-          - slug: truba-sml-dn150
-            title: Труба SML чугунная DN150
-            desc: Безраструбная труба для стояков и техэтажей, поставляется с хомутами.
+        items: []
       - slug: fitingi-kanalizacionnye
         title: Соединительные элементы
         intro: Переходы, муфты и тройники для канализационных сетей любого материала.
         range: Диаметр Ø50–Ø400 мм, давление до 1,6 бар.
-        items:
-          - slug: mufta-pvh-160
-            title: Муфта канализационная ПВХ Ø160 мм
-            desc: Большая глубина раструба для надежных соединений под землей.
-          - slug: troynik-pp-110
-            title: Тройник ПП 110×110×45°
-            desc: Обеспечивает повышенную герметичность и шумоизоляцию.
-          - slug: perehod-160-110
-            title: Переход канализационный 160×110
-            desc: Гладкая геометрия снижает сопротивление потоку.
+        items: []
       - slug: lyuki
         title: Люки
         intro: Чугунные и полимерпесчаные люки для ревизии и обслуживания сетей.
         range: Нагрузочные классы А15–F900, диаметры 600–900 мм.
-        items:
-          - slug: lyuk-chugun-tyazhelyj
-            title: Люк чугунный тяжелый Т
-            desc: Соответствует требованиям ГОСТ Р 3634-99, выдерживает нагрузку до 40 т.
-          - slug: lyuk-polimer-s
-            title: Люк полимерпесчаный тип С
-            desc: Быстрая поставка цвета по запросу, устойчив к коррозии.
-          - slug: lyuk-parkovyj
-            title: Люк парковый легкий
-            desc: Используется в зеленых зонах и дворовых территориях.
+        items: []
       - slug: kolodcy-kanalizacionnye
         title: Колодцы канализационные
         intro: Смотровые и перепадные колодцы из пластика и ЖБИ.
         range: Диаметры 1000–2400 мм, глубины до 15 м.
-        items:
-          - slug: kolodec-koloplast-1500
-            title: Пластиковый колодец KoloPlast Ø1500 мм
-            desc: Герметичное решение с лестницей и анкерным креплением.
-          - slug: kolco-ks209
-            title: ЖБИ кольца КС 20.9
-            desc: Классическое исполнение для самотечных коллекторов.
-          - slug: tekhnicheskiy-kolodec-lestnica
-            title: Технический колодец с лестницей и площадкой
-            desc: Предусмотрены закладные для установки оборудования и датчиков.
+        items: []
       - slug: kss-nasosnye-stancii
         title: Насосные станции для стоков
         intro: Комплектные КНС для коммунальных и промышленных объектов.
         range: Производительность 5–400 л/с, напор до 60 м.
-        items:
-          - slug: kns-byt-50
-            title: КНС бытовая 50 л/с
-            desc: Готовый комплект с погружными насосами и шкафом управления.
-          - slug: kns-prom-200
-            title: КНС промышленная 200 л/с
-            desc: Два рабочих и один резервный насос, доставка в сборе на площадку.
-          - slug: stanciya-perekachki-livnevykh
-            title: Станция перекачки ливневых стоков
-            desc: Оснащена системой удаления песка и автоматикой синхронизации насосов.
+        items: []
       - slug: ochistnye-sooruzheniya
         title: Очистные сооружения
         intro: ЛОС для хозяйственно-бытовых и ливневых стоков, модульные комплексы.
         range: Производительность 50–5000 м³/сут.
-        items:
-          - slug: los-300
-            title: Модульные ЛОС 300 м³/сут
-            desc: Контейнерные блоки биологической очистки с тонкой фильтрацией.
-          - slug: blok-peskolovok
-            title: Блок-модуль песколовок
-            desc: Эффективное удаление песка и нефтепродуктов перед ЛОС.
-          - slug: aerotenk-biofiltr
-            title: Аэротенк с биофильтром
-            desc: Энергосберегающее решение для модернизации существующих станций.
+        items: []
       - slug: rezervuary-otstoyniki
         title: Резервуары и отстойники
         intro: Емкостное оборудование для аккумулирования и отстаивания стоков.
         range: Объём 25–3000 м³, горизонтальные и вертикальные исполнения.
-        items:
-          - slug: otstoynik-500
-            title: Отстойник горизонтальный 500 м³
-            desc: Выполняется из стали с внутренним покрытием и системой замера уровня.
-          - slug: rezervuar-stoki-1000
-            title: Резервуар аккумулирования стоков 1000 м³
-            desc: Комплектуется насосным отсеком и узлом автоматизации.
-          - slug: rezervuar-grp-sekcionnyj
-            title: Секционный резервуар из стеклопластика
-            desc: Легкий монтаж и высокая коррозионная стойкость.
+        items: []
       - slug: gidroizolyaciya-pokrytiya
         title: Гидроизоляционные материалы и покрытия
         intro: Защита сооружений от коррозии и инфильтраций.
         range: Толщина покрытий 1,5–5 мм, рабочая температура −50…+80 °C.
-        items:
-          - slug: mastika-bitum
-            title: Мастика битумно-полимерная
-            desc: Применяется для гидроизоляции ЖБИ и металлических емкостей.
-          - slug: pvh-membrana-15
-            title: Рулонная ПВХ-мембрана 1,5 мм
-            desc: Сварка горячим воздухом, высокая стойкость к агрессивным средам.
-          - slug: inyeccionnye-sostavy
-            title: Инъекционные составы для швов
-            desc: Полиуретановые гели для герметизации трещин и холодных швов.
+        items: []
       - slug: uslugi-proekt-montazh-otvod
         title: Услуги проектирования и монтажа
         intro: Полный цикл работ для систем водоотведения.
         range: От обследования сетей до сдачи ЛОС и КНС под ключ.
-        items:
-          - slug: proekt-sistem-vodootved
-            title: Проектирование систем водоотведения
-            desc: Разработка ПД и РД с гидравлическим расчетом и подбором оборудования.
-          - slug: montazh-kns-los
-            title: Монтаж КНС и ЛОС
-            desc: Строительно-монтажные и пусконаладочные работы под ключ.
-          - slug: servis-dispecherizaciya-kns
-            title: Сервис и диспетчеризация КНС
-            desc: Ремонт, модернизация автоматики и удаленный мониторинг.
+        items: []
   - slug: uslugi
     title: Услуги
     image: /img/products/spectekhnika.jpg
@@ -695,97 +2267,73 @@ categories:
         title: Доставка материалов по РФ
         intro: Организуем перевозку любыми видами транспорта с экспедированием и страхованием.
         range: Авто, железная дорога и мультимодальные поставки по всей России.
-        items:
-          - slug: avtoperevozka-stroymat
-            title: Автоперевозка комплектов стройматериалов
-            desc: Формируем попутные и выделенные рейсы, работаем по всей России.
-          - slug: zhd-dostavka-negabarit
-            title: ЖД доставка негабарита
-            desc: Оформление ЖД-документов, сопровождение и крепеж грузов.
-          - slug: ekspe-strakh
-            title: Экспедирование и страхование грузов
-            desc: Контроль сроков и сохранности, оперативная отчетность по перевозке.
+        items: []
       - slug: arenda-spectekhniki
         title: Аренда спецтехники
         intro: Техника с экипажем и сервисной поддержкой 24/7.
         range: Автокраны 25–130 т, экскаваторы 0,3–2,0 м³, бетоноподача до 60 м.
         items:
-          - slug: arenda-avtokrana-32
-            title: Аренда автокрана 32 т
-            desc: Выезд по заявке, сменный график работы и топливное сопровождение.
-          - slug: arenda-eks-pogruzchik
-            title: Аренда экскаватора-погрузчика
-            desc: Комплектация ковшами, гидромолотом и навесным оборудованием.
-          - slug: arenda-betononasosa-42
-            title: Аренда бетонного насоса 42 м
-            desc: Подача до 120 м³/ч, собственный парк техники с механиками.
+          - slug: manipulyator
+            title: Манипулятор
+            sku: MANIPULYATOR
+          - slug: gnb
+            title: ГНБ
+            sku: GNB
+          - slug: ekskavator-pogruzchik
+            title: Экскаватор-погрузчик
+            sku: EKSKAVATOR_POGRUZCHIK
+          - slug: polnopovorotnyy-ekskavator-kolesnyy
+            title: Полноповоротный экскаватор (колесный)
+            sku: POLNOPOVOROTNYY_EKSKAVATOR_KOLESNYY
+          - slug: polnopovorotnyy-ekskavator-gusenichnyy
+            title: Полноповоротный экскаватор (гусеничный)
+            sku: POLNOPOVOROTNYY_EKSKAVATOR_GUSENICHNYY
+          - slug: samosval
+            title: Самосвал
+            sku: SAMOSVAL
+          - slug: tral
+            title: Трал
+            sku: TRAL
+          - slug: kran-avtomobilnyy
+            title: Кран автомобильный
+            sku: KRAN_AVTOMOBILNYY
+          - slug: frontalnyy-pogruzchik
+            title: Фронтальный погрузчик
+            sku: FRONTALNYY_POGRUZCHIK
+          - slug: teleskopicheskiy-pogruzchik
+            title: Телескопический погрузчик
+            sku: TELESKOPICHESKIY_POGRUZCHIK
+          - slug: minipogruzchik
+            title: Минипогрузчик
+            sku: MINIPOGRUZCHIK
+          - slug: vibrokatok-gruntovyy-odnovalcovyy
+            title: Виброкаток грунтовый одновальцовый
+            sku: VIBROKATOK_GRUNTOVYY_ODNOVALCOVYY
+          - slug: vodovoz
+            title: Водовоз
+            sku: VODOVOZ
       - slug: smr
         title: СМР
         intro: Комплекс строительно-монтажных работ с собственными бригадами и техникой.
         range: От нулевого цикла до отделки, опыт по объектам 1–4 уровней ответственности.
-        items:
-          - slug: kompleks-smr
-            title: Комплексное выполнение СМР
-            desc: Организация строительной площадки, снабжение и график производства работ.
-          - slug: montazh-inzh-setey
-            title: Монтаж инженерных сетей
-            desc: Водоснабжение, канализация, отопление, электрические сети.
-          - slug: obshchestroitelnye-raboty
-            title: Общестроительные работы
-            desc: Земляные, бетонные, каменные и отделочные работы любых объемов.
+        items: []
       - slug: puskonaladochnye-raboty
         title: Пусконаладочные работы
         intro: Обеспечиваем готовность инженерных систем к эксплуатации.
         range: Водоснабжение, канализация, отопление, вентиляция и электроустановки.
-        items:
-          - slug: pnr-nasosnyh-stancij
-            title: ПНР насосных станций
-            desc: Регулировка, настройка автоматики, испытания под нагрузкой.
-          - slug: pnr-elektrooborudovaniya
-            title: ПНР электрооборудования
-            desc: Проверка защит, испытания КРУ и КТП, выдача протоколов.
-          - slug: balansirovka-sov
-            title: Балансировка систем отопления и вентиляции
-            desc: Пуск комплекса, регулировка расходов и температурных режимов.
+        items: []
       - slug: proektirovanie-setey
         title: Проектирование инженерных сетей
         intro: Проектируем сети водоснабжения, канализации, отопления и электроснабжения.
         range: ПД и РД, BIM, согласование с ресурсоснабжающими организациями.
-        items:
-          - slug: proekt-vodosnab
-            title: Проектирование водоснабжения и канализации
-            desc: ПД, РД, BIM-модели и подбор оборудования с технико-экономическим обоснованием.
-          - slug: proekt-elektro
-            title: Проектирование электроснабжения
-            desc: Разделы ЭО, АИТП, расчеты токов КЗ и молниезащиты.
-          - slug: proekt-otoplenie
-            title: Проектирование отопления и вентиляции
-            desc: Комплексные решения, расчет теплопотерь, подбор автоматики.
+        items: []
       - slug: nadzor
         title: Авторский и технический надзор
         intro: Контроль качества и соблюдения проекта на всех стадиях строительства.
         range: Контроль отделочных, инженерных и монолитных работ по графику проекта.
-        items:
-          - slug: avtorskiy-nadzor
-            title: Авторский надзор
-            desc: Проверка соответствия работ проектным решениям, ведение журналов.
-          - slug: tekhnicheskiy-nadzor
-            title: Технический надзор
-            desc: Контроль качества материалов, скрытых работ и исполнительной документации.
-          - slug: audit-stroitelnogo-obekta
-            title: Аудит строительного объекта
-            desc: Разовая экспертиза с рекомендациями по устранению замечаний.
+        items: []
       - slug: otvetstvennoe-khranenie
         title: Ответ-хранение и складские услуги
         intro: Организуем хранение и комплектование материалов на наших базах.
         range: Складские площади 2 000–12 000 м², адресное хранение и кросс-докинг.
-        items:
-          - slug: sklad-dlitelnogo-hraneniya
-            title: Склад длительного хранения
-            desc: Крытые и открытые площадки, круглосуточная охрана и видеонаблюдение.
-          - slug: pereupakovka
-            title: Переупаковка и комплектация
-            desc: Комплектуем партии по спецификациям, маркируем и подготавливаем к отправке.
-          - slug: adresnoe-hranenie
-            title: Адресное хранение
-            desc: Ведение адресной логистики в WMS, оперативная отгрузка на объект.
+        items: []
