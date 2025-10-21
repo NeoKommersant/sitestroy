@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { EmailCopyLink } from "@/components/ui/EmailCopyLink";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
 
 // --------------------------------------------------------------
 // Типы данных и константы для страницы
@@ -66,8 +66,6 @@ type ContactPerson = {
   email: string;
 };
 
-const HERO_AUTOPLAY_MS = 8000;
-
 // --------------------------------------------------------------
 // Контент главной страницы
 // --------------------------------------------------------------
@@ -79,7 +77,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Строим инфраструктуру под ключ",
     description:
       "Комплексные поставки, инжиниринг и сопровождение для промышленных, муниципальных и энергетических объектов по всей России.",
-    image: "/img/hero/slide-1.jpeg",
+    image: "/img/hero/slide-1.png",
     alt: "Инженеры обсуждают проект модернизации инфраструктуры",
     primaryCta: { label: "Связаться с менеджером", href: "#contacts" },
     secondaryCta: { label: "Каталог решений", href: "/catalog" },
@@ -90,7 +88,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Интеллектуальный подбор номенклатуры",
     description:
       "Вода, газ, электричество, общестроительные материалы и спецтехника — подбираем номенклатуру под проект с умным поиском и фильтрацией.",
-    image: "/img/hero/slide-2.jpeg",
+    image: "/img/hero/slide-2.png",
     alt: "Склад строительных материалов с металлопрокатом и трубами",
     primaryCta: { label: "Отправить спецификацию", href: "/catalog/request" },
     secondaryCta: { label: "Смотреть категории", href: "/catalog" },
@@ -101,7 +99,7 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Полный цикл работ",
     description:
       "Проектирование, строительно-монтажные и пусконаладочные работы, технадзор, логистика и сервис. Формируем команду под задачу.",
-    image: "/img/hero/slide-3.jpeg",
+    image: "/img/hero/slide-3.webp",
     alt: "Монтажная бригада устанавливает инженерные сети",
     primaryCta: { label: "Выбрать услугу", href: "/services" },
   },
@@ -111,11 +109,14 @@ const HERO_SLIDES: HeroSlide[] = [
     subtitle: "Опыт в B2B и B2G проектах",
     description:
       "Госкорпорации, ресурсоснабжающие организации, девелоперы и промышленные холдинги. Реализуем проекты по всей стране.",
-    image: "/img/hero/slide-4.jpeg",
+    image: "/img/hero/slide-4.png",
     alt: "Команда компании и клиента на строительной площадке",
     primaryCta: { label: "Кейсы клиентов", href: "/clients" },
   },
 ];
+
+const PAGE_SECTIONS = ["hero", "product-directions", "service-directions", "clients", "certificates", "contacts"] as const;
+type SectionId = (typeof PAGE_SECTIONS)[number];
 // КАТЕГОРИИ МАТЕРИАЛОВ
 const PRODUCT_DIRECTIONS: DirectionCard[] = [
   {
@@ -577,14 +578,96 @@ export default function Page() {
 
   const { containerRef: certificatesRef, activeIndex: certificateIndex, goTo: goToCertificate } = useCarousel(certificates.length);
 
-  
-  useEffect(() => {
-    if (heroSlides.length <= 1) return;
-    const timer = window.setInterval(() => {
-      setActiveHeroIndex((index) => (index + 1) % heroSlides.length);
-    }, HERO_AUTOPLAY_MS);
-    return () => window.clearInterval(timer);
-  }, [heroSlides.length]);
+  const heroSectionRef = useRef<HTMLDivElement | null>(null);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const sectionCallbacks = useMemo(
+    () =>
+      PAGE_SECTIONS.map((_, index) => (node: HTMLElement | null) => {
+        sectionRefs.current[index] = node;
+        if (index === 0) {
+          heroSectionRef.current = node;
+        }
+      }),
+    [],
+  );
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  const [peekOffset, setPeekOffset] = useState(0);
+  const scrollIntentRef = useRef<{ direction: 1 | -1; timestamp: number } | null>(null);
+  const navigationCooldownRef = useRef(0);
+  const peekTimeoutRef = useRef<number | null>(null);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const resetPeek = useCallback(() => {
+    if (peekTimeoutRef.current) {
+      window.clearTimeout(peekTimeoutRef.current);
+      peekTimeoutRef.current = null;
+    }
+    setPeekOffset(0);
+  }, []);
+
+  const showPeek = useCallback(
+    (direction: 1 | -1) => {
+      if (peekTimeoutRef.current) {
+        window.clearTimeout(peekTimeoutRef.current);
+      }
+      const offset = direction > 0 ? -36 : 36;
+      setPeekOffset(offset);
+      peekTimeoutRef.current = window.setTimeout(() => {
+        setPeekOffset(0);
+        peekTimeoutRef.current = null;
+      }, 220);
+    },
+    [],
+  );
+
+  const goToSection = useCallback(
+    (nextIndex: number) => {
+      const sections = sectionRefs.current;
+      if (!sections.length) return;
+      const clamped = Math.max(0, Math.min(sections.length - 1, nextIndex));
+      const target = sections[clamped];
+      if (!target) return;
+      resetPeek();
+      scrollIntentRef.current = null;
+      navigationCooldownRef.current = Date.now();
+      setActiveSectionIndex(clamped);
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    },
+    [resetPeek],
+  );
+
+  const queueNavigation = useCallback(
+    (direction: 1 | -1) => {
+      const now = Date.now();
+      if (now - navigationCooldownRef.current < 550) {
+        return;
+      }
+
+      const intent = scrollIntentRef.current;
+      if (!intent || intent.direction !== direction || now - intent.timestamp > 700) {
+        scrollIntentRef.current = { direction, timestamp: now };
+        showPeek(direction);
+        return;
+      }
+
+      scrollIntentRef.current = null;
+      navigationCooldownRef.current = now;
+      resetPeek();
+      goToSection(activeSectionIndex + direction);
+    },
+    [activeSectionIndex, goToSection, resetPeek, showPeek],
+  );
+
+  const handleAnchorNavigation = useCallback(
+    (event: ReactMouseEvent<HTMLAnchorElement>, href: string) => {
+      if (!href.startsWith("#")) return;
+      const id = href.slice(1) as SectionId;
+      const index = PAGE_SECTIONS.findIndex((section) => section === id);
+      if (index === -1) return;
+      event.preventDefault();
+      goToSection(index);
+    },
+    [goToSection],
+  );
 
   const handleHeroSelect = useCallback(
     (index: number) => {
@@ -594,6 +677,207 @@ export default function Page() {
     },
     [heroSlides.length],
   );
+
+  const swipeState = useRef<{ pointerId: number; startX: number; lastX: number } | null>(null);
+
+  const finalizeSwipe = useCallback(
+    (pointerId: number, clientX: number) => {
+      const state = swipeState.current;
+      if (!state || state.pointerId !== pointerId) {
+        return;
+      }
+
+      const deltaX = (Number.isFinite(clientX) ? clientX : state.lastX) - state.startX;
+      if (Math.abs(deltaX) > 60) {
+        handleHeroSelect(activeHeroIndex + (deltaX < 0 ? 1 : -1));
+      }
+
+      swipeState.current = null;
+    },
+    [activeHeroIndex, handleHeroSelect],
+  );
+
+  const handlePointerDown = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement | null;
+    if (target?.closest("a, button")) {
+      swipeState.current = null;
+      return;
+    }
+
+    swipeState.current = { pointerId: event.pointerId, startX: event.clientX, lastX: event.clientX };
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }, []);
+
+  const handlePointerMove = useCallback((event: ReactPointerEvent<HTMLDivElement>) => {
+    const state = swipeState.current;
+    if (!state || state.pointerId !== event.pointerId) {
+      return;
+    }
+
+    swipeState.current = { ...state, lastX: event.clientX };
+  }, []);
+
+  const handlePointerUp = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      finalizeSwipe(event.pointerId, event.clientX);
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+    },
+    [finalizeSwipe],
+  );
+
+  const handlePointerCancel = useCallback(
+    (event: ReactPointerEvent<HTMLDivElement>) => {
+      swipeState.current = null;
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+    },
+    [],
+  );
+
+  useEffect(() => {
+    const handleWheel = (event: WheelEvent) => {
+      if (document.body.style.overflow === "hidden") return;
+      if (!sectionRefs.current.length) return;
+      if (event.deltaY === 0) return;
+      event.preventDefault();
+      queueNavigation((event.deltaY > 0 ? 1 : -1) as 1 | -1);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [queueNavigation]);
+
+  useEffect(() => {
+    const handleSectionKeys = (event: KeyboardEvent) => {
+      if (document.body.style.overflow === "hidden") return;
+      const activeElement = document.activeElement;
+      if (activeElement && ["INPUT", "TEXTAREA", "SELECT"].includes(activeElement.tagName)) {
+        return;
+      }
+
+      if (event.key === "ArrowDown" || event.key === "PageDown") {
+        event.preventDefault();
+      queueNavigation(1);
+      } else if (event.key === "ArrowUp" || event.key === "PageUp") {
+        event.preventDefault();
+        queueNavigation(-1);
+      }
+    };
+
+    window.addEventListener("keydown", handleSectionKeys);
+    return () => window.removeEventListener("keydown", handleSectionKeys);
+  }, [queueNavigation]);
+
+  useEffect(() => {
+    const handleTouchStart = (event: TouchEvent) => {
+      if (document.body.style.overflow === "hidden") return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      if (document.body.style.overflow === "hidden") return;
+      if (!touchStartRef.current) return;
+      const touch = event.touches[0];
+      if (!touch) return;
+      const dx = touch.clientX - touchStartRef.current.x;
+      const dy = touch.clientY - touchStartRef.current.y;
+      if (Math.abs(dy) <= Math.abs(dx)) {
+        return;
+      }
+      event.preventDefault();
+    };
+
+    const finalizeTouch = (event: TouchEvent) => {
+      if (!touchStartRef.current) return;
+      const touch = event.changedTouches[0];
+      if (!touch) {
+        touchStartRef.current = null;
+        scrollIntentRef.current = null;
+        resetPeek();
+        return;
+      }
+      const dx = touch.clientX - touchStartRef.current.x;
+      const dy = touchStartRef.current.y - touch.clientY;
+      const absDy = Math.abs(dy);
+      const absDx = Math.abs(dx);
+      touchStartRef.current = null;
+      if (absDy < 40 || absDy <= absDx) {
+        scrollIntentRef.current = null;
+        resetPeek();
+        return;
+      }
+      queueNavigation((dy > 0 ? 1 : -1) as 1 | -1);
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", finalizeTouch);
+    window.addEventListener("touchcancel", finalizeTouch);
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", finalizeTouch);
+      window.removeEventListener("touchcancel", finalizeTouch);
+    };
+  }, [queueNavigation, resetPeek]);
+
+  useEffect(() => {
+    return () => {
+      if (peekTimeoutRef.current) {
+        window.clearTimeout(peekTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateActiveSection = () => {
+      const sections = sectionRefs.current;
+      if (!sections.length) return;
+      const referenceLine = window.scrollY + window.innerHeight / 2;
+      let nextIndex = 0;
+      sections.forEach((section, index) => {
+        if (!section) return;
+        if (referenceLine >= section.offsetTop) {
+          nextIndex = index;
+        }
+      });
+      setActiveSectionIndex((prev) => (prev === nextIndex ? prev : nextIndex));
+    };
+
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    return () => window.removeEventListener("scroll", updateActiveSection);
+  }, []);
+
+  useEffect(() => {
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") {
+        return;
+      }
+
+      const activeElement = document.activeElement;
+      if (activeElement && ["INPUT", "TEXTAREA", "SELECT"].includes(activeElement.tagName)) {
+        return;
+      }
+
+      if (activeSectionIndex !== 0) return;
+
+      event.preventDefault();
+      if (event.key === "ArrowLeft") {
+        handleHeroSelect(activeHeroIndex - 1);
+      } else {
+        handleHeroSelect(activeHeroIndex + 1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeydown);
+    return () => window.removeEventListener("keydown", handleKeydown);
+  }, [activeHeroIndex, activeSectionIndex, handleHeroSelect]);
 
   const handleOpenCase = useCallback((clientCase: ClientCase) => {
     setSelectedCase(clientCase);
@@ -608,88 +892,121 @@ export default function Page() {
     setSelectedCertificate(null);
   }, []);
 
-  const activeHero = heroSlides[activeHeroIndex] ?? heroSlides[0];
+  const peekStyle = peekOffset !== 0 ? { transform: `translateY(${peekOffset}px)` } : undefined;
 
   return (
     <>
-      <main className="space-y-24 pb-24">
-        <section id="hero" className="relative overflow-hidden bg-gradient-to-br from-teal-600 via-teal-800 to-blue-900">
-          <div className="mx-auto flex max-w-6xl flex-col gap-12 px-6 py-20 lg:flex-row lg:items-center">
-            <div className="flex-1 space-y-6">
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-200">Строй Альянс</span>
-              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">{activeHero?.title}</h1>
-              <p className="text-lg text-blue-100">{activeHero?.subtitle}</p>
-              <p className="text-sm leading-relaxed text-blue-100/80">{activeHero?.description}</p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                {activeHero?.primaryCta && (
-                  <Link
-                    href={activeHero.primaryCta.href}
-                    className="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-800 transition hover:-translate-y-0.5 hover:bg-blue-50"
-                  >
-                    {activeHero.primaryCta.label}
-                  </Link>
-                )}
-                {activeHero?.secondaryCta && (
-                  <Link
-                    href={activeHero.secondaryCta.href}
-                    className="inline-flex items-center justify-center rounded-full border border-blue-200 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white/70 hover:bg-white/10"
-                  >
-                    {activeHero.secondaryCta.label}
-                  </Link>
-                )}
-              </div>
-            </div>
-            <div className="flex-1">
-<div className="relative mx-auto w-full max-w-xl
-                      aspect-[16/9] lg:max-w-none lg:h-[420px] lg:aspect-auto
-                      overflow-hidden rounded-2xl bg-white/5">
-                  {activeHero && (
+      <main className="space-y-24 pb-24 transition-transform duration-300 ease-out" style={peekStyle}>
+        <section
+          id="hero"
+          ref={sectionCallbacks[0]}
+          className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none"
+        >
+          <div
+            className="relative h-full w-full touch-pan-y"
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={handlePointerUp}
+            onPointerCancel={handlePointerCancel}
+          >
+            {heroSlides.map((slide, index) => {
+              const offset = (index - activeHeroIndex) * 100;
+              const isActive = index === activeHeroIndex;
+              return (
+                <div
+                  key={slide.id}
+                  className="absolute inset-0 flex h-full w-full transform transition-transform duration-500 ease-in-out will-change-transform"
+                  style={{ transform: `translateX(${offset}%)` }}
+                  aria-hidden={!isActive}
+                  role="group"
+                  aria-roledescription="slide"
+                  aria-label={`${index + 1} из ${heroSlides.length}`}
+                >
+                  <div className="absolute inset-0">
                     <Image
-                      src={activeHero.image}
-                      alt={activeHero.alt}
+                      src={slide.image}
+                      alt={slide.alt}
                       fill
                       className="object-cover object-center"
-                      sizes="(min-width:1024px) 600px, 100vw"
-                      priority
+                      sizes="100vw"
+                      priority={index === 0}
                     />
+                    <div className="absolute inset-0 bg-slate-950/40" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-slate-950/10 via-slate-950/20 to-slate-950/70" />
+                  </div>
+                  <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-center gap-6 px-6 py-24 text-white sm:px-10 lg:px-16">
+                    <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
+                      <span className="text-xs font-semibold uppercase tracking-[0.4em] text-white/80">Строй Альянс</span>
+                      <h1 className="text-4xl font-bold leading-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl lg:text-6xl">
+                        {slide.title}
+                      </h1>
+                      <p className="max-w-2xl text-lg text-white/85 sm:text-xl">{slide.subtitle}</p>
+                    </div>
+                    <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/75 sm:mx-0 sm:text-lg">{slide.description}</p>
+                    <div className="flex flex-col items-center gap-3 pt-2 sm:flex-row sm:items-center">
+                      {slide.primaryCta && (
+                        <Link
+                      href={slide.primaryCta.href}
+                      onClick={(event) => handleAnchorNavigation(event, slide.primaryCta.href)}
+                      className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-white/90 px-8 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 hover:shadow-slate-900/20"
+                    >
+                      {slide.primaryCta.label}
+                    </Link>
                   )}
+                  {slide.secondaryCta && (
+                    <Link
+                      href={slide.secondaryCta.href}
+                      onClick={(event) => handleAnchorNavigation(event, slide.secondaryCta.href)}
+                      className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 hover:text-white"
+                    >
+                      {slide.secondaryCta.label}
+                    </Link>
+                  )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
+              );
+            })}
+          </div>
 
           {heroSlides.length > 1 && (
-            <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 pb-10">
+            <>
               <button
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex - 1)}
-                className="rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/80 transition hover:border-white hover:text-white"
+                aria-label="Предыдущий слайд"
+                className="group absolute left-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-10 lg:left-16"
               >
-                Назад
+                <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
               </button>
-              <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => handleHeroSelect(activeHeroIndex + 1)}
+                aria-label="Следующий слайд"
+                className="group absolute right-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-10 lg:right-16"
+              >
+                <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+              </button>
+              <div className="pointer-events-none absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-3 sm:bottom-14">
                 {heroSlides.map((slide, index) => (
                   <button
                     key={slide.id}
                     type="button"
                     onClick={() => handleHeroSelect(index)}
-                    aria-label={`Go to ${slide.title}`}
-                    className={`h-2.5 w-10 rounded-full transition ${activeHeroIndex === index ? "bg-white" : "bg-white/40"}`}
+                    className={`pointer-events-auto h-2 w-10 rounded-full border border-white/30 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${activeHeroIndex === index ? "bg-white/90" : "bg-white/20"}`}
+                    aria-label={`Перейти к слайду: ${slide.title}`}
                   />
                 ))}
               </div>
-              <button
-                type="button"
-                onClick={() => handleHeroSelect(activeHeroIndex + 1)}
-                className="rounded-full border border-white/30 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/80 transition hover:border-white hover:text-white"
-              >
-                Далее
-              </button>
-            </div>
+            </>
           )}
         </section>
 
-        <section id="product-directions" className="mx-auto max-w-6xl px-6"> 
+        <section ref={sectionCallbacks[1]} id="product-directions" className="mx-auto max-w-6xl px-6 scroll-mt-32">
           <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between ">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Продукты</span>
@@ -730,7 +1047,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section id="service-directions" className="mx-auto max-w-6xl px-6">
+        <section ref={sectionCallbacks[2]} id="service-directions" className="mx-auto max-w-6xl px-6 scroll-mt-32">
           <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Услуги</span>
@@ -771,7 +1088,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section id="clients" className="bg-slate-900 py-20">
+        <section ref={sectionCallbacks[3]} id="clients" className="bg-slate-900 py-20 scroll-mt-32">
           <div className="mx-auto max-w-6xl px-6">
             <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
               <div>
@@ -812,7 +1129,7 @@ export default function Page() {
           </div>
         </section>
 
-        <section id="certificates" className="mx-auto max-w-6xl px-6">
+        <section ref={sectionCallbacks[4]} id="certificates" className="mx-auto max-w-6xl px-6 scroll-mt-32">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">Компетенции</span>
@@ -865,7 +1182,7 @@ export default function Page() {
           )}
         </section>
 
-        <section id="contacts" className="bg-slate-100 py-20">
+        <section ref={sectionCallbacks[5]} id="contacts" className="bg-slate-100 py-20 scroll-mt-32">
           <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 lg:flex-row">
             <div className="flex-1">
               <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">Контакты</span>
