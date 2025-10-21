@@ -1,6 +1,7 @@
 ﻿"use client";
 import { useMemo, useRef, useState, type ChangeEvent } from "react";
 import * as XLSX from "xlsx";
+import { dump } from "js-yaml";
 import type { Category, Item } from "@/types/catalog";
 type EditableCategory = Category;
 type ImportSummary = {
@@ -165,7 +166,7 @@ const normalizeCell = (value: unknown) => {
   if (typeof value === "number") return `${value}`;
   return String(value).trim();
 };
-const REQUIRED_HEADERS = ["категория", "подкатегория", "наименование"] as const;
+const REQUIRED_HEADERS = ["Категория", "Подкатегория", "Наименование"] as const;
 const normalizeHeader = (header: string) => header.trim().toLowerCase();
 const parseExcelFile = async (
   file: File,
@@ -414,8 +415,8 @@ export default function AdminClientPage({
     ? (catalog.find((cat) => cat.slug === itemModal.categorySlug) ?? null)
     : null;
   const modalSubcategories = modalCategory?.sub ?? [];
-  const jsonForExport = useMemo(
-    () => JSON.stringify(prepareCatalogForExport(catalog), null, 2),
+  const yamlForExport = useMemo(
+    () => dump({ categories: prepareCatalogForExport(catalog) }, { lineWidth: 120, noRefs: true }),
     [catalog],
   );
   const saveStatusMessage =
@@ -611,9 +612,9 @@ export default function AdminClientPage({
     }
     closeItemModal();
   };
-  const handleCopyJson = async () => {
+  const handleCopyYaml = async () => {
     try {
-      await navigator.clipboard.writeText(jsonForExport);
+      await navigator.clipboard.writeText(yamlForExport);
       setClipboardStatus("success");
       setTimeout(() => setClipboardStatus("idle"), 2600);
     } catch (error) {
@@ -632,11 +633,17 @@ export default function AdminClientPage({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ catalog: prepared }),
       });
-      const payload = await response.json().catch(() => null);
+      const raw = await response.text();
+      let payload: { error?: string; message?: string } | null = null;
+      try {
+        payload = raw ? (JSON.parse(raw) as typeof payload) : null;
+      } catch {
+        payload = null;
+      }
       if (!response.ok) {
         const detail =
           (payload && (payload.error || payload.message)) ||
-          "Не удалось сохранить каталог";
+          (raw ? raw : "Не удалось сохранить каталог");
         console.error("Failed to save catalog", detail);
         setSaveMessage(detail);
         setSaveStatus("error");
@@ -674,6 +681,7 @@ export default function AdminClientPage({
       });
     }
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const applyImport = (mode: "replace" | "merge") => {
     if (importState.status !== "ready") return;
     const prepared = prepareCatalogForExport(importState.preview.data);
@@ -684,6 +692,7 @@ export default function AdminClientPage({
     }
     resetImportState();
   };
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onImportInput = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -697,249 +706,145 @@ export default function AdminClientPage({
   };
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-24 pt-10 sm:px-6 lg:flex-row lg:px-8">
-      {" "}
+      
       <aside className="lg:w-72">
-        {" "}
+        
         <div className="space-y-3 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          {" "}
+          
           <h1 className="text-lg font-semibold text-slate-900">
             Настройка каталога
-          </h1>{" "}
+          </h1>
           <p className="text-sm text-slate-600">
-            {" "}
+            
             Менеджеры работают только с номенклатурой: категории и подкатегории
             выбираются из существующего справочника. Новые разделы добавляются
-            только через разработчиков.{" "}
-          </p>{" "}
-        </div>{" "}
+            только через разработчиков.
+          </p>
+        </div>
         <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          {" "}
-          <header className="flex flex-wrap items-center justify-between gap-3">
-            {" "}
-            <div>
-              {" "}
-              <h2 className="text-base font-semibold text-slate-900">
-                Импорт из Excel
-              </h2>{" "}
-              <p className="text-xs text-slate-500">
-                {" "}
-                Столбцы: «Категория», «Подкатегория», «Наименование»,
-                «Описание». Новые разделы не создаются.{" "}
-              </p>{" "}
-            </div>{" "}
-            <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-xs font-semibold text-slate-900 transition hover:border-teal-500 hover:text-teal-600">
-              {" "}
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx,.xls"
-                className="hidden"
-                onChange={onImportInput}
-              />{" "}
-              Выбрать файл{" "}
-            </label>{" "}
-          </header>{" "}
-          <p className="text-xs text-slate-500">
-            {" "}
-            Скачайте {""}{" "}
-            <a
-              href="/templates/catalog-import.xlsx"
-              className="font-semibold text-teal-600 hover:text-teal-500"
-            >
-              {" "}
-              шаблон для импорта{" "}
-            </a>{" "}
-            и заполните нужные строки.{" "}
-          </p>{" "}
-          {importState.status === "loading" && (
-            <p className="text-sm text-slate-500">Обрабатываем файл…</p>
-          )}{" "}
-          {importState.status === "error" && (
-            <div className="rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
-              {" "}
-              {importState.message}{" "}
-              <button
-                type="button"
-                className="ml-2 text-xs font-semibold underline"
-                onClick={resetImportState}
-              >
-                {" "}
-                Сбросить{" "}
-              </button>{" "}
-            </div>
-          )}{" "}
-          {importState.status === "ready" && (
-            <div className="space-y-3 text-xs text-slate-600">
-              {" "}
-              <div className="flex flex-wrap items-center gap-2">
-                {" "}
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-600">
-                  {" "}
-                  {importState.preview.filename}{" "}
-                </span>{" "}
-                <span className="rounded-full bg-teal-50 px-3 py-1 text-[11px] font-semibold text-teal-700">
-                  {" "}
-                  Категорий: {importState.preview.summary.categories}{" "}
-                </span>{" "}
-                <span className="rounded-full bg-teal-50 px-3 py-1 text-[11px] font-semibold text-teal-700">
-                  {" "}
-                  Подкатегорий: {importState.preview.summary.subcategories}{" "}
-                </span>{" "}
-                <span className="rounded-full bg-teal-50 px-3 py-1 text-[11px] font-semibold text-teal-700">
-                  {" "}
-                  Позиции: {importState.preview.summary.items}{" "}
-                </span>{" "}
-              </div>{" "}
-              {importState.preview.errors.length > 0 && (
-                <div className="rounded-2xl border border-red-200 bg-red-50 px-3 py-2 text-[11px] text-red-700">
-                  {" "}
-                  <div className="font-semibold text-red-800">Ошибки</div>{" "}
-                  <ul className="mt-1 space-y-1">
-                    {" "}
-                    {importState.preview.errors.slice(0, 5).map((error) => (
-                      <li key={error}>• {error}</li>
-                    ))}{" "}
-                  </ul>{" "}
-                </div>
-              )}{" "}
-              {importState.preview.warnings.length > 0 && (
-                <div className="rounded-2xl border border-yellow-200 bg-yellow-50 px-3 py-2 text-[11px] text-yellow-700">
-                  {" "}
-                  <div className="font-semibold text-yellow-800">
-                    Предупреждения
-                  </div>{" "}
-                  <ul className="mt-1 space-y-1">
-                    {" "}
-                    {importState.preview.warnings.slice(0, 5).map((warning) => (
-                      <li key={warning}>• {warning}</li>
-                    ))}{" "}
-                  </ul>{" "}
-                </div>
-              )}{" "}
-              <div className="flex flex-wrap items-center gap-2">
-                {" "}
-                <button
-                  type="button"
-                  onClick={() => applyImport("replace")}
-                  className="inline-flex items-center justify-center rounded-full bg-teal-600 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition hover:bg-teal-500"
-                >
-                  {" "}
-                  Заменить каталог{" "}
-                </button>{" "}
-                <button
-                  type="button"
-                  onClick={() => applyImport("merge")}
-                  className="inline-flex items-center justify-center rounded-full border border-teal-500 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-teal-600 transition hover:bg-teal-50"
-                >
-                  {" "}
-                  Объединить{" "}
-                </button>{" "}
-                <button
-                  type="button"
-                  onClick={resetImportState}
-                  className="inline-flex items-center justify-center rounded-full border border-slate-300 px-4 py-2 text-[11px] font-semibold text-slate-600 transition hover:border-slate-400 hover:text-slate-800"
-                >
-                  {" "}
-                  Отмена{" "}
-                </button>{" "}
-              </div>{" "}
-            </div>
-          )}{" "}
-        </section>{" "}
-        <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-          {" "}
           <header className="flex flex-wrap items-center justify-between gap-4">
-            {" "}
             <div>
-              {" "}
-              <h2 className="text-base фонт-semibold text-slate-900">
-                Экспорт JSON
-              </h2>{" "}
+              <h2 className="text-base font-semibold text-slate-900">Экспорт YAML</h2>
               <p className="text-xs text-slate-500">
-                Используйте экспорт для резервного копирования и отправляйте
-                каталог напрямую в `data/catalog.yml`.
-              </p>{" "}
-            </div>{" "}
+                Используйте экспорт для резервного копирования и вставляйте данные напрямую в `data/catalog.yml`.
+              </p>
+            </div>
             <div className="flex flex-wrap items-center gap-2">
-              {" "}
               <button
                 type="button"
-                onClick={handleCopyJson}
+                onClick={handleCopyYaml}
                 className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-teal-600 transition hover:border-teal-400 hover:text-teal-500"
               >
-                {" "}
-                Скопировать JSON{" "}
-              </button>{" "}
+                Скопировать YAML
+              </button>
               <button
                 type="button"
                 onClick={saveCatalogToRepo}
                 disabled={saveStatus === "saving"}
                 className="rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {" "}
-                Сохранить в репозитории{" "}
-              </button>{" "}
-            </div>{" "}
-          </header>{" "}
+                Сохранить в репозитории
+              </button>
+            </div>
+          </header>
           {saveStatus !== "idle" && saveStatusMessage && (
             <p className={`text-xs font-semibold ${saveStatusTone}`}>
               {saveStatusMessage}
             </p>
-          )}{" "}
+          )}
           <div className="relative">
-            {" "}
             <pre className="max-h-[320px] overflow-auto rounded-2xl border border-slate-200 bg-slate-900/95 p-4 text-xs text-slate-100">
-              {" "}
-              {jsonForExport}{" "}
-            </pre>{" "}
+              {yamlForExport}
+            </pre>
             {clipboardStatus === "success" && (
               <span className="absolute right-4 top-4 rounded-full bg-emerald-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
-                {" "}
-                Скопировано{" "}
+                Скопировано
               </span>
-            )}{" "}
+            )}
             {clipboardStatus === "error" && (
               <span className="absolute right-4 top-4 rounded-full bg-red-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
-                {" "}
-                Не удалось{" "}
+                Не удалось
               </span>
-            )}{" "}
-          </div>{" "}
-        </section>{" "}
-      </aside>{" "}
-      <main className="flex-1 space-y-6">
-        {" "}
-        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-          {" "}
+            )}
+          </div>
+        </section>
+        <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <header className="flex flex-wrap items-center justify-between gap-4">
-            {" "}
             <div>
-              {" "}
+              <h2 className="text-base font-semibold text-slate-900">Экспорт YAML</h2>
+              <p className="text-xs text-slate-500">
+                Используйте экспорт для резервного копирования и вставляйте данные напрямую в `data/catalog.yml`.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                onClick={handleCopyYaml}
+                className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-teal-600 transition hover:border-teal-400 hover:text-teal-500"
+              >
+                Скопировать YAML
+              </button>
+              <button
+                type="button"
+                onClick={saveCatalogToRepo}
+                disabled={saveStatus === "saving"}
+                className="rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                Сохранить в репозитории
+              </button>
+            </div>
+          </header>
+          {saveStatus !== "idle" && saveStatusMessage && (
+            <p className={`text-xs font-semibold ${saveStatusTone}`}>
+              {saveStatusMessage}
+            </p>
+          )}
+          <div className="relative">
+            <pre className="max-h-[320px] overflow-auto rounded-2xl border border-slate-200 bg-slate-900/95 p-4 text-xs text-slate-100">
+              {yamlForExport}
+            </pre>
+            {clipboardStatus === "success" && (
+              <span className="absolute right-4 top-4 rounded-full bg-emerald-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
+                Скопировано
+              </span>
+            )}
+            {clipboardStatus === "error" && (
+              <span className="absolute right-4 top-4 rounded-full bg-red-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
+                Не удалось
+              </span>
+            )}
+          </div>
+        </section>
+      </aside>
+      <main className="flex-1 space-y-6">
+        
+        <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          
+          <header className="flex flex-wrap items-center justify-between gap-4">
+            
+            <div>
+              
               <h2 className="text-xl font-semibold text-slate-900">
                 Номенклатура
-              </h2>{" "}
+              </h2>
               <p className="text-sm text-slate-600">
-                {" "}
+                
                 Изменяйте только позиции. Для каждой строки можно выбрать
-                категорию и подкатегорию из справочника.{" "}
-              </p>{" "}
-            </div>{" "}
+                категорию и подкатегорию из справочника.
+              </p>
+            </div>
             <button
               type="button"
               onClick={handleAddItem}
               className="inline-flex items-center justify-center rounded-full bg-teal-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-500"
             >
-              {" "}
-              Добавить позицию{" "}
-            </button>{" "}
-          </header>{" "}
+              
+              Добавить позицию
+            </button>
+          </header>
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            {" "}
             <label className="flex flex-col">
-              {" "}
-              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">
-                Категория
-              </span>{" "}
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Категория</span>
               <select
                 value={selectedCategoryFilter}
                 onChange={(event) => {
@@ -948,40 +853,31 @@ export default function AdminClientPage({
                 }}
                 className="mt-1 w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
               >
-                {" "}
-                <option value="all">Все категории</option>{" "}
+                <option value="all">Все категории</option>
                 {categoryOptions.map((option) => (
                   <option key={option.value} value={option.value}>
-                    {" "}
-                    {option.label}{" "}
+                    {option.label}
                   </option>
-                ))}{" "}
-              </select>{" "}
-            </label>{" "}
+                ))}
+              </select>
+            </label>
             <label className="flex flex-col">
-              {" "}
-              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">
-                Подкатегория
-              </span>{" "}
+              <span className="text-xs uppercase tracking-[0.3em] text-slate-500">Подкатегория</span>
               <select
                 value={selectedSubcategoryFilter}
-                onChange={(event) =>
-                  setSelectedSubcategoryFilter(event.target.value)
-                }
+                onChange={(event) => setSelectedSubcategoryFilter(event.target.value)}
                 className="mt-1 w-full rounded-2xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
                 disabled={selectedCategoryFilter === "all"}
               >
-                {" "}
-                <option value="all">Все подкатегории</option>{" "}
+                <option value="all">Все подкатегории</option>
                 {subcategoryOptions.map((option) => (
                   <option key={option.value} value={option.value}>
-                    {" "}
-                    {option.label}{" "}
+                    {option.label}
                   </option>
-                ))}{" "}
-              </select>{" "}
-            </label>{" "}
-          </div>{" "}
+                ))}
+              </select>
+            </label>
+          </div>
           <div className="mt-6 overflow-x-auto">
             <table className="min-w-full divide-y divide-slate-200 text-sm">
               <thead>
@@ -1074,8 +970,8 @@ export default function AdminClientPage({
                 )}
               </tbody>
             </table>
-          </div>{" "}
-        </section>{" "}
+          </div>
+        </section>
         {itemModal && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 px-4 py-6"
@@ -1246,7 +1142,7 @@ export default function AdminClientPage({
             </div>
           </div>
         )}
-      </main>{" "}
+      </main>
     </div>
   );
 }

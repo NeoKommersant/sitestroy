@@ -1,4 +1,4 @@
-backend:
+﻿backend:
   name: github
   repo: NeoKommersant/sitestroy
   branch: main
@@ -23,7 +23,7 @@ collections:
             fields:
               - { label: "Слаг", name: "slug", widget: string }
               - { label: "Название", name: "title", widget: string }
-              - { label: "Картинка", name: "image", widget: image }
+              - { label: "Изображение", name: "image", widget: image }
               - { label: "Описание", name: "intro", widget: text, required: false }
               - label: "Подкатегории"
                 name: "sub"
