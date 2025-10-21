@@ -641,10 +641,15 @@ export default function AdminClientPage({
         body: JSON.stringify({ catalog: prepared }),
       });
       const raw = await response.text();
-      let payload: { error?: string; message?: string } | null = null;
+      let payload: { error?: string; message?: string; target?: string } | null =
+        null;
       if (raw) {
         try {
-          payload = JSON.parse(raw) as { error?: string; message?: string };
+          payload = JSON.parse(raw) as {
+            error?: string;
+            message?: string;
+            target?: string;
+          };
         } catch {
           payload = null;
         }
