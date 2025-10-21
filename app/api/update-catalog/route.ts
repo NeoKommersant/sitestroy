@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { promises as fs } from "node:fs";
+import path from "node:path";
 import { dump } from "js-yaml";
 import type { Category } from "@/types/catalog";
 
@@ -6,6 +8,7 @@ const REPO_OWNER = "NeoKommersant";
 const REPO_NAME = "sitestroy";
 const TARGET_FILE_PATH = "data/catalog.yml";
 const GITHUB_CONTENTS_URL = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TARGET_FILE_PATH}`;
+const LOCAL_CATALOG_PATH = path.join(process.cwd(), TARGET_FILE_PATH);
 
 type UpdateCatalogBody = {
   catalog: Category[];
@@ -25,19 +28,17 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid payload" }, { status: 400 });
     }
 
-    const token = process.env.GITHUB_TOKEN;
-    if (!token) {
-      return NextResponse.json(
-        { error: "Missing GitHub token" },
-        { status: 500 },
-      );
-    }
-
     const yamlContent = dump(
       { categories: body.catalog },
       { lineWidth: 120, noRefs: true },
     );
     const encodedContent = Buffer.from(yamlContent, "utf8").toString("base64");
+
+    const token = process.env.GITHUB_TOKEN;
+    if (!token) {
+      await fs.writeFile(LOCAL_CATALOG_PATH, yamlContent, "utf8");
+      return NextResponse.json({ status: "ok", target: "local" });
+    }
 
     const getResponse = await fetch(GITHUB_CONTENTS_URL, {
       headers: headersForToken(token),

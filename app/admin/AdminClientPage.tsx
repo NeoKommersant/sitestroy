@@ -684,7 +684,6 @@ export default function AdminClientPage({
       });
     }
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const applyImport = (mode: "replace" | "merge") => {
     if (importState.status !== "ready") return;
     const prepared = prepareCatalogForExport(importState.preview.data);
@@ -695,7 +694,6 @@ export default function AdminClientPage({
     }
     resetImportState();
   };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onImportInput = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -707,6 +705,10 @@ export default function AdminClientPage({
       fileInputRef.current.value = "";
     }
   };
+  const importPreview =
+    importState.status === "ready" ? importState.preview : null;
+  const importHasErrors = Boolean(importPreview?.errors.length);
+  const importHasWarnings = Boolean(importPreview?.warnings.length);
   return (
     <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-24 pt-10 sm:px-6 lg:flex-row lg:px-8">
       
@@ -727,49 +729,124 @@ export default function AdminClientPage({
         <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <header className="flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h2 className="text-base font-semibold text-slate-900">Экспорт YAML</h2>
+              <h2 className="text-base font-semibold text-slate-900">Импорт Excel</h2>
               <p className="text-xs text-slate-500">
-                Используйте экспорт для резервного копирования и вставляйте данные напрямую в `data/catalog.yml`.
+                Подготовьте таблицу со столбцами «Категория», «Подкатегория», «Наименование», «Описание» и загрузите её.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2">
+              <input
+                ref={fileInputRef}
+                type="file"
+                accept=".xlsx,.xls"
+                onChange={onImportInput}
+                className="hidden"
+              />
               <button
                 type="button"
-                onClick={handleCopyYaml}
-                className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-teal-600 transition hover:border-teal-400 hover:text-teal-500"
+                onClick={() => fileInputRef.current?.click()}
+                disabled={importState.status === "loading"}
+                className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-teal-400 hover:text-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
               >
-                Скопировать YAML
+                {importState.status === "loading" ? "Загружаем…" : "Выбрать файл"}
               </button>
-              <button
-                type="button"
-                onClick={saveCatalogToRepo}
-                disabled={saveStatus === "saving"}
-                className="rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Сохранить в репозитории
-              </button>
+              {importState.status !== "idle" && (
+                <button
+                  type="button"
+                  onClick={resetImportState}
+                  className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-500 transition hover:border-slate-300 hover:text-slate-700"
+                >
+                  Сбросить
+                </button>
+              )}
             </div>
           </header>
-          {saveStatus !== "idle" && saveStatusMessage && (
-            <p className={`text-xs font-semibold ${saveStatusTone}`}>
-              {saveStatusMessage}
+          {importState.status === "idle" && (
+            <p className="rounded-xl border border-dashed border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-500">
+              Файл не выбран. Поддерживаются форматы .xlsx и .xls.
             </p>
           )}
-          <div className="relative">
-            <pre className="max-h-[320px] overflow-auto rounded-2xl border border-slate-200 bg-slate-900/95 p-4 text-xs text-slate-100">
-              {yamlForExport}
-            </pre>
-            {clipboardStatus === "success" && (
-              <span className="absolute right-4 top-4 rounded-full bg-emerald-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
-                Скопировано
-              </span>
-            )}
-            {clipboardStatus === "error" && (
-              <span className="absolute right-4 top-4 rounded-full bg-red-500 px-3 py-1 text-[11px] font-semibold text-white shadow">
-                Не удалось
-              </span>
-            )}
-          </div>
+          {importState.status === "loading" && (
+            <p className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs text-slate-600">
+              Обрабатываем файл…
+            </p>
+          )}
+          {importState.status === "error" && (
+            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-semibold text-red-600">
+              {importState.message ?? "Не удалось обработать файл."}
+            </p>
+          )}
+          {importPreview && (
+            <div className="space-y-4">
+              <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3">
+                <h3 className="text-sm font-semibold text-slate-900">
+                  {importPreview.filename}
+                </h3>
+                <dl className="mt-3 grid grid-cols-1 gap-2 text-xs text-slate-600 sm:grid-cols-3">
+                  <div className="rounded-lg bg-white px-3 py-2">
+                    <dt className="font-medium text-slate-700">Категорий</dt>
+                    <dd>{importPreview.summary.categories}</dd>
+                  </div>
+                  <div className="rounded-lg bg-white px-3 py-2">
+                    <dt className="font-medium text-slate-700">Подкатегорий</dt>
+                    <dd>{importPreview.summary.subcategories}</dd>
+                  </div>
+                  <div className="rounded-lg bg-white px-3 py-2">
+                    <dt className="font-medium text-slate-700">Позиций</dt>
+                    <dd>{importPreview.summary.items}</dd>
+                  </div>
+                </dl>
+              </div>
+              {importHasWarnings && (
+                <div className="space-y-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-xs text-amber-700">
+                  <strong className="block text-amber-800">Предупреждения</strong>
+                  <ul className="space-y-1">
+                    {importPreview.warnings.map((message) => (
+                      <li key={message}>{message}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {importHasErrors && (
+                <div className="space-y-2 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs text-red-600">
+                  <strong className="block text-red-700">Ошибки</strong>
+                  <ul className="space-y-1">
+                    {importPreview.errors.map((message) => (
+                      <li key={message}>{message}</li>
+                    ))}
+                  </ul>
+                  <p className="font-semibold">
+                    Исправьте ошибки в файле и попробуйте снова.
+                  </p>
+                </div>
+              )}
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => applyImport("merge")}
+                  disabled={importHasErrors}
+                  className="rounded-full border border-teal-500 px-4 py-2 text-xs font-semibold text-teal-600 transition hover:bg-teal-50 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Объединить с текущим каталогом
+                </button>
+                <button
+                  type="button"
+                  onClick={() => applyImport("replace")}
+                  disabled={importHasErrors}
+                  className="rounded-full bg-teal-600 px-4 py-2 text-xs font-semibold text-white transition hover:bg-teal-500 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  Заменить текущий каталог
+                </button>
+                <button
+                  type="button"
+                  onClick={resetImportState}
+                  className="rounded-full border border-slate-200 px-4 py-2 text-xs font-semibold text-slate-600 transition hover:border-slate-300 hover:text-slate-800"
+                >
+                  Отмена
+                </button>
+              </div>
+            </div>
+          )}
         </section>
         <section className="mt-6 space-y-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <header className="flex flex-wrap items-center justify-between gap-4">
