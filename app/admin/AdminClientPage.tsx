@@ -166,7 +166,12 @@ const normalizeCell = (value: unknown) => {
   if (typeof value === "number") return `${value}`;
   return String(value).trim();
 };
-const REQUIRED_HEADERS = ["Категория", "Подкатегория", "Наименование"] as const;
+const REQUIRED_HEADERS = ["категория", "подкатегория", "наименование"] as const;
+const HEADER_LABELS: Record<(typeof REQUIRED_HEADERS)[number], string> = {
+  категория: "Категория",
+  подкатегория: "Подкатегория",
+  наименование: "Наименование",
+};
 const normalizeHeader = (header: string) => header.trim().toLowerCase();
 const parseExcelFile = async (
   file: File,
@@ -218,7 +223,9 @@ const parseExcelFile = async (
         !normalizedRow[header] ||
         normalizeCell(normalizedRow[header]) === ""
       ) {
-        errors.push(`Строка ${rowNumber}: заполните столбец "${header}".`);
+        errors.push(
+          `Строка ${rowNumber}: заполните столбец "${HEADER_LABELS[header]}".`,
+        );
       }
     }
     if (
@@ -652,8 +659,12 @@ export default function AdminClientPage({
         setSaveStatus("error");
         return;
       }
+      const successMessage =
+        payload?.target === "local"
+          ? "Сохранено локально (GITHUB_TOKEN не найден)"
+          : "Сохранено в репозитории";
       setSaveStatus("success");
-      setSaveMessage("Сохранено");
+      setSaveMessage(successMessage);
       setTimeout(() => {
         setSaveStatus("idle");
         setSaveMessage("");
