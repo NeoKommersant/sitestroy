@@ -164,75 +164,91 @@ export default function Header() {
     <>
       {revealZone}
       <header
-        className={`pointer-events-auto fixed top-0 left-0 right-0 z-50 hidden border-b border-white/10 text-white transition-colors duration-300 ease-out md:block ${headerBackground}`}
-        style={headerStyle}
-        onMouseEnter={handleHeaderEnter}
-        onMouseLeave={scheduleCollapse}
-      >
-        <div className="mx-auto flex max-w-7xl items-center gap-8 px-6 py-4 text-sm lg:px-10">
-          <div className="flex flex-1 items-center gap-3">
-            <a
-              className="inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/20"
-              href="tel:+74951234567"
-              title="Позвонить менеджеру"
-            >
-              <svg className="h-4 w-4 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 7.455 5.295 12.75 12.75 12.75h1.086c.621 0 1.167-.42 1.314-1.022l.72-2.878a1.125 1.125 0 0 0-.578-1.257l-2.07-1.035a1.125 1.125 0 0 0-1.257.21l-.906.906a.218.218 0 0 1-.28.028 8.316 8.316 0 0 1-2.544-2.544.218.218 0 0 1 .028-.28l.906-.906a1.125 1.125 0 0 0 .21-1.257L9.657 6.26A1.125 1.125 0 0 0 8.4 5.682l-2.878.72A1.312 1.312 0 0 0 4.5 7.716v1.284" />
-              </svg>
-              <span className="text-sm font-semibold tracking-wide">+7 (495) 123-45-67</span>
-            </a>
-            <div className="hidden items-center gap-2 xl:flex">
-              {SOCIALS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  title={social.tooltip}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white/80 transition hover:border-white/40 hover:bg-white/25 hover:text-white"
-                  aria-label={social.label}
-                >
-                  <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
-                </a>
-              ))}
-            </div>
-          </div>
+  className={`pointer-events-auto fixed top-0 left-0 right-0 z-50 border-b border-white/10 text-white transition-colors duration-300 ease-out ${headerBackground}`}
+  style={headerStyle}
+  onMouseEnter={handleHeaderEnter}
+  onMouseLeave={scheduleCollapse}
+>
+  {/* Контейнер на всю ширину */}
+  <div className="w-full px-4 sm:px-6 lg:px-10 py-3 sm:py-4">
+    {/* Адаптивная сетка: слева контакты, по центру бренд, справа меню+CTA */}
+    <div
+      className="
+        grid items-center gap-x-4 gap-y-3
+        grid-cols-12
+      "
+    >
+      {/* ЛЕВАЯ ЗОНА: телефон + соцсети */}
+      <div className="col-span-12 md:col-span-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3 min-w-0">
+          <a
+            className="inline-flex items-center gap-2 sm:gap-3 whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-3 sm:px-4 py-2 text-sm font-semibold text-white transition hover:border-white/50 hover:bg-white/20"
+            href="tel:+74951234567"
+            title="Позвонить менеджеру"
+          >
+            <svg className="h-4 w-4 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 7.455 5.295 12.75 12.75 12.75h1.086c.621 0 1.167-.42 1.314-1.022l.72-2.878a1.125 1.125 0 0 0-.578-1.257l-2.07-1.035a1.125 1.125 0 0 0-1.257.21l-.906.906a.218.218 0 0 1-.28.028 8.316 8.316 0 0 1-2.544-2.544.218.218 0 0 1 .028-.28l.906-.906a1.125 1.125 0 0 0 .21-1.257L9.657 6.26A1.125 1.125 0 0 0 8.4 5.682l-2.878.72A1.312 1.312 0 0 0 4.5 7.716v1.284" />
+            </svg>
+            <span className="text-sm font-semibold tracking-wide">+7 (495) 123-45-67</span>
+          </a>
 
-          <Link href="/" className="flex items-center gap-3 text-white">
-            <Image src="/img/logo.svg" alt="Логотип ГК «Строй Альянс»" width={60} height={60} priority className="h-14 w-14" />
-            <span className="text-base font-semibold uppercase tracking-[0.2em]">ГК «Строй Альянс»</span>
-          </Link>
-
-          <div className="flex flex-1 items-center justify-end gap-4">
-            <div className="flex items-center gap-3">
-              <nav className="hidden items-center gap-6 text-sm font-medium text-white/80 lg:flex">
-                {MENU.map((item) => (
-                  <Link key={item.href} href={item.href} className="transition hover:text-white">
-                    {item.label}
-                  </Link>
-                ))}
-              </nav>
-              <div className="flex items-center gap-2 lg:hidden">
-                {SOCIALS.slice(0, 3).map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    title={social.tooltip}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white/80 transition hover:border-white/40 hover:bg-white/25 hover:text-white"
-                    aria-label={social.label}
-                  >
-                    <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
-            <Link
-              href="/catalog/request"
-              className="hidden whitespace-nowrap rounded-full border border-white/35 bg-white/10 px-6 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20 md:inline-flex"
-            >
-              Оставить запрос
-            </Link>
+          {/* Соцсети: на десктопе все, на меньших ширинах — часть, но без налепания */}
+          <div className="flex items-center gap-2">
+            {SOCIALS.map((social, i) => (
+              <a
+                key={social.label}
+                href={social.href}
+                title={social.tooltip}
+                className={`
+                  inline-flex h-10 w-10 items-center justify-center rounded-full
+                  border border-white/20 bg-white/15 text-white/80 transition
+                  hover:border-white/40 hover:bg-white/25 hover:text-white
+                  ${i > 2 ? 'hidden xl:inline-flex' : ''}  /* первые 3 иконки видны везде, остальные — с xl */
+                `}
+                aria-label={social.label}
+              >
+                <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
+              </a>
+            ))}
           </div>
         </div>
-      </header>
+      </div>
+
+      {/* ЦЕНТР: логотип + название (всегда по центру колонки) */}
+      <div className="col-span-12 md:col-span-4 md:justify-self-center">
+        <Link href="/" className="flex items-center gap-3 text-white justify-center md:justify-start min-w-0">
+          <Image src="/img/logo.svg" alt="Логотип ГК «Строй Альянс»" width={56} height={56} priority className="h-12 w-12 sm:h-14 sm:w-14 shrink-0" />
+          <span className="truncate text-base sm:text-lg font-semibold uppercase tracking-[0.18em] sm:tracking-[0.2em]">
+            ГК «Строй Альянс»
+          </span>
+        </Link>
+      </div>
+
+      {/* ПРАВАЯ ЗОНА: меню + CTA, уезжает влево если не хватает места */}
+      <div className="col-span-12 md:col-span-4 md:justify-self-end">
+        <div className="flex items-center justify-between md:justify-end gap-3 sm:gap-4">
+          {/* Навигация — только с lg, чтобы не слипалось */}
+          <nav className="hidden lg:flex items-center gap-5 xl:gap-6 text-sm font-medium text-white/85">
+            {MENU.map((item) => (
+              <Link key={item.href} href={item.href} className="transition hover:text-white whitespace-nowrap">
+                {item.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA всегда видна на md+, на малых — можно скрыть или перенести вниз по желанию */}
+          <Link
+            href="/catalog/request"
+            className="hidden md:inline-flex whitespace-nowrap rounded-full border border-white/35 bg-white/10 px-5 sm:px-6 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20"
+          >
+            Оставить запрос
+          </Link>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
 
       <button
         type="button"

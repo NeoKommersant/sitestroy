@@ -119,6 +119,15 @@ const PAGE_SECTIONS = ["hero", "product-directions", "service-directions", "clie
 type SectionId = (typeof PAGE_SECTIONS)[number];
 // КАТЕГОРИИ МАТЕРИАЛОВ
 const PRODUCT_DIRECTIONS: DirectionCard[] = [
+    {
+    slug: "stroymaterialy",
+    title: "Строительные материалы",
+    description:
+      "Металлопрокат, инертные материалы, ЖБИ и сухие смеси. Организуем поставки Just-in-Time, комплектацию и контроль качества.",
+    image: "/img/products/obshhestroitelnye-materialy.webp",
+    alt: "Склад строительных материалов и металлоконструкций",
+    href: "/catalog?category=stroymaterialy",
+  },
   {
     slug: "vodosnabzhenie",
     title: "Водоснабжение",
@@ -154,15 +163,6 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
     image: "/img/products/elektrosnabzhenie.webp",
     alt: "Электротехническое оборудование подстанции",
     href: "/catalog?category=elektrosnabzhenie",
-  },
-  {
-    slug: "stroymaterialy",
-    title: "Строительные материалы",
-    description:
-      "Металлопрокат, инертные материалы, ЖБИ и сухие смеси. Организуем поставки Just-in-Time, комплектацию и контроль качества.",
-    image: "/img/products/obshhestroitelnye-materialy.webp",
-    alt: "Склад строительных материалов и металлоконструкций",
-    href: "/catalog?category=stroymaterialy",
   },
   {
     slug: "uslugi",
