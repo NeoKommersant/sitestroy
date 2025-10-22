@@ -514,15 +514,17 @@ function BackToTopButton() {
     <button
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-8 right-1/2 z-40 rounded-full border border-blue-100 bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-blue-700 shadow-lg transition hover:border-blue-400 hover:bg-blue-50"
-      aria-label="Вернуться к началу страницы"
+      className="fixed bottom-28 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white shadow-[0_10px_30px_rgba(8,15,40,0.45)] backdrop-blur transition hover:border-white/45 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:bottom-12 md:right-12 md:h-auto md:w-auto md:min-w-[3.5rem] md:px-5 md:py-3 md:text-xs md:font-semibold md:uppercase md:tracking-[0.28em]"
+      aria-label="Вернуться в начало страницы"
     >
-      Вверх
+      <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
+      </svg>
+      <span className="sr-only md:not-sr-only md:ml-2">Вверх</span>
     </button>
   );
 }
 
-// --------------------------------------------------------------
 // Универсальное модальное окно
 // --------------------------------------------------------------
 function Modal({ onClose, title, children }: { onClose: () => void; title: string; children: ReactNode }) {
@@ -632,17 +634,26 @@ export default function Page() {
   const triggerNavigation = useCallback(
     (direction: 1 | -1) => {
       const now = Date.now();
-      if (now - navigationCooldownRef.current < 650) {
+      const isDesktop = typeof window !== "undefined" ? window.innerWidth >= 1024 : true;
+      const debounce = isDesktop ? 650 : 250;
+
+      if (now - navigationCooldownRef.current < debounce) {
         return;
       }
 
       navigationCooldownRef.current = now;
-      showPeek(direction, 260);
-      window.setTimeout(() => {
+
+      if (isDesktop) {
+        showPeek(direction, 260);
+        window.setTimeout(() => {
+          goToSection(activeSectionIndex + direction);
+        }, 160);
+      } else {
+        resetPeek();
         goToSection(activeSectionIndex + direction);
-      }, 160);
+      }
     },
-    [activeSectionIndex, goToSection, showPeek],
+    [activeSectionIndex, goToSection, resetPeek, showPeek],
   );
 
   const handleAnchorNavigation = useCallback(
@@ -963,7 +974,7 @@ export default function Page() {
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex - 1)}
                 aria-label="Предыдущий слайд"
-                className="group absolute left-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-10 sm:h-14 sm:w-14 sm:bottom-[18%] lg:left-16"
+                className="group absolute left-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:left-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:left-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -973,7 +984,7 @@ export default function Page() {
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex + 1)}
                 aria-label="Следующий слайд"
-                className="group absolute right-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-10 sm:h-14 sm:w-14 sm:bottom-[18%] lg:right-16"
+                className="group absolute right-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:right-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:right-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />

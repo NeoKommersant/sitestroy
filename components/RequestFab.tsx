@@ -16,10 +16,10 @@ export function RequestFab() {
   return (
     <Link
       href="/request"
-      className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-teal-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-300"
+      className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(8,15,40,0.45)] backdrop-blur transition hover:border-white/45 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
     >
       <span>Заявка</span>
-      <span className="flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-white/20 px-2 text-xs font-bold">
+      <span className="flex h-6 min-w-[1.5rem] items-center justify-center rounded-full border border-white/30 bg-white/20 px-2 text-xs font-bold text-white">
         {total}
       </span>
     </Link>
