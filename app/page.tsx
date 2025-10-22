@@ -592,7 +592,6 @@ export default function Page() {
   );
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [peekOffset, setPeekOffset] = useState(0);
-  const scrollIntentRef = useRef<{ direction: 1 | -1; timestamp: number } | null>(null);
   const navigationCooldownRef = useRef(0);
   const peekTimeoutRef = useRef<number | null>(null);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
@@ -604,20 +603,17 @@ export default function Page() {
     setPeekOffset(0);
   }, []);
 
-  const showPeek = useCallback(
-    (direction: 1 | -1) => {
-      if (peekTimeoutRef.current) {
-        window.clearTimeout(peekTimeoutRef.current);
-      }
-      const offset = direction > 0 ? -36 : 36;
-      setPeekOffset(offset);
-      peekTimeoutRef.current = window.setTimeout(() => {
-        setPeekOffset(0);
-        peekTimeoutRef.current = null;
-      }, 220);
-    },
-    [],
-  );
+  const showPeek = useCallback((direction: 1 | -1, duration = 240) => {
+    if (peekTimeoutRef.current) {
+      window.clearTimeout(peekTimeoutRef.current);
+    }
+    const offset = direction > 0 ? -32 : 32;
+    setPeekOffset(offset);
+    peekTimeoutRef.current = window.setTimeout(() => {
+      setPeekOffset(0);
+      peekTimeoutRef.current = null;
+    }, duration);
+  }, []);
 
   const goToSection = useCallback(
     (nextIndex: number) => {
@@ -627,34 +623,26 @@ export default function Page() {
       const target = sections[clamped];
       if (!target) return;
       resetPeek();
-      scrollIntentRef.current = null;
-      navigationCooldownRef.current = Date.now();
       setActiveSectionIndex(clamped);
       target.scrollIntoView({ behavior: "smooth", block: "start" });
     },
     [resetPeek],
   );
 
-  const queueNavigation = useCallback(
+  const triggerNavigation = useCallback(
     (direction: 1 | -1) => {
       const now = Date.now();
-      if (now - navigationCooldownRef.current < 550) {
+      if (now - navigationCooldownRef.current < 650) {
         return;
       }
 
-      const intent = scrollIntentRef.current;
-      if (!intent || intent.direction !== direction || now - intent.timestamp > 700) {
-        scrollIntentRef.current = { direction, timestamp: now };
-        showPeek(direction);
-        return;
-      }
-
-      scrollIntentRef.current = null;
       navigationCooldownRef.current = now;
-      resetPeek();
-      goToSection(activeSectionIndex + direction);
+      showPeek(direction, 260);
+      window.setTimeout(() => {
+        goToSection(activeSectionIndex + direction);
+      }, 160);
     },
-    [activeSectionIndex, goToSection, resetPeek, showPeek],
+    [activeSectionIndex, goToSection, showPeek],
   );
 
   const handleAnchorNavigation = useCallback(
@@ -664,6 +652,7 @@ export default function Page() {
       const index = PAGE_SECTIONS.findIndex((section) => section === id);
       if (index === -1) return;
       event.preventDefault();
+      navigationCooldownRef.current = Date.now();
       goToSection(index);
     },
     [goToSection],
@@ -743,12 +732,12 @@ export default function Page() {
       if (!sectionRefs.current.length) return;
       if (event.deltaY === 0) return;
       event.preventDefault();
-      queueNavigation((event.deltaY > 0 ? 1 : -1) as 1 | -1);
+      triggerNavigation((event.deltaY > 0 ? 1 : -1) as 1 | -1);
     };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     return () => window.removeEventListener("wheel", handleWheel);
-  }, [queueNavigation]);
+  }, [triggerNavigation]);
 
   useEffect(() => {
     const handleSectionKeys = (event: KeyboardEvent) => {
@@ -760,16 +749,16 @@ export default function Page() {
 
       if (event.key === "ArrowDown" || event.key === "PageDown") {
         event.preventDefault();
-      queueNavigation(1);
+        triggerNavigation(1);
       } else if (event.key === "ArrowUp" || event.key === "PageUp") {
         event.preventDefault();
-        queueNavigation(-1);
+        triggerNavigation(-1);
       }
     };
 
     window.addEventListener("keydown", handleSectionKeys);
     return () => window.removeEventListener("keydown", handleSectionKeys);
-  }, [queueNavigation]);
+  }, [triggerNavigation]);
 
   useEffect(() => {
     const handleTouchStart = (event: TouchEvent) => {
@@ -797,7 +786,6 @@ export default function Page() {
       const touch = event.changedTouches[0];
       if (!touch) {
         touchStartRef.current = null;
-        scrollIntentRef.current = null;
         resetPeek();
         return;
       }
@@ -807,11 +795,10 @@ export default function Page() {
       const absDx = Math.abs(dx);
       touchStartRef.current = null;
       if (absDy < 40 || absDy <= absDx) {
-        scrollIntentRef.current = null;
         resetPeek();
         return;
       }
-      queueNavigation((dy > 0 ? 1 : -1) as 1 | -1);
+      triggerNavigation((dy > 0 ? 1 : -1) as 1 | -1);
     };
 
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -824,7 +811,7 @@ export default function Page() {
       window.removeEventListener("touchend", finalizeTouch);
       window.removeEventListener("touchcancel", finalizeTouch);
     };
-  }, [queueNavigation, resetPeek]);
+  }, [resetPeek, triggerNavigation]);
 
   useEffect(() => {
     return () => {
@@ -900,7 +887,7 @@ export default function Page() {
         <section
           id="hero"
           ref={sectionCallbacks[0]}
-          className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none"
+          className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none -mt-[80px] pt-[80px] md:-mt-[96px] md:pt-[96px]"
         >
           <div
             className="relative h-full w-full touch-pan-y"
@@ -976,7 +963,7 @@ export default function Page() {
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex - 1)}
                 aria-label="Предыдущий слайд"
-                className="group absolute left-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-10 lg:left-16"
+                className="group absolute left-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-10 sm:h-14 sm:w-14 sm:bottom-[18%] lg:left-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -986,19 +973,19 @@ export default function Page() {
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex + 1)}
                 aria-label="Следующий слайд"
-                className="group absolute right-6 top-1/2 flex h-16 w-16 -translate-y-1/2 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-10 lg:right-16"
+                className="group absolute right-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-10 sm:h-14 sm:w-14 sm:bottom-[18%] lg:right-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                 </svg>
               </button>
-              <div className="pointer-events-none absolute bottom-10 left-1/2 flex -translate-x-1/2 items-center gap-3 sm:bottom-14">
+              <div className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 items-center gap-2 bottom-[110px] sm:bottom-16 sm:gap-3">
                 {heroSlides.map((slide, index) => (
                   <button
                     key={slide.id}
                     type="button"
                     onClick={() => handleHeroSelect(index)}
-                    className={`pointer-events-auto h-2 w-10 rounded-full border border-white/30 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 ${activeHeroIndex === index ? "bg-white/90" : "bg-white/20"}`}
+                    className={`pointer-events-auto h-1.5 w-8 rounded-full border border-white/30 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:h-2 sm:w-9 ${activeHeroIndex === index ? "bg-white/90" : "bg-white/20"}`}
                     aria-label={`Перейти к слайду: ${slide.title}`}
                   />
                 ))}

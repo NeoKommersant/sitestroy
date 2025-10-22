@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RequestProvider>
           <Header />
           <RequestFab />
-          <main>{children}</main>
+          <main className="pt-[80px] md:pt-[96px]">{children}</main>
           <Footer />
         </RequestProvider>
       </body>
