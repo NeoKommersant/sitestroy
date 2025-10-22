@@ -159,7 +159,7 @@ export default function Header() {
 
   const headerBackground = isScrolled ? "bg-slate-950/85 backdrop-blur-xl" : "bg-slate-950/55 backdrop-blur-md";
   const headerStyle = isCollapsed
-    ? { transform: "translateY(calc(-100% + 24px))" }
+    ? { transform: "translateY(-100%)" }
     : { transform: "translateY(0)" };
 
   const mobileTopBar = useMemo(
@@ -184,8 +184,8 @@ export default function Header() {
         onMouseEnter={handleHeaderEnter}
         onMouseLeave={scheduleCollapse}
       >
-        <div className="mx-auto flex max-w-7xl items-center gap-6 px-6 py-3 lg:px-10">
-          <div className="flex flex-1 items-center gap-3 min-w-0">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-3 lg:px-10">
+          <div className="flex flex-1 items-center gap-4 overflow-hidden">
             <a
               className="inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/45 hover:bg-white/20"
               href="tel:+74951234567"
@@ -196,7 +196,20 @@ export default function Header() {
               </svg>
               <span className="text-sm font-semibold tracking-wide">+7 (495) 123-45-67</span>
             </a>
-            <div className="flex items-center gap-2">
+            <div className="hidden items-center gap-2 md:flex lg:hidden">
+              {SOCIALS.slice(0, 3).map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  title={social.tooltip}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white/80 transition hover:border-white/40 hover:bg-white/25 hover:text-white"
+                  aria-label={social.label}
+                >
+                  <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
+                </a>
+              ))}
+            </div>
+            <div className="hidden items-center gap-2 lg:flex">
               {SOCIALS.map((social) => (
                 <a
                   key={social.label}
@@ -211,22 +224,22 @@ export default function Header() {
             </div>
           </div>
 
-          <Link href="/" className="flex items-center gap-3 text-white">
+          <Link href="/" className="flex shrink-0 items-center gap-3 text-white">
             <Image src="/img/logo.svg" alt="Логотип ГК «Строй Альянс»" width={60} height={60} priority className="h-14 w-14" />
             <span className="text-base font-semibold uppercase tracking-[0.2em]">ГК «Строй Альянс»</span>
           </Link>
 
-          <div className="flex flex-1 items-center justify-end gap-4">
-            <nav className="hidden items-center gap-6 text-sm font-medium text-white/80 lg:flex">
+          <div className="flex flex-1 items-center justify-end gap-4 overflow-hidden">
+            <nav className="hidden flex-1 items-center justify-end gap-6 text-sm font-medium text-white/80 lg:flex">
               {MENU.map((item) => (
-                <Link key={item.href} href={item.href} className="transition hover:text-white">
+                <Link key={item.href} href={item.href} className="truncate transition hover:text-white">
                   {item.label}
                 </Link>
               ))}
             </nav>
             <Link
               href="/catalog/request"
-              className="hidden whitespace-nowrap rounded-full border border-white/35 bg-white/10 px-6 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20 md:inline-flex"
+              className="hidden shrink-0 whitespace-nowrap rounded-full border border-white/35 bg-white/10 px-6 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20 md:inline-flex"
             >
               Оставить запрос
             </Link>
