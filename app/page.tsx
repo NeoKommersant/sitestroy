@@ -578,7 +578,7 @@ export default function Page() {
 
   const { containerRef: certificatesRef, activeIndex: certificateIndex, goTo: goToCertificate } = useCarousel(certificates.length);
 
-  const heroSectionRef = useRef<HTMLDivElement | null>(null);
+  const heroSectionRef = useRef<HTMLElement | null>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const sectionCallbacks = useMemo(
     () =>
@@ -910,6 +910,7 @@ export default function Page() {
             onPointerCancel={handlePointerCancel}
           >
             {heroSlides.map((slide, index) => {
+              const { primaryCta, secondaryCta } = slide;
               const offset = (index - activeHeroIndex) * 100;
               const isActive = index === activeHeroIndex;
               return (
@@ -944,24 +945,24 @@ export default function Page() {
                     </div>
                     <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/75 sm:mx-0 sm:text-lg">{slide.description}</p>
                     <div className="flex flex-col items-center gap-3 pt-2 sm:flex-row sm:items-center">
-                      {slide.primaryCta && (
+                      {primaryCta && (
                         <Link
-                      href={slide.primaryCta.href}
-                      onClick={(event) => handleAnchorNavigation(event, slide.primaryCta.href)}
-                      className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-white/90 px-8 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 hover:shadow-slate-900/20"
-                    >
-                      {slide.primaryCta.label}
-                    </Link>
-                  )}
-                  {slide.secondaryCta && (
-                    <Link
-                      href={slide.secondaryCta.href}
-                      onClick={(event) => handleAnchorNavigation(event, slide.secondaryCta.href)}
-                      className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 hover:text-white"
-                    >
-                      {slide.secondaryCta.label}
-                    </Link>
-                  )}
+                          href={primaryCta.href}
+                          onClick={(event) => handleAnchorNavigation(event, primaryCta.href)}
+                          className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-white/90 px-8 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 hover:shadow-slate-900/20"
+                        >
+                          {primaryCta.label}
+                        </Link>
+                      )}
+                      {secondaryCta && (
+                        <Link
+                          href={secondaryCta.href}
+                          onClick={(event) => handleAnchorNavigation(event, secondaryCta.href)}
+                          className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 hover:text-white"
+                        >
+                          {secondaryCta.label}
+                        </Link>
+                      )}
                     </div>
                   </div>
                 </div>
