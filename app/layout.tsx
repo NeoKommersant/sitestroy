@@ -14,11 +14,12 @@ export const metadata: Metadata = {
   description:
     "Комплексная комплектация объектов B2B и B2G: инженерные сети, материалы, логистика и сопровождение.",
   alternates: { canonical: "/" },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-  },
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -28,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RequestProvider>
           <Header />
           <RequestFab />
-          <main className="pt-[80px] md:pt-[96px]">{children}</main>
+          <main className="pt-[60px] md:pt-[96px]">{children}</main>
           <Footer />
         </RequestProvider>
       </body>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
 
 // --------------------------------------------------------------
-// Типы данных и константы для страницы
+// РўРёРїС‹ РґР°РЅРЅС‹С… Рё РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ СЃС‚СЂР°РЅРёС†С‹
 // --------------------------------------------------------------
 type HeroSlide = {
   id: string;
@@ -67,161 +67,161 @@ type ContactPerson = {
 };
 
 // --------------------------------------------------------------
-// Контент главной страницы
+// РљРѕРЅС‚РµРЅС‚ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹
 // --------------------------------------------------------------
-// HERO СЛАЙДЕР
+// HERO РЎР›РђР™Р”Р•Р 
 const HERO_SLIDES: HeroSlide[] = [
   {
     id: "welcome",
-    title: "ГК «Строй Альянс»",
-    subtitle: "Строим инфраструктуру под ключ",
+    title: "Р“Рљ В«РЎС‚СЂРѕР№ РђР»СЊСЏРЅСЃВ»",
+    subtitle: "РЎС‚СЂРѕРёРј РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂСѓ РїРѕРґ РєР»СЋС‡",
     description:
-      "Комплексные поставки, инжиниринг и сопровождение для промышленных, муниципальных и энергетических объектов по всей России.",
+      "РљРѕРјРїР»РµРєСЃРЅС‹Рµ РїРѕСЃС‚Р°РІРєРё, РёРЅР¶РёРЅРёСЂРёРЅРі Рё СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёРµ РґР»СЏ РїСЂРѕРјС‹С€Р»РµРЅРЅС‹С…, РјСѓРЅРёС†РёРїР°Р»СЊРЅС‹С… Рё СЌРЅРµСЂРіРµС‚РёС‡РµСЃРєРёС… РѕР±СЉРµРєС‚РѕРІ РїРѕ РІСЃРµР№ Р РѕСЃСЃРёРё.",
     image: "/img/hero/slide-1.png",
-    alt: "Инженеры обсуждают проект модернизации инфраструктуры",
-    primaryCta: { label: "Связаться с менеджером", href: "#contacts" },
-    secondaryCta: { label: "Каталог решений", href: "/catalog" },
+    alt: "РРЅР¶РµРЅРµСЂС‹ РѕР±СЃСѓР¶РґР°СЋС‚ РїСЂРѕРµРєС‚ РјРѕРґРµСЂРЅРёР·Р°С†РёРё РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂС‹",
+    primaryCta: { label: "РЎРІСЏР·Р°С‚СЊСЃСЏ СЃ РјРµРЅРµРґР¶РµСЂРѕРј", href: "#contacts" },
+    secondaryCta: { label: "РљР°С‚Р°Р»РѕРі СЂРµС€РµРЅРёР№", href: "/catalog" },
   },
   {
     id: "materials",
-    title: "Каталог строительных материалов",
-    subtitle: "Интеллектуальный подбор номенклатуры",
+    title: "РљР°С‚Р°Р»РѕРі СЃС‚СЂРѕРёС‚РµР»СЊРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ",
+    subtitle: "РРЅС‚РµР»Р»РµРєС‚СѓР°Р»СЊРЅС‹Р№ РїРѕРґР±РѕСЂ РЅРѕРјРµРЅРєР»Р°С‚СѓСЂС‹",
     description:
-      "Вода, газ, электричество, общестроительные материалы и спецтехника — подбираем номенклатуру под проект с умным поиском и фильтрацией.",
+      "Р’РѕРґР°, РіР°Р·, СЌР»РµРєС‚СЂРёС‡РµСЃС‚РІРѕ, РѕР±С‰РµСЃС‚СЂРѕРёС‚РµР»СЊРЅС‹Рµ РјР°С‚РµСЂРёР°Р»С‹ Рё СЃРїРµС†С‚РµС…РЅРёРєР° вЂ” РїРѕРґР±РёСЂР°РµРј РЅРѕРјРµРЅРєР»Р°С‚СѓСЂСѓ РїРѕРґ РїСЂРѕРµРєС‚ СЃ СѓРјРЅС‹Рј РїРѕРёСЃРєРѕРј Рё С„РёР»СЊС‚СЂР°С†РёРµР№.",
     image: "/img/hero/slide-2.png",
-    alt: "Склад строительных материалов с металлопрокатом и трубами",
-    primaryCta: { label: "Отправить спецификацию", href: "/catalog/request" },
-    secondaryCta: { label: "Смотреть категории", href: "/catalog" },
+    alt: "РЎРєР»Р°Рґ СЃС‚СЂРѕРёС‚РµР»СЊРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ СЃ РјРµС‚Р°Р»Р»РѕРїСЂРѕРєР°С‚РѕРј Рё С‚СЂСѓР±Р°РјРё",
+    primaryCta: { label: "РћС‚РїСЂР°РІРёС‚СЊ СЃРїРµС†РёС„РёРєР°С†РёСЋ", href: "/catalog/request" },
+    secondaryCta: { label: "РЎРјРѕС‚СЂРµС‚СЊ РєР°С‚РµРіРѕСЂРёРё", href: "/catalog" },
   },
   {
     id: "services",
-    title: "Каталог услуг",
-    subtitle: "Полный цикл работ",
+    title: "РљР°С‚Р°Р»РѕРі СѓСЃР»СѓРі",
+    subtitle: "РџРѕР»РЅС‹Р№ С†РёРєР» СЂР°Р±РѕС‚",
     description:
-      "Проектирование, строительно-монтажные и пусконаладочные работы, технадзор, логистика и сервис. Формируем команду под задачу.",
+      "РџСЂРѕРµРєС‚РёСЂРѕРІР°РЅРёРµ, СЃС‚СЂРѕРёС‚РµР»СЊРЅРѕ-РјРѕРЅС‚Р°Р¶РЅС‹Рµ Рё РїСѓСЃРєРѕРЅР°Р»Р°РґРѕС‡РЅС‹Рµ СЂР°Р±РѕС‚С‹, С‚РµС…РЅР°РґР·РѕСЂ, Р»РѕРіРёСЃС‚РёРєР° Рё СЃРµСЂРІРёСЃ. Р¤РѕСЂРјРёСЂСѓРµРј РєРѕРјР°РЅРґСѓ РїРѕРґ Р·Р°РґР°С‡Сѓ.",
     image: "/img/hero/slide-3.webp",
-    alt: "Монтажная бригада устанавливает инженерные сети",
-    primaryCta: { label: "Выбрать услугу", href: "/services" },
+    alt: "РњРѕРЅС‚Р°Р¶РЅР°СЏ Р±СЂРёРіР°РґР° СѓСЃС‚Р°РЅР°РІР»РёРІР°РµС‚ РёРЅР¶РµРЅРµСЂРЅС‹Рµ СЃРµС‚Рё",
+    primaryCta: { label: "Р’С‹Р±СЂР°С‚СЊ СѓСЃР»СѓРіСѓ", href: "/services" },
   },
   {
     id: "clients",
-    title: "Наши клиенты",
-    subtitle: "Опыт в B2B и B2G проектах",
+    title: "РќР°С€Рё РєР»РёРµРЅС‚С‹",
+    subtitle: "РћРїС‹С‚ РІ B2B Рё B2G РїСЂРѕРµРєС‚Р°С…",
     description:
-      "Госкорпорации, ресурсоснабжающие организации, девелоперы и промышленные холдинги. Реализуем проекты по всей стране.",
+      "Р“РѕСЃРєРѕСЂРїРѕСЂР°С†РёРё, СЂРµСЃСѓСЂСЃРѕСЃРЅР°Р±Р¶Р°СЋС‰РёРµ РѕСЂРіР°РЅРёР·Р°С†РёРё, РґРµРІРµР»РѕРїРµСЂС‹ Рё РїСЂРѕРјС‹С€Р»РµРЅРЅС‹Рµ С…РѕР»РґРёРЅРіРё. Р РµР°Р»РёР·СѓРµРј РїСЂРѕРµРєС‚С‹ РїРѕ РІСЃРµР№ СЃС‚СЂР°РЅРµ.",
     image: "/img/hero/slide-4.png",
-    alt: "Команда компании и клиента на строительной площадке",
-    primaryCta: { label: "Кейсы клиентов", href: "/clients" },
+    alt: "РљРѕРјР°РЅРґР° РєРѕРјРїР°РЅРёРё Рё РєР»РёРµРЅС‚Р° РЅР° СЃС‚СЂРѕРёС‚РµР»СЊРЅРѕР№ РїР»РѕС‰Р°РґРєРµ",
+    primaryCta: { label: "РљРµР№СЃС‹ РєР»РёРµРЅС‚РѕРІ", href: "/clients" },
   },
 ];
 
 const PAGE_SECTIONS = ["hero", "product-directions", "service-directions", "clients", "certificates", "contacts"] as const;
 type SectionId = (typeof PAGE_SECTIONS)[number];
-// КАТЕГОРИИ МАТЕРИАЛОВ
+// РљРђРўР•Р“РћР РР РњРђРўР•Р РРђР›РћР’
 const PRODUCT_DIRECTIONS: DirectionCard[] = [
     {
     slug: "stroymaterialy",
-    title: "Строительные материалы",
+    title: "РЎС‚СЂРѕРёС‚РµР»СЊРЅС‹Рµ РјР°С‚РµСЂРёР°Р»С‹",
     description:
-      "Металлопрокат, инертные материалы, ЖБИ и сухие смеси. Организуем поставки Just-in-Time, комплектацию и контроль качества.",
+      "РњРµС‚Р°Р»Р»РѕРїСЂРѕРєР°С‚, РёРЅРµСЂС‚РЅС‹Рµ РјР°С‚РµСЂРёР°Р»С‹, Р–Р‘Р Рё СЃСѓС…РёРµ СЃРјРµСЃРё. РћСЂРіР°РЅРёР·СѓРµРј РїРѕСЃС‚Р°РІРєРё Just-in-Time, РєРѕРјРїР»РµРєС‚Р°С†РёСЋ Рё РєРѕРЅС‚СЂРѕР»СЊ РєР°С‡РµСЃС‚РІР°.",
     image: "/img/products/obshhestroitelnye-materialy.webp",
-    alt: "Склад строительных материалов и металлоконструкций",
+    alt: "РЎРєР»Р°Рґ СЃС‚СЂРѕРёС‚РµР»СЊРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ Рё РјРµС‚Р°Р»Р»РѕРєРѕРЅСЃС‚СЂСѓРєС†РёР№",
     href: "/catalog?category=stroymaterialy",
   },
   {
     slug: "vodosnabzhenie",
-    title: "Водоснабжение",
+    title: "Р’РѕРґРѕСЃРЅР°Р±Р¶РµРЅРёРµ",
     description:
-      "Насосные станции, узлы учета, запорная арматура и диспетчеризация. Поддерживаем непрерывность и контроль расхода воды.",
+      "РќР°СЃРѕСЃРЅС‹Рµ СЃС‚Р°РЅС†РёРё, СѓР·Р»С‹ СѓС‡РµС‚Р°, Р·Р°РїРѕСЂРЅР°СЏ Р°СЂРјР°С‚СѓСЂР° Рё РґРёСЃРїРµС‚С‡РµСЂРёР·Р°С†РёСЏ. РџРѕРґРґРµСЂР¶РёРІР°РµРј РЅРµРїСЂРµСЂС‹РІРЅРѕСЃС‚СЊ Рё РєРѕРЅС‚СЂРѕР»СЊ СЂР°СЃС…РѕРґР° РІРѕРґС‹.",
     image: "/img/products/vodosnabzhenie.webp",
-    alt: "Промышленное оборудование водоснабжения",
+    alt: "РџСЂРѕРјС‹С€Р»РµРЅРЅРѕРµ РѕР±РѕСЂСѓРґРѕРІР°РЅРёРµ РІРѕРґРѕСЃРЅР°Р±Р¶РµРЅРёСЏ",
     href: "/catalog?category=vodosnabzhenie",
   },
   {
     slug: "vodootvedenie",
-    title: "Водоотведение",
+    title: "Р’РѕРґРѕРѕС‚РІРµРґРµРЅРёРµ",
     description:
-      "Гравитационные и напорные трубопроводы, КНС, очистные сооружения и емкости для коммунальной и промышленной инфраструктуры.",
+      "Р“СЂР°РІРёС‚Р°С†РёРѕРЅРЅС‹Рµ Рё РЅР°РїРѕСЂРЅС‹Рµ С‚СЂСѓР±РѕРїСЂРѕРІРѕРґС‹, РљРќРЎ, РѕС‡РёСЃС‚РЅС‹Рµ СЃРѕРѕСЂСѓР¶РµРЅРёСЏ Рё РµРјРєРѕСЃС‚Рё РґР»СЏ РєРѕРјРјСѓРЅР°Р»СЊРЅРѕР№ Рё РїСЂРѕРјС‹С€Р»РµРЅРЅРѕР№ РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂС‹.",
     image: "/img/products/vodootvedenie.webp",
-    alt: "Коллектор системы водоотведения на стройплощадке",
+    alt: "РљРѕР»Р»РµРєС‚РѕСЂ СЃРёСЃС‚РµРјС‹ РІРѕРґРѕРѕС‚РІРµРґРµРЅРёСЏ РЅР° СЃС‚СЂРѕР№РїР»РѕС‰Р°РґРєРµ",
     href: "/catalog?category=vodootvedenie",
   },
   {
     slug: "gazosnabzhenie",
-    title: "Газоснабжение",
+    title: "Р“Р°Р·РѕСЃРЅР°Р±Р¶РµРЅРёРµ",
     description:
-      "Полиэтиленовые и стальные трубопроводы, ГРП/ГРПШ, КИПиА и катодная защита под требования Ростехнадзора и Газпрома.",
+      "РџРѕР»РёСЌС‚РёР»РµРЅРѕРІС‹Рµ Рё СЃС‚Р°Р»СЊРЅС‹Рµ С‚СЂСѓР±РѕРїСЂРѕРІРѕРґС‹, Р“Р Рџ/Р“Р РџРЁ, РљРРџРёРђ Рё РєР°С‚РѕРґРЅР°СЏ Р·Р°С‰РёС‚Р° РїРѕРґ С‚СЂРµР±РѕРІР°РЅРёСЏ Р РѕСЃС‚РµС…РЅР°РґР·РѕСЂР° Рё Р“Р°Р·РїСЂРѕРјР°.",
     image: "/img/products/gazosnabzhenie.webp",
-    alt: "Газораспределительный пункт и трубопровод",
+    alt: "Р“Р°Р·РѕСЂР°СЃРїСЂРµРґРµР»РёС‚РµР»СЊРЅС‹Р№ РїСѓРЅРєС‚ Рё С‚СЂСѓР±РѕРїСЂРѕРІРѕРґ",
     href: "/catalog?category=gazosnabzhenie",
   },
   {
     slug: "elektrosnabzhenie",
-    title: "Электроснабжение",
+    title: "Р­Р»РµРєС‚СЂРѕСЃРЅР°Р±Р¶РµРЅРёРµ",
     description:
-      "КТП, распределительные устройства, кабельная продукция и освещение. Соответствие стандартам сетевых и промышленных заказчиков.",
+      "РљРўРџ, СЂР°СЃРїСЂРµРґРµР»РёС‚РµР»СЊРЅС‹Рµ СѓСЃС‚СЂРѕР№СЃС‚РІР°, РєР°Р±РµР»СЊРЅР°СЏ РїСЂРѕРґСѓРєС†РёСЏ Рё РѕСЃРІРµС‰РµРЅРёРµ. РЎРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЃС‚Р°РЅРґР°СЂС‚Р°Рј СЃРµС‚РµРІС‹С… Рё РїСЂРѕРјС‹С€Р»РµРЅРЅС‹С… Р·Р°РєР°Р·С‡РёРєРѕРІ.",
     image: "/img/products/elektrosnabzhenie.webp",
-    alt: "Электротехническое оборудование подстанции",
+    alt: "Р­Р»РµРєС‚СЂРѕС‚РµС…РЅРёС‡РµСЃРєРѕРµ РѕР±РѕСЂСѓРґРѕРІР°РЅРёРµ РїРѕРґСЃС‚Р°РЅС†РёРё",
     href: "/catalog?category=elektrosnabzhenie",
   },
   {
     slug: "uslugi",
-    title: "Услуги",
+    title: "РЈСЃР»СѓРіРё",
     description:
-      "Доставка материалов по всей России, аренда спецтехники, выполнение СМР и пусконаладка с одним подрядчиком.",
+      "Р”РѕСЃС‚Р°РІРєР° РјР°С‚РµСЂРёР°Р»РѕРІ РїРѕ РІСЃРµР№ Р РѕСЃСЃРёРё, Р°СЂРµРЅРґР° СЃРїРµС†С‚РµС…РЅРёРєРё, РІС‹РїРѕР»РЅРµРЅРёРµ РЎРњР  Рё РїСѓСЃРєРѕРЅР°Р»Р°РґРєР° СЃ РѕРґРЅРёРј РїРѕРґСЂСЏРґС‡РёРєРѕРј.",
     image: "/img/products/spectekhnika.jpg",
-    alt: "Команда инженеров и спецтехника на строительной площадке",
+    alt: "РљРѕРјР°РЅРґР° РёРЅР¶РµРЅРµСЂРѕРІ Рё СЃРїРµС†С‚РµС…РЅРёРєР° РЅР° СЃС‚СЂРѕРёС‚РµР»СЊРЅРѕР№ РїР»РѕС‰Р°РґРєРµ",
     href: "/catalog?category=uslugi",
   },
 ];
-// КАТЕГОРИИ УСЛУГ
+// РљРђРўР•Р“РћР РР РЈРЎР›РЈР“
 const SERVICE_DIRECTIONS: DirectionCard[] = [
   {
     slug: "stroitelnye-raboty",
-    title: "Строительно-монтажные работы",
-    description: "От подготовительного периода до ввода объекта. Собственные бригады, ПТО и спецтехника.",
+    title: "РЎС‚СЂРѕРёС‚РµР»СЊРЅРѕ-РјРѕРЅС‚Р°Р¶РЅС‹Рµ СЂР°Р±РѕС‚С‹",
+    description: "РћС‚ РїРѕРґРіРѕС‚РѕРІРёС‚РµР»СЊРЅРѕРіРѕ РїРµСЂРёРѕРґР° РґРѕ РІРІРѕРґР° РѕР±СЉРµРєС‚Р°. РЎРѕР±СЃС‚РІРµРЅРЅС‹Рµ Р±СЂРёРіР°РґС‹, РџРўРћ Рё СЃРїРµС†С‚РµС…РЅРёРєР°.",
     image: "/img/services/stroitelnye-raboty.jpeg",
-    alt: "Монтаж инженерных сетей на объекте",
+    alt: "РњРѕРЅС‚Р°Р¶ РёРЅР¶РµРЅРµСЂРЅС‹С… СЃРµС‚РµР№ РЅР° РѕР±СЉРµРєС‚Рµ",
     href: "/services/stroitelnye-montazhnye",
   },
   {
     slug: "proektnye-izyskatelnye",
-    title: "Проектно-изыскательные работы",
-    description: "Обследование, ПИР, BIM-координация и сопровождение экспертизы. Ведение проекта в единой среде данных.",
+    title: "РџСЂРѕРµРєС‚РЅРѕ-РёР·С‹СЃРєР°С‚РµР»СЊРЅС‹Рµ СЂР°Р±РѕС‚С‹",
+    description: "РћР±СЃР»РµРґРѕРІР°РЅРёРµ, РџРР , BIM-РєРѕРѕСЂРґРёРЅР°С†РёСЏ Рё СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёРµ СЌРєСЃРїРµСЂС‚РёР·С‹. Р’РµРґРµРЅРёРµ РїСЂРѕРµРєС‚Р° РІ РµРґРёРЅРѕР№ СЃСЂРµРґРµ РґР°РЅРЅС‹С….",
     image: "/img/services/proektnye.jpg",
-    alt: "Инженер проектирует инфраструктуру на компьютере",
+    alt: "РРЅР¶РµРЅРµСЂ РїСЂРѕРµРєС‚РёСЂСѓРµС‚ РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂСѓ РЅР° РєРѕРјРїСЊСЋС‚РµСЂРµ",
     href: "/services/proektnye",
   },
   {
     slug: "puskonaladochnye",
-    title: "Пусконаладочные работы",
-    description: "Настройка оборудования, испытания, обучение персонала и гарантийный сервис.",
+    title: "РџСѓСЃРєРѕРЅР°Р»Р°РґРѕС‡РЅС‹Рµ СЂР°Р±РѕС‚С‹",
+    description: "РќР°СЃС‚СЂРѕР№РєР° РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ, РёСЃРїС‹С‚Р°РЅРёСЏ, РѕР±СѓС‡РµРЅРёРµ РїРµСЂСЃРѕРЅР°Р»Р° Рё РіР°СЂР°РЅС‚РёР№РЅС‹Р№ СЃРµСЂРІРёСЃ.",
     image: "/img/services/puskonaladochnye.jpg",
-    alt: "Специалист проводит пусконаладку оборудования",
+    alt: "РЎРїРµС†РёР°Р»РёСЃС‚ РїСЂРѕРІРѕРґРёС‚ РїСѓСЃРєРѕРЅР°Р»Р°РґРєСѓ РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ",
     href: "/services/puskonaladochnye",
   },
   {
     slug: "avtorskiy-nadzor",
-    title: "Авторский и технический надзор",
-    description: "Контроль качества, управление изменениями, ведение исполнительной документации.",
+    title: "РђРІС‚РѕСЂСЃРєРёР№ Рё С‚РµС…РЅРёС‡РµСЃРєРёР№ РЅР°РґР·РѕСЂ",
+    description: "РљРѕРЅС‚СЂРѕР»СЊ РєР°С‡РµСЃС‚РІР°, СѓРїСЂР°РІР»РµРЅРёРµ РёР·РјРµРЅРµРЅРёСЏРјРё, РІРµРґРµРЅРёРµ РёСЃРїРѕР»РЅРёС‚РµР»СЊРЅРѕР№ РґРѕРєСѓРјРµРЅС‚Р°С†РёРё.",
     image: "/img/services/nadzor.jpeg",
-    alt: "Инженеры проводят технический надзор",
+    alt: "РРЅР¶РµРЅРµСЂС‹ РїСЂРѕРІРѕРґСЏС‚ С‚РµС…РЅРёС‡РµСЃРєРёР№ РЅР°РґР·РѕСЂ",
     href: "/services/nadzor",
   },
   {
     slug: "logistika",
-    title: "Логистика и снабжение",
-    description: "Маршрутизация, складирование, контроль сроков и качества. Собственный парк и федеральные партнёры.",
+    title: "Р›РѕРіРёСЃС‚РёРєР° Рё СЃРЅР°Р±Р¶РµРЅРёРµ",
+    description: "РњР°СЂС€СЂСѓС‚РёР·Р°С†РёСЏ, СЃРєР»Р°РґРёСЂРѕРІР°РЅРёРµ, РєРѕРЅС‚СЂРѕР»СЊ СЃСЂРѕРєРѕРІ Рё РєР°С‡РµСЃС‚РІР°. РЎРѕР±СЃС‚РІРµРЅРЅС‹Р№ РїР°СЂРє Рё С„РµРґРµСЂР°Р»СЊРЅС‹Рµ РїР°СЂС‚РЅС‘СЂС‹.",
     image: "/img/services/logistika.jpeg",
-    alt: "Колонна грузовиков на трассе",
+    alt: "РљРѕР»РѕРЅРЅР° РіСЂСѓР·РѕРІРёРєРѕРІ РЅР° С‚СЂР°СЃСЃРµ",
     href: "/services/logistika",
   },
   {
     slug: "arenda-spectekhniki",
-    title: "Аренда спецтехники",
-    description: "Техника 24/7, вахтовые бригады, сервисное сопровождение и страхование.",
+    title: "РђСЂРµРЅРґР° СЃРїРµС†С‚РµС…РЅРёРєРё",
+    description: "РўРµС…РЅРёРєР° 24/7, РІР°С…С‚РѕРІС‹Рµ Р±СЂРёРіР°РґС‹, СЃРµСЂРІРёСЃРЅРѕРµ СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёРµ Рё СЃС‚СЂР°С…РѕРІР°РЅРёРµ.",
     image: "/img/services/arenda-spectekhniki.jpg",
-    alt: "Парк спецтехники на базе",
+    alt: "РџР°СЂРє СЃРїРµС†С‚РµС…РЅРёРєРё РЅР° Р±Р°Р·Рµ",
     href: "/services/arenda",
   },
 ];
@@ -229,14 +229,14 @@ const SERVICE_DIRECTIONS: DirectionCard[] = [
 const CLIENT_CASES: ClientCase[] = [
   {
     id: "rosvodokanal",
-    name: "МРИЯ",
-    sector: "ГНБ · B2B",
-    summary: "Переход методом ГНБ в скальных грунтах.",
+    name: "РњР РРЇ",
+    sector: "Р“РќР‘ В· B2B",
+    summary: "РџРµСЂРµС…РѕРґ РјРµС‚РѕРґРѕРј Р“РќР‘ РІ СЃРєР°Р»СЊРЅС‹С… РіСЂСѓРЅС‚Р°С….",
     image: "/img/clients/mriya-bg.jpg",
     logo: "/img/clients/mriya-logo.png",
-    alt: "Команда на объекте Росводоканала",
+    alt: "РљРѕРјР°РЅРґР° РЅР° РѕР±СЉРµРєС‚Рµ Р РѕСЃРІРѕРґРѕРєР°РЅР°Р»Р°",
     details: [
-      "Переход методом ГНБ в скальных грунтах D 300 мм L 270 п.м. Mriya Resot and Spa",
+      "РџРµСЂРµС…РѕРґ РјРµС‚РѕРґРѕРј Р“РќР‘ РІ СЃРєР°Р»СЊРЅС‹С… РіСЂСѓРЅС‚Р°С… D 300 РјРј L 270 Рї.Рј. Mriya Resot and Spa",
       ".",
       ".",
     ],
@@ -244,45 +244,45 @@ const CLIENT_CASES: ClientCase[] = [
   },
   {
     id: "mosoblvodokanal",
-    name: "ТД ВИПАКС",
-    sector: "ПНР · B2G",
-    summary: "Работы ПНР по направляениям ЭТО, ТМО, СВС, ВС, и ОВиК.",
+    name: "РўР” Р’РРџРђРљРЎ",
+    sector: "РџРќР  В· B2G",
+    summary: "Р Р°Р±РѕС‚С‹ РџРќР  РїРѕ РЅР°РїСЂР°РІР»СЏРµРЅРёСЏРј Р­РўРћ, РўРњРћ, РЎР’РЎ, Р’РЎ, Рё РћР’РёРљ.",
     image: "/img/clients/td-bg.jpg",
     logo: "/img/clients/td-logo.png",
-    alt: "Строительство канализационных сетей",
+    alt: "РЎС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ РєР°РЅР°Р»РёР·Р°С†РёРѕРЅРЅС‹С… СЃРµС‚РµР№",
     details: [
-      "В 2022 ведутся работы ПНР по направлениям ЭТО, ТМО, системам внешней связи, внутриобъектовой связи и ОВиК, плановый срок окончания первого этапа 1й квартал 2023г.",
-      "В мае 2022 года проведены ПНР системы внешней связи между Ударной ТЭС и Кубанским РДУ основного и резервного канала.",
-      "Пуск ТЭС 2024 год.",
+      "Р’ 2022 РІРµРґСѓС‚СЃСЏ СЂР°Р±РѕС‚С‹ РџРќР  РїРѕ РЅР°РїСЂР°РІР»РµРЅРёСЏРј Р­РўРћ, РўРњРћ, СЃРёСЃС‚РµРјР°Рј РІРЅРµС€РЅРµР№ СЃРІСЏР·Рё, РІРЅСѓС‚СЂРёРѕР±СЉРµРєС‚РѕРІРѕР№ СЃРІСЏР·Рё Рё РћР’РёРљ, РїР»Р°РЅРѕРІС‹Р№ СЃСЂРѕРє РѕРєРѕРЅС‡Р°РЅРёСЏ РїРµСЂРІРѕРіРѕ СЌС‚Р°РїР° 1Р№ РєРІР°СЂС‚Р°Р» 2023Рі.",
+      "Р’ РјР°Рµ 2022 РіРѕРґР° РїСЂРѕРІРµРґРµРЅС‹ РџРќР  СЃРёСЃС‚РµРјС‹ РІРЅРµС€РЅРµР№ СЃРІСЏР·Рё РјРµР¶РґСѓ РЈРґР°СЂРЅРѕР№ РўР­РЎ Рё РљСѓР±Р°РЅСЃРєРёРј Р Р”РЈ РѕСЃРЅРѕРІРЅРѕРіРѕ Рё СЂРµР·РµСЂРІРЅРѕРіРѕ РєР°РЅР°Р»Р°.",
+      "РџСѓСЃРє РўР­РЎ 2024 РіРѕРґ.",
     ],
   },
   {
     id: "moscow-metro",
-    name: "ТехноПромЭкспорт",
-    sector: "Газоснабжение · B2G",
-    summary: "Инженерные системы и спецтехника для строительства Большой кольцевой линии.",
+    name: "РўРµС…РЅРѕРџСЂРѕРјР­РєСЃРїРѕСЂС‚",
+    sector: "Р“Р°Р·РѕСЃРЅР°Р±Р¶РµРЅРёРµ В· B2G",
+    summary: "РРЅР¶РµРЅРµСЂРЅС‹Рµ СЃРёСЃС‚РµРјС‹ Рё СЃРїРµС†С‚РµС…РЅРёРєР° РґР»СЏ СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР° Р‘РѕР»СЊС€РѕР№ РєРѕР»СЊС†РµРІРѕР№ Р»РёРЅРёРё.",
     image: "/img/clients/tpe-bg.png",
     logo: "/img/clients/tpe-logo.png",
-    alt: "Тоннель метро в процессе строительства",
+    alt: "РўРѕРЅРЅРµР»СЊ РјРµС‚СЂРѕ РІ РїСЂРѕС†РµСЃСЃРµ СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР°",
     details: [
-      "Поставка кабельных линий, силовых щитов и шкафов автоматики.",
-      "Аренда спецтехники с круглосуточным сервисом и диспетчеризацией.",
-      "Контроль качества, технадзор и интеграция с BIM-моделью проекта.",
+      "РџРѕСЃС‚Р°РІРєР° РєР°Р±РµР»СЊРЅС‹С… Р»РёРЅРёР№, СЃРёР»РѕРІС‹С… С‰РёС‚РѕРІ Рё С€РєР°С„РѕРІ Р°РІС‚РѕРјР°С‚РёРєРё.",
+      "РђСЂРµРЅРґР° СЃРїРµС†С‚РµС…РЅРёРєРё СЃ РєСЂСѓРіР»РѕСЃСѓС‚РѕС‡РЅС‹Рј СЃРµСЂРІРёСЃРѕРј Рё РґРёСЃРїРµС‚С‡РµСЂРёР·Р°С†РёРµР№.",
+      "РљРѕРЅС‚СЂРѕР»СЊ РєР°С‡РµСЃС‚РІР°, С‚РµС…РЅР°РґР·РѕСЂ Рё РёРЅС‚РµРіСЂР°С†РёСЏ СЃ BIM-РјРѕРґРµР»СЊСЋ РїСЂРѕРµРєС‚Р°.",
     ],
     link: "https://www.mosmetro.ru",
   },
   {
     id: "novatek",
-    name: "Вода Крыма",
-    sector: "Водоснабжение · B2G",
-    summary: "Газовые сети для технологических линий и объектов внешнего снабжения.",
+    name: "Р’РѕРґР° РљСЂС‹РјР°",
+    sector: "Р’РѕРґРѕСЃРЅР°Р±Р¶РµРЅРёРµ В· B2G",
+    summary: "Р“Р°Р·РѕРІС‹Рµ СЃРµС‚Рё РґР»СЏ С‚РµС…РЅРѕР»РѕРіРёС‡РµСЃРєРёС… Р»РёРЅРёР№ Рё РѕР±СЉРµРєС‚РѕРІ РІРЅРµС€РЅРµРіРѕ СЃРЅР°Р±Р¶РµРЅРёСЏ.",
     image: "/img/clients/vodacrimea-bg.jpg",
     logo: "/img/clients/vodacrimea-logo.jpg",
-    alt: "Газовая инфраструктура на промышленной площадке",
+    alt: "Р“Р°Р·РѕРІР°СЏ РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂР° РЅР° РїСЂРѕРјС‹С€Р»РµРЅРЅРѕР№ РїР»РѕС‰Р°РґРєРµ",
     details: [
-      "Поставка оборудования ГРП и узлов учёта с резервированием.",
-      "Металлоконструкции и трубопроводы из нержавейки под требования заказчика.",
-      "Пусконаладка, авторский надзор и обучение оперативного персонала.",
+      "РџРѕСЃС‚Р°РІРєР° РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ Р“Р Рџ Рё СѓР·Р»РѕРІ СѓС‡С‘С‚Р° СЃ СЂРµР·РµСЂРІРёСЂРѕРІР°РЅРёРµРј.",
+      "РњРµС‚Р°Р»Р»РѕРєРѕРЅСЃС‚СЂСѓРєС†РёРё Рё С‚СЂСѓР±РѕРїСЂРѕРІРѕРґС‹ РёР· РЅРµСЂР¶Р°РІРµР№РєРё РїРѕРґ С‚СЂРµР±РѕРІР°РЅРёСЏ Р·Р°РєР°Р·С‡РёРєР°.",
+      "РџСѓСЃРєРѕРЅР°Р»Р°РґРєР°, Р°РІС‚РѕСЂСЃРєРёР№ РЅР°РґР·РѕСЂ Рё РѕР±СѓС‡РµРЅРёРµ РѕРїРµСЂР°С‚РёРІРЅРѕРіРѕ РїРµСЂСЃРѕРЅР°Р»Р°.",
     ],
     link: "https://www.novatek.ru",
   },
@@ -291,67 +291,67 @@ const CLIENT_CASES: ClientCase[] = [
 const CERTIFICATES: CertificateCard[] = [
   {
     id: "sro-stroy",
-    title: "СРО на строительно-монтажные работы",
-    number: "№ СРО-С-123-2025",
-    issuedBy: "СРО «ИнжСтройАльянс»",
-    validTill: "до 12.05.2026",
+    title: "РЎР Рћ РЅР° СЃС‚СЂРѕРёС‚РµР»СЊРЅРѕ-РјРѕРЅС‚Р°Р¶РЅС‹Рµ СЂР°Р±РѕС‚С‹",
+    number: "в„– РЎР Рћ-РЎ-123-2025",
+    issuedBy: "РЎР Рћ В«РРЅР¶РЎС‚СЂРѕР№РђР»СЊСЏРЅСЃВ»",
+    validTill: "РґРѕ 12.05.2026",
     image: "/img/certificates/sro-stroy.svg",
-    alt: "СРО на строительно-монтажные работы",
+    alt: "РЎР Рћ РЅР° СЃС‚СЂРѕРёС‚РµР»СЊРЅРѕ-РјРѕРЅС‚Р°Р¶РЅС‹Рµ СЂР°Р±РѕС‚С‹",
     scope: [
-      "Объекты капитального строительства, включая особо опасные и технически сложные.",
-      "Монтаж инженерных систем, сварка трубопроводов, КИПиА.",
+      "РћР±СЉРµРєС‚С‹ РєР°РїРёС‚Р°Р»СЊРЅРѕРіРѕ СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР°, РІРєР»СЋС‡Р°СЏ РѕСЃРѕР±Рѕ РѕРїР°СЃРЅС‹Рµ Рё С‚РµС…РЅРёС‡РµСЃРєРё СЃР»РѕР¶РЅС‹Рµ.",
+      "РњРѕРЅС‚Р°Р¶ РёРЅР¶РµРЅРµСЂРЅС‹С… СЃРёСЃС‚РµРј, СЃРІР°СЂРєР° С‚СЂСѓР±РѕРїСЂРѕРІРѕРґРѕРІ, РљРРџРёРђ.",
     ],
   },
   {
     id: "sro-proekt",
-    title: "СРО на проектные работы",
-    number: "№ СРО-П-078-2025",
-    issuedBy: "СРО «ПроектИнжиниринг»",
-    validTill: "до 18.09.2026",
+    title: "РЎР Рћ РЅР° РїСЂРѕРµРєС‚РЅС‹Рµ СЂР°Р±РѕС‚С‹",
+    number: "в„– РЎР Рћ-Рџ-078-2025",
+    issuedBy: "РЎР Рћ В«РџСЂРѕРµРєС‚РРЅР¶РёРЅРёСЂРёРЅРіВ»",
+    validTill: "РґРѕ 18.09.2026",
     image: "/img/certificates/sro-proekt.svg",
-    alt: "СРО на проектные работы",
+    alt: "РЎР Рћ РЅР° РїСЂРѕРµРєС‚РЅС‹Рµ СЂР°Р±РѕС‚С‹",
     scope: [
-      "Проектирование инженерных коммуникаций и систем водоподготовки.",
-      "Авторский контроль, BIM-координация, сопровождение экспертизы.",
+      "РџСЂРѕРµРєС‚РёСЂРѕРІР°РЅРёРµ РёРЅР¶РµРЅРµСЂРЅС‹С… РєРѕРјРјСѓРЅРёРєР°С†РёР№ Рё СЃРёСЃС‚РµРј РІРѕРґРѕРїРѕРґРіРѕС‚РѕРІРєРё.",
+      "РђРІС‚РѕСЂСЃРєРёР№ РєРѕРЅС‚СЂРѕР»СЊ, BIM-РєРѕРѕСЂРґРёРЅР°С†РёСЏ, СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёРµ СЌРєСЃРїРµСЂС‚РёР·С‹.",
     ],
   },
   {
     id: "iso-9001",
-    title: "Сертификат ISO 9001:2015",
+    title: "РЎРµСЂС‚РёС„РёРєР°С‚ ISO 9001:2015",
     number: "RU-ISO-9001-4580",
     issuedBy: "Bureau Veritas Certification",
-    validTill: "до 01.03.2027",
+    validTill: "РґРѕ 01.03.2027",
     image: "/img/certificates/iso-9001.svg",
-    alt: "Сертификат системы менеджмента качества ISO 9001",
+    alt: "РЎРµСЂС‚РёС„РёРєР°С‚ СЃРёСЃС‚РµРјС‹ РјРµРЅРµРґР¶РјРµРЅС‚Р° РєР°С‡РµСЃС‚РІР° ISO 9001",
     scope: [
-      "Менеджмент качества поставок строительных материалов и оборудования.",
-      "Организация строительных и монтажных работ.",
+      "РњРµРЅРµРґР¶РјРµРЅС‚ РєР°С‡РµСЃС‚РІР° РїРѕСЃС‚Р°РІРѕРє СЃС‚СЂРѕРёС‚РµР»СЊРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ Рё РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ.",
+      "РћСЂРіР°РЅРёР·Р°С†РёСЏ СЃС‚СЂРѕРёС‚РµР»СЊРЅС‹С… Рё РјРѕРЅС‚Р°Р¶РЅС‹С… СЂР°Р±РѕС‚.",
     ],
   },
   {
     id: "iso-14001",
-    title: "Сертификат ISO 14001:2016",
+    title: "РЎРµСЂС‚РёС„РёРєР°С‚ ISO 14001:2016",
     number: "RU-ISO-14001-1120",
-    issuedBy: "TÜV Rheinland",
-    validTill: "до 30.11.2026",
+    issuedBy: "TГњV Rheinland",
+    validTill: "РґРѕ 30.11.2026",
     image: "/img/certificates/iso-14001.svg",
-    alt: "Сертификат системы экологического менеджмента ISO 14001",
+    alt: "РЎРµСЂС‚РёС„РёРєР°С‚ СЃРёСЃС‚РµРјС‹ СЌРєРѕР»РѕРіРёС‡РµСЃРєРѕРіРѕ РјРµРЅРµРґР¶РјРµРЅС‚Р° ISO 14001",
     scope: [
-      "Экологическое сопровождение строительства и эксплуатации объектов.",
-      "Управление отходами и мониторинг воздействия на среду.",
+      "Р­РєРѕР»РѕРіРёС‡РµСЃРєРѕРµ СЃРѕРїСЂРѕРІРѕР¶РґРµРЅРёРµ СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІР° Рё СЌРєСЃРїР»СѓР°С‚Р°С†РёРё РѕР±СЉРµРєС‚РѕРІ.",
+      "РЈРїСЂР°РІР»РµРЅРёРµ РѕС‚С…РѕРґР°РјРё Рё РјРѕРЅРёС‚РѕСЂРёРЅРі РІРѕР·РґРµР№СЃС‚РІРёСЏ РЅР° СЃСЂРµРґСѓ.",
     ],
   },
   {
     id: "rostekhnadzor",
-    title: "Допуск Ростехнадзора",
-    number: "№ 77-Д-985/2025",
-    issuedBy: "Ростехнадзор",
-    validTill: "до 14.02.2027",
-    image: "/img/certificates/rostekhnadzор.svg",
-    alt: "Допуск Ростехнадзора на опасные производственные объекты",
+    title: "Р”РѕРїСѓСЃРє Р РѕСЃС‚РµС…РЅР°РґР·РѕСЂР°",
+    number: "в„– 77-Р”-985/2025",
+    issuedBy: "Р РѕСЃС‚РµС…РЅР°РґР·РѕСЂ",
+    validTill: "РґРѕ 14.02.2027",
+    image: "/img/certificates/rostekhnadzor.svg",
+    alt: "Р”РѕРїСѓСЃРє Р РѕСЃС‚РµС…РЅР°РґР·РѕСЂР° РЅР° РѕРїР°СЃРЅС‹Рµ РїСЂРѕРёР·РІРѕРґСЃС‚РІРµРЅРЅС‹Рµ РѕР±СЉРµРєС‚С‹",
     scope: [
-      "Работы на опасных производственных объектах нефтегазовой отрасли.",
-      "Строительство и реконструкция резервуарных парков и сетей ВСП.",
+      "Р Р°Р±РѕС‚С‹ РЅР° РѕРїР°СЃРЅС‹С… РїСЂРѕРёР·РІРѕРґСЃС‚РІРµРЅРЅС‹С… РѕР±СЉРµРєС‚Р°С… РЅРµС„С‚РµРіР°Р·РѕРІРѕР№ РѕС‚СЂР°СЃР»Рё.",
+      "РЎС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕ Рё СЂРµРєРѕРЅСЃС‚СЂСѓРєС†РёСЏ СЂРµР·РµСЂРІСѓР°СЂРЅС‹С… РїР°СЂРєРѕРІ Рё СЃРµС‚РµР№ Р’РЎРџ.",
     ],
   },
 ];
@@ -366,27 +366,27 @@ const CONTACT_CHANNELS: ContactChannel[] = [
 
 const CONTACT_PERSONS: ContactPerson[] = [
   {
-    name: "Антон Петров",
-    role: "Коммерческий директор",
+    name: "РђРЅС‚РѕРЅ РџРµС‚СЂРѕРІ",
+    role: "РљРѕРјРјРµСЂС‡РµСЃРєРёР№ РґРёСЂРµРєС‚РѕСЂ",
     phone: "+7 (495) 123-45-67",
     email: "a.petrov@stroyalliance.ru",
   },
   {
-    name: "Мария Кузнецова",
-    role: "Руководитель тендерного отдела",
+    name: "РњР°СЂРёСЏ РљСѓР·РЅРµС†РѕРІР°",
+    role: "Р СѓРєРѕРІРѕРґРёС‚РµР»СЊ С‚РµРЅРґРµСЂРЅРѕРіРѕ РѕС‚РґРµР»Р°",
     phone: "+7 (985) 222-33-44",
     email: "m.kuznetsova@stroyalliance.ru",
   },
   {
-    name: "Дмитрий Волков",
-    role: "Директор по проектам",
+    name: "Р”РјРёС‚СЂРёР№ Р’РѕР»РєРѕРІ",
+    role: "Р”РёСЂРµРєС‚РѕСЂ РїРѕ РїСЂРѕРµРєС‚Р°Рј",
     phone: "+7 (916) 555-77-99",
     email: "d.volkov@stroyalliance.ru",
   },
 ];
 
 // --------------------------------------------------------------
-// Хук для горизонтального drag-scroll каруселей
+// РҐСѓРє РґР»СЏ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ drag-scroll РєР°СЂСѓСЃРµР»РµР№
 // --------------------------------------------------------------
 function useCarousel(length: number) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -496,36 +496,8 @@ function useCarousel(length: number) {
 }
 
 // --------------------------------------------------------------
-// Кнопка возврата к началу страницы
+// РљРЅРѕРїРєР° РІРѕР·РІСЂР°С‚Р° Рє РЅР°С‡Р°Р»Сѓ СЃС‚СЂР°РЅРёС†С‹
 // --------------------------------------------------------------
-function BackToTopButton() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 600);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  if (!visible) return null;
-
-  return (
-    <button
-      type="button"
-      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-      className="fixed bottom-28 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-white/25 bg-white/10 text-white shadow-[0_10px_30px_rgba(8,15,40,0.45)] backdrop-blur transition hover:border-white/45 hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:bottom-12 md:right-12 md:h-auto md:w-auto md:min-w-[3.5rem] md:px-5 md:py-3 md:text-xs md:font-semibold md:uppercase md:tracking-[0.28em]"
-      aria-label="Вернуться в начало страницы"
-    >
-      <svg className="h-4 w-4 md:h-5 md:w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-      </svg>
-      <span className="sr-only md:not-sr-only md:ml-2">Вверх</span>
-    </button>
-  );
-}
-
-// Универсальное модальное окно
 // --------------------------------------------------------------
 function Modal({ onClose, title, children }: { onClose: () => void; title: string; children: ReactNode }) {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -549,9 +521,9 @@ function Modal({ onClose, title, children }: { onClose: () => void; title: strin
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-900"
-          aria-label="Закрыть модальное окно"
+          aria-label="Р—Р°РєСЂС‹С‚СЊ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ"
         >
-          ✕
+          вњ•
         </button>
         <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
         <div className="mt-4 space-y-3 text-sm text-slate-600">{children}</div>
@@ -898,7 +870,7 @@ export default function Page() {
         <section
           id="hero"
           ref={sectionCallbacks[0]}
-          className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none -mt-[80px] pt-[80px] md:-mt-[96px] md:pt-[96px]"
+          className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none -mt-[60px] pt-[60px] md:-mt-[96px] md:pt-[96px]"
         >
           <div
             className="relative h-full w-full touch-pan-y"
@@ -919,7 +891,7 @@ export default function Page() {
                   aria-hidden={!isActive}
                   role="group"
                   aria-roledescription="slide"
-                  aria-label={`${index + 1} из ${heroSlides.length}`}
+                  aria-label={`${index + 1} РёР· ${heroSlides.length}`}
                 >
                   <div className="absolute inset-0">
                     <Image
@@ -935,7 +907,7 @@ export default function Page() {
                   </div>
                   <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-center gap-6 px-6 py-24 text-white sm:px-10 lg:px-16">
                     <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
-                      <span className="text-xs font-semibold uppercase tracking-[0.4em] text-white/80">Строй Альянс</span>
+                      <span className="text-xs font-semibold uppercase tracking-[0.4em] text-white/80">РЎС‚СЂРѕР№ РђР»СЊСЏРЅСЃ</span>
                       <h1 className="text-4xl font-bold leading-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl lg:text-6xl">
                         {slide.title}
                       </h1>
@@ -973,8 +945,8 @@ export default function Page() {
               <button
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex - 1)}
-                aria-label="Предыдущий слайд"
-                className="group absolute left-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:left-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:left-16"
+                aria-label="РџСЂРµРґС‹РґСѓС‰РёР№ СЃР»Р°Р№Рґ"
+                className="group absolute left-6 bottom-[20%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:left-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:left-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -983,21 +955,21 @@ export default function Page() {
               <button
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex + 1)}
-                aria-label="Следующий слайд"
-                className="group absolute right-6 bottom-[22%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:right-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:right-16"
+                aria-label="РЎР»РµРґСѓСЋС‰РёР№ СЃР»Р°Р№Рґ"
+                className="group absolute right-6 bottom-[20%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:right-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:right-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                 </svg>
               </button>
-              <div className="pointer-events-none absolute left-1/2 flex -translate-x-1/2 items-center gap-2 bottom-[110px] sm:bottom-16 sm:gap-3">
+              <div className="pointer-events-none absolute left-1/2 top-24 flex -translate-x-1/2 items-center gap-2 sm:top-24 md:top-auto md:bottom-16 md:gap-3">
                 {heroSlides.map((slide, index) => (
                   <button
                     key={slide.id}
                     type="button"
                     onClick={() => handleHeroSelect(index)}
                     className={`pointer-events-auto h-1.5 w-8 rounded-full border border-white/30 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:h-2 sm:w-9 ${activeHeroIndex === index ? "bg-white/90" : "bg-white/20"}`}
-                    aria-label={`Перейти к слайду: ${slide.title}`}
+                    aria-label={`РџРµСЂРµР№С‚Рё Рє СЃР»Р°Р№РґСѓ: ${slide.title}`}
                   />
                 ))}
               </div>
@@ -1005,243 +977,279 @@ export default function Page() {
           )}
         </section>
 
-        <section ref={sectionCallbacks[1]} id="product-directions" className="mx-auto max-w-6xl px-6 scroll-mt-32">
-          <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between ">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Продукты</span>
-              <h2 className="text-3xl font-semibold text-slate-900">Строительные материалы</h2>
-            </div>
-            <p className="max-w-xl text-sm text-slate-500">
-              Комплексный поиск промышленных материалов и материалов для инфраструктуры с предсказуемыми сроками поставки и строгим контролем качества.
-            </p>
-          </header>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {directions.products.map((direction) => (
-<Link
-  key={direction.slug}
-  href={direction.href}
-  className="group flex flex-col overflow-hidden rounded-3xl border border-teal-100/20 bg-teal shadow-sm transition hover:-translate-y-1 hover:border-teal-400/20 hover:shadow-xl"
->
-  <div className="relative h-50 w-full">
-    <Image
-      src={direction.image}
-      alt={direction.alt}
-      fill
-      className="object-cover"
-      sizes="100vw"
-    />
-  </div>
-
-  <div className="p-6 flex flex-col gap-2">
-    <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
-    <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
-  </div>
-
-  <span className="px-6 pb-6 text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">
-    Узнать больше
-  </span>
-</Link>
-            ))}
-          </div>
-        </section>
-
-        <section ref={sectionCallbacks[2]} id="service-directions" className="mx-auto max-w-6xl px-6 scroll-mt-32">
-          <header className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">Услуги</span>
-              <h2 className="text-3xl font-semibold text-slate-900">Инженерные компетенции</h2>
-            </div>
-            <p className="max-w-xl text-sm text-slate-500">
-              Команды по поставке оборудования под ключ, которые занимаются проектированием, строительством, вводом в эксплуатацию и эксплуатационной поддержкой сложных объектов.
-            </p>
-          </header>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {directions.services.map((direction) => (
-<Link
-  key={direction.slug}
-  href={direction.href}
-  className="group flex flex-col overflow-hidden rounded-3xl border border-teal-100/20 bg-teal shadow-sm transition hover:-translate-y-1 hover:border-teal-400/20 hover:shadow-xl"
->
-  <div className="relative h-50 w-full">
-    <Image
-      src={direction.image}
-      alt={direction.alt}
-      fill
-      className="object-cover"
-      sizes="100vw"
-    />
-  </div>
-
-  <div className="p-6 flex flex-col gap-2">
-    <h3 className="text-lg font-semibold text-slate-900">{direction.title}</h3>
-    <p className="text-sm leading-relaxed text-slate-600">{direction.description}</p>
-  </div>
-
-  <span className="px-6 pb-6 text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">
-    Узнать больше
-  </span>
-</Link>
-            ))}
-          </div>
-        </section>
-
-        <section ref={sectionCallbacks[3]} id="clients" className="bg-slate-900 py-20 scroll-mt-32">
-          <div className="mx-auto max-w-6xl px-6">
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <section
+          ref={sectionCallbacks[1]}
+          id="product-directions"
+          className="relative flex min-h-[100dvh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
+          <div className="relative z-10 mx-auto flex h-[calc(100vh-160px)] w-full max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-8 text-white shadow-[0_40px_120px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10">
+            <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-400">Клиенты</span>
-                <h2 className="text-3xl font-semibold text-white">Проделанные работы</h2>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-teal-200/80">РџСЂРѕРґСѓРєС‚С‹</span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">РЎС‚СЂРѕРёС‚РµР»СЊРЅС‹Рµ РјР°С‚РµСЂРёР°Р»С‹</h2>
               </div>
-              <p className="max-w-xl text-sm text-slate-300">
-                Подтвержденный опыт работы в регулируемых отраслях: коммунальные услуги, энергетика, транспорт и крупные инфраструктурные программы.
+              <p className="max-w-xl text-sm text-white/70">
+                РљРѕРјРїР»РµРєСЃРЅС‹Р№ РїРѕРёСЃРє РїСЂРѕРјС‹С€Р»РµРЅРЅС‹С… РјР°С‚РµСЂРёР°Р»РѕРІ Рё РјР°С‚РµСЂРёР°Р»РѕРІ РґР»СЏ РёРЅС„СЂР°СЃС‚СЂСѓРєС‚СѓСЂС‹ СЃ РїСЂРµРґСЃРєР°Р·СѓРµРјС‹РјРё СЃСЂРѕРєР°РјРё РїРѕСЃС‚Р°РІРєРё Рё СЃС‚СЂРѕРіРёРј РєРѕРЅС‚СЂРѕР»РµРј РєР°С‡РµСЃС‚РІР°.
               </p>
-            </div>
+            </header>
 
-            <div className="mt-10 grid gap-6 md:grid-cols-2">
-              {clientCases.map((clientCase) => (
-                <article key={clientCase.id} className="flex h-full flex-col gap-4 rounded-3xl border border-white/5 bg-white/5 p-6 backdrop-blur transition hover:-translate-y-1 hover:border-blue-400/60">
-                  <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-slate-800">
-                    <Image src={clientCase.image} alt={clientCase.alt} width={480} height={280} className="h-full w-full object-cover opacity-80" />
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white">
-                      <Image src={clientCase.logo} alt={clientCase.name} width={48} height={48} className="h-full w-full object-contain p-1.5" />
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-white">{clientCase.name}</h3>
-                      <p className="text-sm text-slate-300">{clientCase.sector}</p>
-                    </div>
-                  </div>
-                  <p className="flex-1 text-sm leading-relaxed text-slate-200">{clientCase.summary}</p>
-                  <button
-                    type="button"
-                    onClick={() => handleOpenCase(clientCase)}
-                    className="self-start rounded-full border border-blue-400/60 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-blue-200 transition hover:border-white hover:text-white"
+            <div className="mt-6 flex-1 overflow-y-auto pr-1">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {directions.products.map((direction) => (
+                  <Link
+                    key={direction.slug}
+                    href={direction.href}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-[0_20px_60px_rgba(10,20,45,0.35)] transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/15"
                   >
-                    Подробнее
-                  </button>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section ref={sectionCallbacks[4]} id="certificates" className="mx-auto max-w-6xl px-6 scroll-mt-32">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">Компетенции</span>
-              <h2 className="text-3xl font-semibold text-slate-900">Сертификаты и разрешения</h2>
-            </div>
-            <p className="max-w-xl text-sm text-slate-500">
-              Подтвержденный менеджмент качества, безопасности и охраны окружающей среды для проектов капитального строительства и поставок оборудования.
-            </p>
-          </div>
-
-          <div
-            ref={certificatesRef}
-            className="mt-8 flex gap-6 overflow-x-auto scroll-smooth pb-6"
-            aria-label="Certificates carousel"
-          >
-            {certificates.map((certificate) => (
-              <button
-                key={certificate.id}
-                type="button"
-                data-carousel-card
-                onClick={() => handleOpenCertificate(certificate)}
-                className="group w-72 shrink-0 rounded-3xl border border-slate-200 bg-white p-6 text-left shadow-sm transition hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl"
-              >
-                <div className="relative h-36 w-full overflow-hidden rounded-2xl bg-slate-50">
-                  <Image src={certificate.image} alt={certificate.alt} width={320} height={200} className="object-cover object-center" />
-                </div>
-                <div className="mt-4 flex flex-col gap-1">
-                  <h3 className="text-lg font-semibold text-slate-900">{certificate.title}</h3>
-                  <p className="text-sm text-slate-500">{certificate.number}</p>
-                  <p className="text-sm text-slate-600">Выдано: {certificate.issuedBy}</p>
-                  <p className="text-xs text-slate-400">Действует {certificate.validTill}</p>
-                </div>
-                <span className="mt-3 inline-flex text-sm font-semibold text-teal-600/50 transition group-hover:text-teal-600">Открыть</span>
-              </button>
-            ))}
-          </div>
-
-          {certificates.length > 1 && (
-            <div className="mt-2 flex justify-center gap-2">
-              {certificates.map((certificate, index) => (
-                <button
-                  key={certificate.id}
-                  type="button"
-                  onClick={() => goToCertificate(index)}
-                  aria-label={`Go to certificate ${certificate.title}`}
-                  className={`h-2.5 w-8 rounded-full transition ${certificateIndex === index ? "bg-teal-600" : "bg-slate-300"}`}
-                />
-              ))}
-            </div>
-          )}
-        </section>
-
-        <section ref={sectionCallbacks[5]} id="contacts" className="bg-slate-100 py-20 scroll-mt-32">
-          <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 lg:flex-row">
-            <div className="flex-1">
-              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-blue-600">Контакты</span>
-              <h2 className="mt-2 text-3xl font-semibold text-slate-900">Региональный офис</h2>
-              <p className="mt-3 max-w-xl text-sm text-slate-600">
-                Свяжитесь с координационной группой по прямым каналам или с ответственным менеджером по вашему вопросу.
-              </p>
-              <div className="mt-8 grid gap-6 sm:grid-cols-2">
-                {contactPersons.map((person) => (
-                  <div key={person.email} className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                    <p className="text-lg font-semibold text-slate-900">{person.name}</p>
-                    <p className="text-sm text-slate-500">{person.role}</p>
-                    <div className="mt-4 space-y-2 text-sm text-slate-600">
-                      <a href={`tel:${person.phone.replace(/[^\d+]/g, "")}`} className="block font-semibold text-blue-700 hover:text-blue-600">
-                        {person.phone}
-                      </a>
-                      <EmailCopyLink email={person.email} className="font-semibold">
-                        {person.email}
-                      </EmailCopyLink>
+                    <div className="relative h-44 w-full overflow-hidden">
+                      <Image
+                        src={direction.image}
+                        alt={direction.alt}
+                        fill
+                        className="object-cover object-center opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                        sizes="100vw"
+                      />
                     </div>
-                  </div>
+                    <div className="flex flex-1 flex-col gap-3 p-6">
+                      <h3 className="text-lg font-semibold text-white">{direction.title}</h3>
+                      <p className="text-sm leading-relaxed text-white/70">{direction.description}</p>
+                    </div>
+                    <span className="px-6 pb-6 text-sm font-semibold text-white/60 transition group-hover:text-white">
+                      РЈР·РЅР°С‚СЊ Р±РѕР»СЊС€Рµ
+                    </span>
+                  </Link>
                 ))}
               </div>
             </div>
-
-            <aside className="w-full max-w-md space-y-6">
-              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                <h3 className="text-xl font-semibold text-slate-900">Мы в соцсетях</h3>
-                <p className="mt-2 text-sm text-slate-600">Выберите мессенджер, чтобы получить ответ в течение одного рабочего часа.</p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {contactChannels.map((channel) => (
-                    <a
-                      key={channel.label}
-                      href={channel.href}
-                      className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 transition hover:-translate-y-0.5 hover:border-blue-200 hover:text-blue-700"
-                      title={channel.tooltip}
-                    >
-                      <Image src={channel.icon} alt={channel.label} width={20} height={20} className="h-5 w-5 object-contain" />
-                      {channel.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-              <div className="rounded-3xl border border-blue-200 bg-blue-50 p-6 shadow-sm">
-                <h3 className="text-xl font-semibold text-blue-900">Прямая связь с директором</h3>
-                <p className="mt-3 text-sm text-blue-900/80">
-                  По всем вопросам сотрудничества и рекламы.
-                </p>
-                <div className="mt-4 space-y-2 text-sm font-semibold text-blue-800">
-                  <a href="tel:+74951234567" className="block hover:text-blue-600">
-                    +7 (495) 123-45-67
-                  </a>
-                  <EmailCopyLink email="info@stroyalliance.ru">info@stroyalliance.ru</EmailCopyLink>
-                </div>
-              </div>
-            </aside>
           </div>
         </section>
 
-        <BackToTopButton />
+        <section
+          ref={sectionCallbacks[2]}
+          id="service-directions"
+          className="relative flex min-h-[100dvh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
+          <div className="relative z-10 mx-auto flex h-[calc(100vh-160px)] w-full max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-8 text-white shadow-[0_40px_120px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10">
+            <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-teal-200/80">РЈСЃР»СѓРіРё</span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">РРЅР¶РµРЅРµСЂРЅС‹Рµ РєРѕРјРїРµС‚РµРЅС†РёРё</h2>
+              </div>
+              <p className="max-w-xl text-sm text-white/70">
+                РљРѕРјР°РЅРґС‹ РїРѕ РїРѕСЃС‚Р°РІРєРµ РѕР±РѕСЂСѓРґРѕРІР°РЅРёСЏ РїРѕРґ РєР»СЋС‡, РєРѕС‚РѕСЂС‹Рµ Р·Р°РЅРёРјР°СЋС‚СЃСЏ РїСЂРѕРµРєС‚РёСЂРѕРІР°РЅРёРµРј, СЃС‚СЂРѕРёС‚РµР»СЊСЃС‚РІРѕРј, РІРІРѕРґРѕРј РІ СЌРєСЃРїР»СѓР°С‚Р°С†РёСЋ Рё СЌРєСЃРїР»СѓР°С‚Р°С†РёРѕРЅРЅРѕР№ РїРѕРґРґРµСЂР¶РєРѕР№ СЃР»РѕР¶РЅС‹С… РѕР±СЉРµРєС‚РѕРІ.
+              </p>
+            </header>
+
+            <div className="mt-6 flex-1 overflow-y-auto pr-1">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                {directions.services.map((direction) => (
+                  <Link
+                    key={direction.slug}
+                    href={direction.href}
+                    className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/15 bg-white/10 shadow-[0_20px_60px_rgba(10,20,45,0.35)] transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/15"
+                  >
+                    <div className="relative h-44 w-full overflow-hidden">
+                      <Image
+                        src={direction.image}
+                        alt={direction.alt}
+                        fill
+                        className="object-cover object-center opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                        sizes="100vw"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col gap-3 p-6">
+                      <h3 className="text-lg font-semibold text-white">{direction.title}</h3>
+                      <p className="text-sm leading-relaxed text-white/70">{direction.description}</p>
+                    </div>
+                    <span className="px-6 pb-6 text-sm font-semibold text-white/60 transition group-hover:text-white">
+                      РџРѕРґСЂРѕР±РЅРµРµ
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+                <section
+          ref={sectionCallbacks[3]}
+          id="clients"
+          className="relative flex min-h-[100dvh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
+          <div className="relative z-10 mx-auto flex h-[calc(100vh-160px)] w-full max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-8 text-white shadow-[0_40px_120px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">РљРµР№СЃС‹</span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">РћРїС‹С‚ РґР»СЏ B2B Рё B2G</h2>
+              </div>
+              <p className="max-w-xl text-sm text-white/70">
+                РРЅР¶РёРЅРёСЂРёРЅРіРѕРІС‹Р№ РїРѕРґС…РѕРґ Рё РєРѕРјРїР»РµРєСЃРЅР°СЏ РїРѕСЃС‚Р°РІРєР° РїРѕР·РІРѕР»СЏСЋС‚ СЂРµР°Р»РёР·РѕРІС‹РІР°С‚СЊ РїСЂРѕРµРєС‚С‹ С„РµРґРµСЂР°Р»СЊРЅРѕРіРѕ Рё СЂРµРіРёРѕРЅР°Р»СЊРЅРѕРіРѕ СѓСЂРѕРІРЅСЏ: РјРѕРґРµСЂРЅРёР·Р°С†РёСЏ СЃРµС‚РµР№, СЌРЅРµСЂРіРѕРѕР±СЉРµРєС‚РѕРІ, СѓР·Р»РѕРІ СѓС‡РµС‚Р° Рё РёРЅР¶РµРЅРµСЂРЅС‹С… СЃРёСЃС‚РµРј Р»СЋР±РѕРіРѕ РјР°СЃС€С‚Р°Р±Р°.
+              </p>
+            </div>
+
+            <div className="mt-6 flex-1 overflow-y-auto pr-1">
+              <div className="grid gap-4 md:grid-cols-2">
+                {clientCases.map((clientCase) => (
+                  <article
+                    key={clientCase.id}
+                    className="group flex h-full flex-col gap-4 rounded-3xl border border-white/15 bg-white/10 p-6 shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-lg transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/15"
+                  >
+                    <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-slate-800">
+                      <Image src={clientCase.image} alt={clientCase.alt} width={480} height={280} className="h-full w-full object-cover opacity-85 transition duration-500 group-hover:scale-105" />
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <div className="relative h-12 w-12 overflow-hidden rounded-full bg-white/90">
+                        <Image src={clientCase.logo} alt={clientCase.name} width={48} height={48} className="h-full w-full object-contain p-1.5" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-white">{clientCase.name}</h3>
+                        <p className="text-sm text-white/70">{clientCase.sector}</p>
+                      </div>
+                    </div>
+                    <p className="flex-1 text-sm leading-relaxed text-white/75">{clientCase.summary}</p>
+                    <button
+                      type="button"
+                      onClick={() => handleOpenCase(clientCase)}
+                      className="self-start rounded-full border border-white/35 px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/80 transition hover:border-white hover:text-white"
+                    >
+                      РџРѕРґСЂРѕР±РЅРµРµ
+                    </button>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+                <section
+          ref={sectionCallbacks[4]}
+          id="certificates"
+          className="relative flex min-h-[100dvh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
+          <div className="relative z-10 mx-auto flex h-[calc(100vh-160px)] w-full max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-8 text-white shadow-[0_40px_120px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">РљРѕРјРїРµС‚РµРЅС†РёРё</span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">РќР°РґС‘Р¶РЅРѕСЃС‚СЊ Рё РїРѕРґС‚РІРµСЂР¶РґРµРЅРёСЏ</h2>
+              </div>
+              <p className="max-w-xl text-sm text-white/70">
+                Р”РѕРєСѓРјРµРЅС‚С‹, РїРѕРґС‚РІРµСЂР¶РґР°СЋС‰РёРµ РѕРїС‹С‚, СЃРѕРѕС‚РІРµС‚СЃС‚РІРёРµ СЃС‚Р°РЅРґР°СЂС‚Р°Рј ISO Рё С‚СЂРµР±РѕРІР°РЅРёСЏРј Р РѕСЃС‚РµС…РЅР°РґР·РѕСЂР°, Р° С‚Р°РєР¶Рµ РґРѕСЃС‚СѓРї Рє СЂР°Р±РѕС‚Р°Рј РЅР° РѕСЃРѕР±Рѕ РѕРїР°СЃРЅС‹С… Рё С‚РµС…РЅРёС‡РµСЃРєРё СЃР»РѕР¶РЅС‹С… РѕР±СЉРµРєС‚Р°С….
+              </p>
+            </div>
+
+            <div ref={certificatesRef} className="mt-6 flex gap-6 overflow-x-auto scroll-smooth pb-4" aria-label="Certificates carousel">
+              {certificates.map((certificate) => (
+                <button
+                  key={certificate.id}
+                  type="button"
+                  data-carousel-card
+                  onClick={() => handleOpenCertificate(certificate)}
+                  className="group w-72 shrink-0 rounded-3xl border border-white/15 bg-white/12 p-6 text-left shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-lg transition hover:-translate-y-1 hover:border-white/40 hover:bg-white/18"
+                >
+                  <div className="relative h-36 w-full overflow-hidden rounded-2xl bg-white/80">
+                    <Image src={certificate.image} alt={certificate.alt} width={320} height={200} className="h-full w-full object-cover object-center" />
+                  </div>
+                  <div className="mt-4 flex flex-col gap-1">
+                    <h3 className="text-lg font-semibold text-white">{certificate.title}</h3>
+                    <p className="text-sm text-white/70">{certificate.number}</p>
+                    <p className="text-sm text-white/65">Р’С‹РґР°РЅ: {certificate.issuedBy}</p>
+                    <p className="text-xs text-white/50">Р”РµР№СЃС‚РІСѓРµС‚ РґРѕ {certificate.validTill}</p>
+                  </div>
+                  <span className="mt-3 inline-flex text-sm font-semibold text-white/70 transition group-hover:text-white">РџРѕРґСЂРѕР±РЅРµРµ</span>
+                </button>
+              ))}
+            </div>
+
+            {certificates.length > 1 && (
+              <div className="mt-4 flex justify-center gap-2">
+                {certificates.map((certificate, index) => (
+                  <button
+                    key={certificate.id}
+                    type="button"
+                    onClick={() => goToCertificate(index)}
+                    aria-label={`РџРµСЂРµР№С‚Рё Рє СЃРµСЂС‚РёС„РёРєР°С‚Сѓ ${certificate.title}`}
+                    className={`h-2.5 w-8 rounded-full transition ${certificateIndex === index ? "bg-white/90" : "bg-white/30"}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+
+                <section
+          ref={sectionCallbacks[5]}
+          id="contacts"
+          className="relative flex min-h-[100dvh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-white/10 to-transparent" />
+          <div className="relative z-10 mx-auto flex h-[calc(100vh-160px)] w-full max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-8 text-white shadow-[0_40px_120px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10">
+            <div className="flex flex-1 flex-col gap-8 lg:flex-row">
+              <div className="flex flex-1 flex-col gap-6">
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">РљРѕРЅС‚Р°РєС‚С‹</span>
+                  <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">РЎРІСЏР¶РёС‚РµСЃСЊ СЃ РЅР°С€РµР№ РєРѕРјР°РЅРґРѕР№</h2>
+                  <p className="mt-4 max-w-xl text-sm text-white/70">
+                    Р’С‹Р±РµСЂРёС‚Рµ РїСЂРѕС„РёР»СЊРЅРѕРіРѕ РјРµРЅРµРґР¶РµСЂР° РёР»Рё СѓРґРѕР±РЅС‹Р№ РєР°РЅР°Р» СЃРІСЏР·Рё. РњС‹ РѕС‚РІРµС‚РёРј РЅР° Р·Р°РїСЂРѕСЃ РІ СЂР°Р±РѕС‡РµРµ РІСЂРµРјСЏ Рё РїРѕРґРєР»СЋС‡РёРј РёРЅР¶РµРЅРµСЂРѕРІ РїРѕ РІР°С€РµРјСѓ РІРѕРїСЂРѕСЃСѓ.
+                  </p>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {contactPersons.map((person) => (
+                    <div key={person.email} className="rounded-3xl border border-white/15 bg-white/12 p-6 shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-lg">
+                      <p className="text-lg font-semibold text-white">{person.name}</p>
+                      <p className="text-sm text-white/70">{person.role}</p>
+                      <div className="mt-4 space-y-2 text-sm text-white/70">
+                        <a href={`tel:${person.phone.replace(/[^\d+]/g, "")}`} className="block font-semibold text-white hover:text-white/80">
+                          {person.phone}
+                        </a>
+                        <EmailCopyLink email={person.email} className="font-semibold text-white/80 hover:text-white">
+                          {person.email}
+                        </EmailCopyLink>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <aside className="flex w-full max-w-md flex-col gap-6">
+                <div className="rounded-3xl border border-white/15 bg-white/12 p-6 shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-lg">
+                  <h3 className="text-xl font-semibold text-white">РњС‹ РІ РјРµСЃСЃРµРЅРґР¶РµСЂР°С…</h3>
+                  <p className="mt-2 text-sm text-white/70">Р’С‹Р±РµСЂРёС‚Рµ СѓРґРѕР±РЅС‹Р№ РєР°РЅР°Р» Рё РїРѕР»СѓС‡РёС‚Рµ РѕС‚РІРµС‚ РІ Р±Р»РёР¶Р°Р№С€РµРµ СЂР°Р±РѕС‡РµРµ РІСЂРµРјСЏ.</p>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    {contactChannels.map((channel) => (
+                      <a
+                        key={channel.label}
+                        href={channel.href}
+                        className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:bg-white/20 hover:text-white"
+                        title={channel.tooltip}
+                      >
+                        <Image src={channel.icon} alt={channel.label} width={20} height={20} className="h-5 w-5 object-contain" />
+                        {channel.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-3xl border border-white/15 bg-white/12 p-6 shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-lg">
+                  <h3 className="text-xl font-semibold text-white">РџСЂСЏРјР°СЏ СЃРІСЏР·СЊ СЃ РґРёСЂРµРєС‚РѕСЂРѕРј</h3>
+                  <p className="mt-3 text-sm text-white/70">РџРѕ РІРѕРїСЂРѕСЃР°Рј СЃРѕС‚СЂСѓРґРЅРёС‡РµСЃС‚РІР° Рё СЃС‚СЂР°С‚РµРіРёС‡РµСЃРєРёС… РїСЂРѕРµРєС‚РѕРІ.</p>
+                  <div className="mt-4 space-y-2 text-sm font-semibold text-white">
+                    <a href="tel:+74951234567" className="block hover:text-white/80">+7 (495) 123-45-67</a>
+                    <EmailCopyLink email="info@stroyalliance.ru">info@stroyalliance.ru</EmailCopyLink>
+                  </div>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       {selectedCase && (
@@ -1269,8 +1277,8 @@ export default function Page() {
       {selectedCertificate && (
         <Modal title={selectedCertificate.title} onClose={handleCloseModal}>
           <p className="text-sm font-semibold text-slate-500">{selectedCertificate.number}</p>
-          <p className="text-sm text-slate-600">Выдан: {selectedCertificate.issuedBy}</p>
-          <p className="text-sm text-slate-600">Действует: {selectedCertificate.validTill}</p>
+          <p className="text-sm text-slate-600">Р’С‹РґР°РЅ: {selectedCertificate.issuedBy}</p>
+          <p className="text-sm text-slate-600">Р”РµР№СЃС‚РІСѓРµС‚: {selectedCertificate.validTill}</p>
           <ul className="list-disc space-y-2 pl-5 pt-3 text-sm text-slate-600">
             {selectedCertificate.scope.map((scopeItem) => (
               <li key={scopeItem}>{scopeItem}</li>
@@ -1281,3 +1289,4 @@ export default function Page() {
     </>
   );
 }
+

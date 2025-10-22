@@ -45,7 +45,7 @@ const MENU = [
   { label: "Контакты", href: "/contacts" },
 ];
 
-const DESKTOP_HEADER_HEIGHT = 96;
+const DESKTOP_HEADER_HEIGHT = 88;
 const MOBILE_BAR_HEIGHT = 60;
 
 export default function Header() {
@@ -149,7 +149,7 @@ export default function Header() {
     () =>
       isCollapsed && !isMenuOpen ? (
         <div className="pointer-events-auto fixed top-0 left-0 right-0 z-40 hidden justify-center md:flex" onMouseEnter={handleHeaderEnter}>
-          <div className="mt-0.5 flex h-9 items-center rounded-b-full border border-white/20 border-t-transparent bg-slate-950/85 px-5 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 shadow-[0_10px_30px_rgba(10,20,40,0.45)] backdrop-blur">
+          <div className="mt-0.5 flex h-10 items-center rounded-b-full border border-white/20 border-t-transparent bg-slate-950/85 px-6 text-[10px] font-semibold uppercase tracking-[0.32em] text-white/70 shadow-[0_10px_30px_rgba(10,20,40,0.45)] backdrop-blur">
             ГК «Строй Альянс»
           </div>
         </div>
@@ -184,8 +184,8 @@ export default function Header() {
         onMouseEnter={handleHeaderEnter}
         onMouseLeave={scheduleCollapse}
       >
-        <div className="mx-auto flex max-w-7xl items-center gap-6 px-6 py-4 lg:px-10">
-          <div className="flex flex-1 flex-wrap items-center gap-3">
+        <div className="mx-auto flex max-w-7xl items-center gap-6 px-6 py-3 lg:px-10">
+          <div className="flex flex-1 items-center gap-3 min-w-0">
             <a
               className="inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/45 hover:bg-white/20"
               href="tel:+74951234567"
@@ -196,7 +196,7 @@ export default function Header() {
               </svg>
               <span className="text-sm font-semibold tracking-wide">+7 (495) 123-45-67</span>
             </a>
-            <div className="hidden items-center gap-2 xl:flex">
+            <div className="flex items-center gap-2">
               {SOCIALS.map((social) => (
                 <a
                   key={social.label}
@@ -284,13 +284,13 @@ export default function Header() {
             </div>
 
             <div className="px-6 pb-10 pt-6">
-              <div className="space-y-4 text-lg font-semibold">
+              <div className="space-y-3 text-lg font-semibold">
                 {MENU.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={closeMenu}
-                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-5 py-4 transition hover:border-white/30 hover:bg-white/10"
+                    className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-3 transition hover:border-white/30 hover:bg-white/10"
                   >
                     {item.label}
                     <svg className="h-5 w-5 text-white/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
@@ -300,7 +300,7 @@ export default function Header() {
                 ))}
               </div>
 
-              <div className="mt-8 space-y-4 rounded-3xl border border-white/10 bg-white/5 p-5 text-white">
+              <div className="mt-6 space-y-3 rounded-3xl border border-white/10 bg-white/5 p-5 text-white">
                 <p className="text-sm text-white/70">Свяжитесь с нами</p>
                 <a href="tel:+74951234567" className="block text-2xl font-semibold text-white transition hover:text-white/80" onClick={closeMenu}>
                   +7 (495) 123-45-67
