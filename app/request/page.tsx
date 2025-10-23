@@ -297,9 +297,9 @@ export default function RequestPage() {
                         </label>
                         <label className="md:col-span-3">
                           <span className="text-xs uppercase tracking-[0.3em] text-white/60">{"\u041f\u0440\u0438\u043c\u0435\u0447\u0430\u043d\u0438\u0435"}</span>
-                          <input
-                            value={item.note ?? ""}
-                            onChange={(event) => updateItem(item.id, { note: event.target.value })}
+                            <input
+                              value={item.comment ?? ""}
+                              onChange={(event) => updateItem(item.id, { comment: event.target.value })}
                             placeholder="\u0414\u0435\u0442\u0430\u043b\u0438 \u043f\u043e \u043f\u043e\u0441\u0442\u0430\u0432\u043a\u0435"
                             className="mt-1 w-full rounded-2xl border border-white/15 bg-white/5 px-3 py-2 text-sm text-white placeholder-white/50 outline-none transition focus:border-teal-300/70 focus:ring-2 focus:ring-teal-300/40"
                           />
