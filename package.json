@@ -2,6 +2,9 @@
   "name": "sitestroy",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -26,7 +29,7 @@
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.14",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^20",
+    "@types/node": "^22",
     "@types/nodemailer": "^6.4.14",
     "@types/react": "^19",
     "@types/react-dom": "^19",

@@ -157,7 +157,7 @@ export default function Header() {
     [handleHeaderEnter, isCollapsed, isMenuOpen],
   );
 
-  const headerBackground = isScrolled ? "bg-slate-950/85 backdrop-blur-xl" : "bg-slate-950/55 backdrop-blur-md";
+  const headerBackground = isScrolled ? "bg-slate-950 shadow-[0_8px_40px_rgba(8,18,40,0.5)]" : "bg-slate-950";
   const headerStyle = isCollapsed
     ? { transform: "translateY(-100%)" }
     : { transform: "translateY(0)" };
@@ -179,15 +179,15 @@ export default function Header() {
       {mobileTopBar}
       {revealZone}
       <header
-        className={`pointer-events-auto fixed top-0 left-0 right-0 z-50 hidden border-b border-white/10 text-white transition-colors duration-300 ease-out md:block ${headerBackground}`}
+        className={`pointer-events-auto fixed top-0 left-0 right-0 z-50 hidden border-b border-slate-900 text-white transition-transform duration-300 ease-out md:block ${headerBackground}`}
         style={headerStyle}
         onMouseEnter={handleHeaderEnter}
         onMouseLeave={scheduleCollapse}
       >
-        <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-6 py-3 lg:px-10">
-          <div className="flex flex-1 items-center gap-4 overflow-hidden">
+        <div className="relative mx-auto flex w-full max-w-none items-center px-6 py-3 lg:px-10">
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             <a
-              className="inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/45 hover:bg-white/20"
+              className="inline-flex items-center gap-3 whitespace-nowrap rounded-full border border-white/25 bg-slate-900/60 px-4 py-2 text-sm font-semibold text-white transition hover:border-teal-400 hover:bg-slate-900/80"
               href="tel:+74951234567"
               title="Позвонить менеджеру"
             >
@@ -202,7 +202,7 @@ export default function Header() {
                   key={social.label}
                   href={social.href}
                   title={social.tooltip}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white/80 transition hover:border-white/40 hover:bg-white/25 hover:text-white"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-slate-900/60 text-white/80 transition hover:border-teal-400 hover:bg-slate-900/80 hover:text-white"
                   aria-label={social.label}
                 >
                   <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
@@ -215,7 +215,7 @@ export default function Header() {
                   key={social.label}
                   href={social.href}
                   title={social.tooltip}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/15 text-white/80 transition hover:border-white/40 hover:bg-white/25 hover:text-white"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-slate-900/60 text-white/80 transition hover:border-teal-400 hover:bg-slate-900/80 hover:text-white"
                   aria-label={social.label}
                 >
                   <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
@@ -224,22 +224,22 @@ export default function Header() {
             </div>
           </div>
 
-          <Link href="/" className="flex shrink-0 items-center gap-3 text-white">
+          <Link href="/" className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center gap-3 text-white">
             <Image src="/img/logo.svg" alt="Логотип ГК «Строй Альянс»" width={60} height={60} priority className="h-14 w-14" />
             <span className="text-base font-semibold uppercase tracking-[0.2em]">ГК «Строй Альянс»</span>
           </Link>
 
-          <div className="flex flex-1 items-center justify-end gap-4 overflow-hidden">
-            <nav className="hidden flex-1 items-center justify-end gap-6 text-sm font-medium text-white/80 lg:flex">
+          <div className="flex min-w-0 flex-1 items-center justify-end gap-4 pl-4">
+            <nav className="hidden flex-wrap items-center gap-4 text-sm font-medium text-white/80 md:flex md:justify-end lg:gap-6">
               {MENU.map((item) => (
-                <Link key={item.href} href={item.href} className="truncate transition hover:text-white">
+                <Link key={item.href} href={item.href} className="whitespace-nowrap transition hover:text-white">
                   {item.label}
                 </Link>
               ))}
             </nav>
             <Link
               href="/catalog/request"
-              className="hidden shrink-0 whitespace-nowrap rounded-full border border-white/35 bg-white/10 px-6 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20 md:inline-flex"
+              className="hidden shrink-0 whitespace-nowrap rounded-full border border-white/30 bg-slate-900/60 px-6 py-2 text-sm font-semibold text-white transition hover:border-teal-400 hover:bg-slate-900/80 md:inline-flex"
             >
               Оставить запрос
             </Link>
@@ -252,7 +252,7 @@ export default function Header() {
         onClick={toggleMenu}
         aria-expanded={isMenuOpen}
         aria-controls="mobile-navigation"
-        className="fixed bottom-6 left-1/2 z-40 flex w-[min(92vw,340px)] -translate-x-1/2 items-center justify-center gap-3 rounded-full border border-white/20 bg-slate-950/80 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur md:hidden"
+        className="fixed bottom-6 left-1/2 z-40 flex w-[min(92vw,340px)] -translate-x-1/2 items-center justify-center gap-3 rounded-full border border-white/20 bg-slate-950/85 px-6 py-3 text-sm font-semibold text-white shadow-xl shadow-slate-950/40 backdrop-blur md:hidden"
       >
         {isMenuOpen ? "Закрыть меню" : "Меню"}
         {isMenuOpen ? (
