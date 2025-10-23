@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { Category, Item, Subcategory } from "@/types/catalog";
@@ -32,6 +33,11 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
   const paramsKey = searchParams.toString();
   const { addItem } = useRequest();
   const [lastAddedItem, setLastAddedItem] = useState<string | null>(null);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
 
   const categoryMap = useMemo(() => new Map(categories.map((cat) => [cat.slug, cat])), [categories]);
 
@@ -184,6 +190,79 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
     ? "lg:basis-[40%] lg:translate-x-0 lg:opacity-100"
     : "lg:basis-0 lg:translate-x-16 lg:opacity-0 lg:pointer-events-none";
 
+  const modalContent =
+    selectedCategory && selectedSubcategory && selectedItem
+      ? (
+          <div
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/85 px-4 py-6 backdrop-blur"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="catalog-item-title"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) {
+                closeModal();
+              }
+            }}
+          >
+            <div className="relative w-full max-w-2xl rounded-3xl border border-slate-200/60 bg-white p-6 text-slate-900 shadow-[0_30px_90px_rgba(8,18,40,0.6)]">
+              <button
+                type="button"
+                onClick={() => {
+                  closeModal();
+                }}
+                className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-500 transition hover:border-teal-400 hover:text-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2"
+                aria-label="Закрыть модальное окно"
+              >
+                ✕
+              </button>
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-slate-400">
+                  <span>{selectedCategory.title}</span>
+                  <span className="text-slate-300">/</span>
+                  <span>{selectedSubcategory.title}</span>
+                </div>
+                <h2 id="catalog-item-title" className="text-2xl font-semibold text-slate-900">
+                  {selectedItem.title}
+                </h2>
+                {selectedItem.sku && (
+                  <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600">
+                    Артикул: {selectedItem.sku}
+                  </div>
+                )}
+                <p className="text-sm text-slate-600">
+                  {selectedItem.desc ??
+                    "Предоставим характеристики, паспорта и коммерческое предложение по запросу."}
+                </p>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-teal-500"
+                    onClick={() => {
+                      const label = encodeURIComponent(`Запрос КП: ${selectedItem.title}`);
+                      router.push(`/contacts?subject=${label}`);
+                    }}
+                  >
+                    Запросить КП
+                  </button>
+                  <button
+                    type="button"
+                    className="inline-flex items-center justify-center rounded-full border border-teal-500 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-teal-600 transition hover:bg-teal-50"
+                    onClick={handleAddSelectedToRequest}
+                  >
+                    Добавить в заявку
+                  </button>
+                </div>
+                {lastAddedItem === selectedItem.slug && (
+                  <p className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">
+                    Добавлено в заявку.
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        )
+      : null;
+
   return (
     <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:gap-4">
       <aside className={`${baseColumnClass} ${categoryColumnClass}`}>
@@ -318,78 +397,11 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         )}
       </section>
 
-      {selectedCategory && selectedSubcategory && selectedItem && (
-        <div
-          className="fixed inset-0 z-40 flex items-center justify-center bg-slate-900/70 px-4 py-6"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="catalog-item-title"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) {
-              closeModal();
-            }
-          }}
-        >
-          <div className="relative w-full max-w-2xl rounded-3xl bg-white p-6 shadow-2xl">
-            <button
-              type="button"
-              onClick={() => {
-                closeModal();
-              }}
-              className="absolute right-4 top-4 inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-teal-400 hover:text-teal-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-400 focus-visible:ring-offset-2"
-              aria-label="Закрыть модальное окно"
-            >
-              ✕
-            </button>
-            <div className="space-y-4">
-              <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.3em] text-slate-400">
-                <span>{selectedCategory.title}</span>
-                <span className="text-slate-300">/</span>
-                <span>{selectedSubcategory.title}</span>
-              </div>
-              <h2 id="catalog-item-title" className="text-2xl font-semibold text-slate-900">
-                {selectedItem.title}
-              </h2>
-              {selectedItem.sku && (
-                <div className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-slate-600">
-                  Артикул: {selectedItem.sku}
-                </div>
-              )}
-              <p className="text-sm text-slate-600">
-                {selectedItem.desc ??
-                  "Предоставим характеристики, паспорта и коммерческое предложение по запросу."}
-              </p>
-              <div className="grid gap-3 sm:grid-cols-2">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-full bg-teal-600 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-teal-500"
-                  onClick={() => {
-                    const label = encodeURIComponent(`Запрос КП: ${selectedItem.title}`);
-                    router.push(`/contacts?subject=${label}`);
-                  }}
-                >
-                  Запросить КП
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center rounded-full border border-teal-500 px-5 py-3 text-sm font-semibold uppercase tracking-wide text-teal-600 transition hover:bg-teal-50"
-                  onClick={handleAddSelectedToRequest}
-                >
-                  Добавить в заявку
-                </button>
-              </div>
-              {lastAddedItem === selectedItem.slug && (
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">
-                  Добавлено в заявку.
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+      {modalContent && portalTarget ? createPortal(modalContent, portalTarget) : modalContent}
     </div>
   );
 }
+
 
 
 
