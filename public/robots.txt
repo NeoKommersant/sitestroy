@@ -8,5 +8,5 @@ Disallow: /private/
 Disallow: /*?*
 
 # Укажи хост и сайтмап
-Host: https://example.com
-Sitemap: https://example.com/sitemap.xml
+Host: https://sitestroy.vercel.app/
+Sitemap: https://sitestroy.vercel.app/sitemap.xml
