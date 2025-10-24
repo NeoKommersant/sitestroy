@@ -53,7 +53,6 @@ export default function Header() {
   const [isMenuRendered, setIsMenuRendered] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const lastScrollYRef = useRef(0);
   const collapseTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
@@ -192,7 +191,7 @@ export default function Header() {
               <svg className="h-4 w-4 text-white/90" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 7.455 5.295 12.75 12.75 12.75h1.086c.621 0 1.167-.42 1.314-1.022l.72-2.878a1.125 1.125 0 0 0-.578-1.257l-2.07-1.035a1.125 1.125 0 0 0-1.257.21l-.906.906a.218.218 0 0 1-.28.028 8.316 8.316 0 0 1-2.544-2.544.218.218 0 0 1 .028-.28l.906-.906a1.125 1.125 0 0 0 .21-1.257L9.657 6.26A1.125 1.125 0 0 0 8.4 5.682l-2.878.72A1.312 1.312 0 0 0 4.5 7.716v1.284" />
               </svg>
-              <span className="text-sm font-semibold tracking-wide">+7 (495) 123-45-67</span>
+              <span className="text-sm font-semibold tracking-wide">+7 (978) 123-45-67</span>
             </a>
             <div className="hidden items-center gap-2 md:flex lg:hidden">
               {SOCIALS.slice(0, 3).map((social) => (
@@ -213,7 +212,7 @@ export default function Header() {
                   key={social.label}
                   href={social.href}
                   title={social.tooltip}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-slate-900/60 text-white/80 transition hover:border-teal-400 hover:bg-slate-900/80 hover:text-white"
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-slate-200 text-white/80 transition hover:border-teal-400 hover:bg-slate-900/80 hover:text-white"
                   aria-label={social.label}
                 >
                   <Image src={social.icon} alt={social.label} width={18} height={18} className="h-4 w-4" />
