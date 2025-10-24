@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent, PointerEvent as ReactPointerEvent, ReactNode } from "react";
 
 // --------------------------------------------------------------
-// РўРёРїС‹ РґР°РЅРЅС‹С… Рё РєРѕРЅСЃС‚Р°РЅС‚С‹ РґР»СЏ СЃС‚СЂР°РЅРёС†С‹
+// Типы данных и константы для страницы
 // --------------------------------------------------------------
 type HeroSlide = {
   id: string;
@@ -67,9 +67,9 @@ type ContactPerson = {
 };
 
 // --------------------------------------------------------------
-// РљРѕРЅС‚РµРЅС‚ РіР»Р°РІРЅРѕР№ СЃС‚СЂР°РЅРёС†С‹
+// Контент главной страницы
 // --------------------------------------------------------------
-// HERO РЎР›РђР™Р”Р•Р 
+// HERO Слайдер
 const HERO_SLIDES: HeroSlide[] = [
   {
     id: "welcome",
@@ -117,9 +117,9 @@ const HERO_SLIDES: HeroSlide[] = [
 
 const PAGE_SECTIONS = ["hero", "product-directions", "service-directions", "clients", "certificates", "contacts"] as const;
 type SectionId = (typeof PAGE_SECTIONS)[number];
-// РљРђРўР•Р“РћР РР РњРђРўР•Р РРђР›РћР’
+// Категории материалов
 const PRODUCT_DIRECTIONS: DirectionCard[] = [
-    {
+  {
     slug: "stroymaterialy",
     title: "Строительные материалы",
     description:
@@ -174,7 +174,7 @@ const PRODUCT_DIRECTIONS: DirectionCard[] = [
     href: "/catalog?category=uslugi",
   },
 ];
-// РљРђРўР•Р“РћР РР РЈРЎР›РЈР“
+// Категории услуг
 const SERVICE_DIRECTIONS: DirectionCard[] = [
   {
     slug: "stroitelnye-raboty",
@@ -386,13 +386,11 @@ const CONTACT_PERSONS: ContactPerson[] = [
 ];
 
 // --------------------------------------------------------------
-// РҐСѓРє РґР»СЏ РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅРѕРіРѕ drag-scroll РєР°СЂСѓСЃРµР»РµР№
+// Хук для горизонтального drag-scroll каруселей
 // --------------------------------------------------------------
 
-
 // --------------------------------------------------------------
-// РљРЅРѕРїРєР° РІРѕР·РІСЂР°С‚Р° Рє РЅР°С‡Р°Р»Сѓ СЃС‚СЂР°РЅРёС†С‹
-// --------------------------------------------------------------
+// Кнопка возврата к началу страницы
 // --------------------------------------------------------------
 function Modal({ onClose, title, children }: { onClose: () => void; title: string; children: ReactNode }) {
   const overlayRef = useRef<HTMLDivElement>(null);
@@ -416,9 +414,9 @@ function Modal({ onClose, title, children }: { onClose: () => void; title: strin
           type="button"
           onClick={onClose}
           className="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition hover:border-slate-300 hover:text-slate-900"
-          aria-label="Р—Р°РєСЂС‹С‚СЊ РјРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ"
+          aria-label="Закрыть модальное окно"
         >
-          вњ•
+          ×
         </button>
         <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
         <div className="mt-4 space-y-3 text-sm text-slate-600">{children}</div>
@@ -784,7 +782,7 @@ export default function Page() {
                   aria-hidden={!isActive}
                   role="group"
                   aria-roledescription="slide"
-                  aria-label={`${index + 1} РёР· ${heroSlides.length}`}
+                  aria-label={`${index + 1} из ${heroSlides.length}`}
                 >
                   <div className="absolute inset-0">
                     <Image
@@ -838,7 +836,7 @@ export default function Page() {
               <button
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex - 1)}
-                aria-label="РџСЂРµРґС‹РґСѓС‰РёР№ СЃР»Р°Р№Рґ"
+                aria-label="Предыдущий слайд"
                 className="group absolute left-6 bottom-[20%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:left-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:left-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:left-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
@@ -848,7 +846,7 @@ export default function Page() {
               <button
                 type="button"
                 onClick={() => handleHeroSelect(activeHeroIndex + 1)}
-                aria-label="РЎР»РµРґСѓСЋС‰РёР№ СЃР»Р°Р№Рґ"
+                aria-label="Следующий слайд"
                 className="group absolute right-6 bottom-[20%] flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white/80 backdrop-blur transition hover:border-white/40 hover:bg-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70 sm:right-8 sm:bottom-[18%] sm:h-14 sm:w-14 md:bottom-auto md:right-10 md:top-1/2 md:h-16 md:w-16 md:-translate-y-1/2 lg:right-16"
               >
                 <svg className="h-6 w-6 stroke-current" fill="none" viewBox="0 0 24 24" strokeWidth={1.5}>
@@ -870,209 +868,206 @@ export default function Page() {
           )}
         </section>
 
-                <section
-  ref={sectionCallbacks[1]}
-  id="product-directions"
-  className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
->
-  {/* Фон секции */}
-  <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-teal-900 to-slate-950" />
-
-  {/* ШИРОКИЙ ЦЕНТРИРОВАННЫЙ КОНТЕЙНЕР-БЛОК */}
-  <div
-    className="
-      relative z-10 mx-auto w-full
-      max-w-[96rem]              /* ~1536px. Хочешь шире — поставь 100rem (1600px) */
-      rounded-[32px] border border-white/12 bg-white/10
-      px-4 sm:px-8 lg:px-10 xl:px-12
-      py-8 lg:py-12 xl:py-16
-      text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl
-    "
-  >
-    {/* Шапка блока */}
-    <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
-      <div>
-        <span className="text-xs font-semibold uppercase tracking-[0.4em] text-teal-200/80">
-          Продукты
-        </span>
-        <h2 className="text-3xl font-semibold text-white sm:text-4xl">
-          Строительные материалы
-        </h2>
-      </div>
-      <p className="max-w-xl text-sm text-white/70">
-        Категории подобраны под инфраструктурные проекты: вода, тепло, газ, электрика и общестрой.
-      </p>
-    </header>
-
-    {/* Сетка карточек */}
-    <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
-      {directions.products.map((direction) => (
-        <Link
-          key={direction.slug}
-          href={direction.href}
-          className="
-            group relative flex items-center justify-center overflow-hidden
-            rounded-3xl border border-white/20 bg-white/5 transition
-            hover:-translate-y-1 hover:border-white/45
-            aspect-[16/9]
-          "
+        <section
+          ref={sectionCallbacks[1]}
+          id="product-directions"
+          className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
         >
-          <Image
-            src={direction.image}
-            alt={direction.alt}
-            fill
-            className="object-cover object-center opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
-            sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-          />
-          <div className="absolute inset-0 bg-slate-950/60 transition group-hover:bg-slate-950/35" />
-          <span className="relative z-10 px-4 text-center text-xl font-bold uppercase tracking-[0.24em] text-white drop-shadow-lg sm:text-2xl">
-            {direction.title}
-          </span>
-        </Link>
-      ))}
-    </div>
-  </div>
-</section>
+          {/* Фон секции */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-teal-900 to-slate-950" />
 
+          {/* ШИРОКИЙ ЦЕНТРИРОВАННЫЙ КОНТЕЙНЕР-БЛОК */}
+          <div
+            className="
+              relative z-10 mx-auto w-full
+              max-w-[96rem]              /* ~1536px. Хочешь шире — поставь 100rem (1600px) */
+              rounded-[32px] border border-white/12 bg-white/10
+              px-4 sm:px-8 lg:px-10 xl:px-12
+              py-8 lg:py-12 xl:py-16
+              text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl
+            "
+          >
+            {/* Шапка блока */}
+            <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-teal-200/80">
+                  Продукты
+                </span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+                  Строительные материалы
+                </h2>
+              </div>
+              <p className="max-w-xl text-sm text-white/70">
+                Категории подобраны под инфраструктурные проекты: вода, тепло, газ, электрика и общестрой.
+              </p>
+            </header>
 
-                <section
-  ref={sectionCallbacks[2]}
-  id="service-directions"
-  className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
->
-  {/* Фон секции — как в product-directions */}
-  <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-teal-900 to-slate-950" />
-
-  {/* Контейнер — идентичен предыдущему блоку */}
-  <div
-    className="
-      relative z-10 mx-auto w-full
-      max-w-[96rem]
-      rounded-[32px] border border-white/12 bg-white/10
-      px-4 sm:px-8 lg:px-10 xl:px-12
-      py-8 lg:py-12 xl:py-16
-      text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl
-    "
-  >
-    {/* Заголовок — структура/классы те же */}
-    <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
-      <div>
-        <span className="text-xs font-semibold uppercase tracking-[0.4em] text-teal-200/80">
-          Услуги
-        </span>
-        <h2 className="text-3xl font-semibold text-white sm:text-4xl">
-          Строительные работы под ключ
-        </h2>
-      </div>
-      <p className="max-w-xl text-sm text-white/70">
-        Команды под ключ: проектирование, строительно-монтажные и пусконаладочные работы, эксплуатация и сервис.
-      </p>
-    </header>
-
-    {/* Сетка карточек — 1в1 как в product (3 колонки на lg, 16:9, такие же ховеры/оверлей/size) */}
-    <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
-      {directions.services.map((direction) => (
-        <Link
-          key={direction.slug}
-          href={direction.href}
-          className="
-            group relative flex items-center justify-center overflow-hidden
-            rounded-3xl border border-white/20 bg-white/5 transition
-            hover:-translate-y-1 hover:border-white/45
-            aspect-[16/9]
-          "
-        >
-          <Image
-            src={direction.image}
-            alt={direction.alt}
-            fill
-            className="object-cover object-center opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
-            sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
-          />
-          <div className="absolute inset-0 bg-slate-950/60 transition group-hover:bg-slate-950/35" />
-          <span className="relative z-10 px-4 text-center text-xl font-bold uppercase tracking-[0.24em] text-white drop-shadow-lg sm:text-2xl">
-            {direction.title}
-          </span>
-        </Link>
-      ))}
-    </div>
-  </div>
-</section>
-
-
-                        <section
-  ref={sectionCallbacks[3]}
-  id="clients"
-  className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
->
-  {/* Фон остаётся твоим */}
-  <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
-
-  {/* Контейнер — как в предыдущих секциях */}
-  <div
-    className="
-      relative z-10 mx-auto w-full
-      max-w-[96rem]
-      rounded-[32px] border border-white/12 bg-white/10
-      px-4 sm:px-8 lg:px-10 xl:px-12
-      py-8 lg:py-12 xl:py-16
-      text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl
-    "
-  >
-    {/* Заголовок — 1в1 структура */}
-    <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
-      <div>
-        <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">
-          Кейсы
-        </span>
-        <h2 className="text-3xl font-semibold text-white sm:text-4xl">
-          Опыт для B2B и B2G
-        </h2>
-      </div>
-      <p className="max-w-xl text-sm text-white/70">
-        Реализуем проекты различного масштаба: инженерные сети, энергообъекты и модернизация инфраструктуры по всей стране.
-      </p>
-    </header>
-
-    {/* Сетка карточек — 2x2 всегда */}
-    <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
-      {clientCases.map((clientCase) => (
-        <button
-          key={clientCase.id}
-          type="button"
-          onClick={() => handleOpenCase(clientCase)}
-          aria-label={`Подробнее о кейсе ${clientCase.name}`}
-          className="
-            group relative flex items-center justify-center overflow-hidden
-            rounded-3xl border border-white/20 bg-white/5 transition
-            hover:-translate-y-1 hover:border-white/45
-            aspect-[16/9]
-          "
-        >
-          <Image
-            src={clientCase.image}
-            alt={clientCase.alt}
-            fill
-            className="object-cover object-center opacity-85 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
-            sizes="(min-width:1024px) 50vw, (min-width:640px) 50vw, 100vw"
-          />
-          <div className="absolute inset-0 bg-slate-950/55 transition group-hover:bg-slate-950/35" />
-          <div className="relative z-10 flex flex-col items-center gap-2 px-4 text-center">
-            <span className="text-xl font-bold uppercase tracking-[0.18em] text-white drop-shadow-lg sm:text-3xl">
-              {clientCase.name}
-            </span>
-            <span className="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/85">
-              {clientCase.sector}
-            </span>
+            {/* Сетка карточек */}
+            <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
+              {directions.products.map((direction) => (
+                <Link
+                  key={direction.slug}
+                  href={direction.href}
+                  className="
+                    group relative flex items-center justify-center overflow-hidden
+                    rounded-3xl border border-white/20 bg-white/5 transition
+                    hover:-translate-y-1 hover:border-white/45
+                    aspect-[16/9]
+                  "
+                >
+                  <Image
+                    src={direction.image}
+                    alt={direction.alt}
+                    fill
+                    className="object-cover object-center opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-slate-950/60 transition group-hover:bg-slate-950/35" />
+                  <span className="relative z-10 px-4 text-center text-xl font-bold uppercase tracking-[0.24em] text-white drop-shadow-lg sm:text-2xl">
+                    {direction.title}
+                  </span>
+                </Link>
+              ))}
+            </div>
           </div>
-        </button>
-      ))}
-    </div>
-  </div>
-</section>
+        </section>
 
+        <section
+          ref={sectionCallbacks[2]}
+          id="service-directions"
+          className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          {/* Фон секции — как в product-directions */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-teal-900 to-slate-950" />
 
-                        <section
+          {/* Контейнер — идентичен предыдущему блоку */}
+          <div
+            className="
+              relative z-10 mx-auto w-full
+              max-w-[96rem]
+              rounded-[32px] border border-white/12 bg-white/10
+              px-4 sm:px-8 lg:px-10 xl:px-12
+              py-8 lg:py-12 xl:py-16
+              text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl
+            "
+          >
+            {/* Заголовок — структура/классы те же */}
+            <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-teal-200/80">
+                  Услуги
+                </span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+                  Строительные работы под ключ
+                </h2>
+              </div>
+              <p className="max-w-xl text-sm text-white/70">
+                Команды под ключ: проектирование, строительно-монтажные и пусконаладочные работы, эксплуатация и сервис.
+              </p>
+            </header>
+
+            {/* Сетка карточек — 1в1 как в product (3 колонки на lg, 16:9, такие же ховеры/оверлей/size) */}
+            <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
+              {directions.services.map((direction) => (
+                <Link
+                  key={direction.slug}
+                  href={direction.href}
+                  className="
+                    group relative flex items-center justify-center overflow-hidden
+                    rounded-3xl border border-white/20 bg-white/5 transition
+                    hover:-translate-y-1 hover:border-white/45
+                    aspect-[16/9]
+                  "
+                >
+                  <Image
+                    src={direction.image}
+                    alt={direction.alt}
+                    fill
+                    className="object-cover object-center opacity-90 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                    sizes="(min-width:1024px) 33vw, (min-width:640px) 50vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-slate-950/60 transition group-hover:bg-slate-950/35" />
+                  <span className="relative z-10 px-4 text-center text-xl font-bold uppercase tracking-[0.24em] text-white drop-shadow-lg sm:text-2xl">
+                    {direction.title}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
+          ref={sectionCallbacks[3]}
+          id="clients"
+          className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+        >
+          {/* Фон остаётся твоим */}
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+
+          {/* Контейнер — как в предыдущих секциях */}
+          <div
+            className="
+              relative z-10 mx-auto w-full
+              max-w-[96rem]
+              rounded-[32px] border border-white/12 bg-white/10
+              px-4 sm:px-8 lg:px-10 xl:px-12
+              py-8 lg:py-12 xl:py-16
+              text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl
+            "
+          >
+            {/* Заголовок — 1в1 структура */}
+            <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+              <div>
+                <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">
+                  Кейсы
+                </span>
+                <h2 className="text-3xl font-semibold text-white sm:text-4xl">
+                  Опыт для B2B и B2G
+                </h2>
+              </div>
+              <p className="max-w-xl text-sm text-white/70">
+                Реализуем проекты различного масштаба: инженерные сети, энергообъекты и модернизация инфраструктуры по всей стране.
+              </p>
+            </header>
+
+            {/* Сетка карточек — 2x2 всегда */}
+            <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
+              {clientCases.map((clientCase) => (
+                <button
+                  key={clientCase.id}
+                  type="button"
+                  onClick={() => handleOpenCase(clientCase)}
+                  aria-label={`Подробнее о кейсе ${clientCase.name}`}
+                  className="
+                    group relative flex items-center justify-center overflow-hidden
+                    rounded-3xl border border-white/20 bg-white/5 transition
+                    hover:-translate-y-1 hover:border-white/45
+                    aspect-[16/9]
+                  "
+                >
+                  <Image
+                    src={clientCase.image}
+                    alt={clientCase.alt}
+                    fill
+                    className="object-cover object-center opacity-85 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                    sizes="(min-width:1024px) 50vw, (min-width:640px) 50vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-slate-950/55 transition group-hover:bg-slate-950/35" />
+                  <div className="relative z-10 flex flex-col items-center gap-2 px-4 text-center">
+                    <span className="text-xl font-bold uppercase tracking-[0.18em] text-white drop-shadow-lg sm:text-3xl">
+                      {clientCase.name}
+                    </span>
+                    <span className="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/85">
+                      {clientCase.sector}
+                    </span>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section
           ref={sectionCallbacks[4]}
           id="certificates"
           className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
@@ -1115,7 +1110,7 @@ export default function Page() {
           </div>
         </section>
 
-                        <section
+        <section
           ref={sectionCallbacks[5]}
           id="contacts"
           className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
@@ -1177,7 +1172,6 @@ export default function Page() {
             </div>
           </div>
         </section>
-
       </main>
 
       {selectedCase && (
@@ -1205,8 +1199,8 @@ export default function Page() {
       {selectedCertificate && (
         <Modal title={selectedCertificate.title} onClose={handleCloseModal}>
           <p className="text-sm font-semibold text-slate-500">{selectedCertificate.number}</p>
-          <p className="text-sm text-slate-600">Р’С‹РґР°РЅ: {selectedCertificate.issuedBy}</p>
-          <p className="text-sm text-slate-600">Р”РµР№СЃС‚РІСѓРµС‚: {selectedCertificate.validTill}</p>
+          <p className="text-sm text-slate-600">Выдан: {selectedCertificate.issuedBy}</p>
+          <p className="text-sm text-slate-600">Действует: {selectedCertificate.validTill}</p>
           <ul className="list-disc space-y-2 pl-5 pt-3 text-sm text-slate-600">
             {selectedCertificate.scope.map((scopeItem) => (
               <li key={scopeItem}>{scopeItem}</li>
@@ -1217,4 +1211,3 @@ export default function Page() {
     </>
   );
 }
-

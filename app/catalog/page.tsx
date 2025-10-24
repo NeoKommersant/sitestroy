@@ -1,4 +1,4 @@
-﻿import { Suspense } from "react";
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getCategories } from "@/lib/catalog";
 import CatalogExplorer from "./CatalogExplorer";

@@ -164,7 +164,7 @@ export default function Header() {
 
   const mobileTopBar = useMemo(
     () => (
-      <div className="fixed top-0 left-0 right-0 z-40 flex items-center justify-center border-b border-white/10 bg-slate-950/85 px-4 py-2 text-white backdrop-blur md:hidden">
+      <div className="fixed top-0 left-0 right-0 z-40 flex items-center justify-center border-b border-transparent bg-slate-950/85 px-4 py-2 text-white backdrop-blur md:hidden">
         <Link href="/" className="flex items-center gap-2 text-white">
           <Image src="/img/logo.svg" alt="Логотип ГК «Строй Альянс»" width={40} height={40} className="h-10 w-10" priority />
           <span className="text-xs font-semibold uppercase tracking-[0.28em] text-white/80">ГК «Строй Альянс»</span>
@@ -179,7 +179,7 @@ export default function Header() {
       {mobileTopBar}
       {revealZone}
       <header
-        className={`pointer-events-auto fixed top-0 left-0 right-0 z-50 hidden border-b border-slate-900 text-white transition-transform duration-300 ease-out md:block ${headerBackground}`}
+        className={`pointer-events-auto fixed top-0 left-0 right-0 z-50 hidden border-b border-transparent text-white transition-transform duration-300 ease-out md:block ${headerBackground}`}
         style={headerStyle}
         onMouseEnter={handleHeaderEnter}
         onMouseLeave={scheduleCollapse}
