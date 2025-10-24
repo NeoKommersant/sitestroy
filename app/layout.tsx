@@ -29,7 +29,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <RequestProvider>
           <Header />
           <RequestFab />
-          <main className="pt-[60px] md:pt-[96px]">{children}</main>
+          <main className="pt-[20px] md:pt-[60px]">{children}</main>
           <Footer />
         </RequestProvider>
       </body>

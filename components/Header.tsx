@@ -57,34 +57,32 @@ export default function Header() {
   const collapseTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const current = window.scrollY;
-      const delta = current - lastScrollYRef.current;
-      lastScrollYRef.current = current;
+  const handleScroll = () => {
+    const current = window.scrollY;
+    setIsScrolled(current > 12);
 
-      setIsScrolled(current > 12);
+    // меню всегда раскрывает хедер
+    if (isMenuOpen) {
+      setIsCollapsed(false);
+      return;
+    }
 
-      if (isMenuOpen) {
-        setIsCollapsed(false);
-        return;
-      }
+    // у самого верха страницы держим раскрытым
+    if (current < DESKTOP_HEADER_HEIGHT) {
+      setIsCollapsed(false);
+      return;
+    }
 
-      if (current < DESKTOP_HEADER_HEIGHT) {
-        setIsCollapsed(false);
-        return;
-      }
+    // ВАЖНО: ниже порога — ВСЕГДА свёрнут, независимо от
+    // направления скролла (вверх/вниз)
+    setIsCollapsed(true);
+  };
 
-      if (delta > 6 && current > DESKTOP_HEADER_HEIGHT + 16) {
-        setIsCollapsed(true);
-      } else if (delta < -6) {
-        setIsCollapsed(false);
-      }
-    };
+  handleScroll();
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [isMenuOpen]);
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMenuOpen]);
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -142,7 +140,7 @@ export default function Header() {
     if (window.scrollY < DESKTOP_HEADER_HEIGHT || isMenuOpen) return;
     collapseTimeoutRef.current = window.setTimeout(() => {
       setIsCollapsed(true);
-    }, 200);
+    }, 1000);
   }, [isMenuOpen]);
 
   const revealZone = useMemo(
