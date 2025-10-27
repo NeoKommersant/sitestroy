@@ -215,14 +215,14 @@ export default function RequestPage() {
               >
                 {"каталог"}
               </Link>{" "}
-              {"или добавьте собственную позицию."}
+              {"или добавьте свою позицию."}
             </p>
             <button
               type="button"
               onClick={addCustomItem}
               className="mt-5 inline-flex items-center justify-center rounded-full border border-white/35 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20"
             >
-              {"Добавить не найденную позицию"}
+              {"Добавить свою позицию"}
             </button>
           </div>
         ) : (
@@ -241,7 +241,7 @@ export default function RequestPage() {
                     onClick={addCustomItem}
                     className="inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-white/60 hover:bg-white/20"
                   >
-                    {"Добавить не найденную позицию"}
+                    {"Добавить свою позицию"}
                   </button>
                   <button
                     type="button"
