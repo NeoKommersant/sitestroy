@@ -54,33 +54,33 @@ export default function Clients({
     <section
       ref={sectionRef}
       id="clients"
-      className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+      className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950 max-md:h-dvh max-md:min-h-dvh max-md:flex-none max-md:scroll-mt-0 max-md:snap-start"
     >
       {/* Фон */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-800 to-slate-950" />
       {/* Контейнер */}
       <div
-        className="relative z-10 mx-auto w-full max-w-[96rem] rounded-[32px] border border-white/12 bg-white/10 px-4 sm:px-8 lg:px-10 xl:px-12 py-8 lg:py-12 xl:py-16 text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl"
+        className="relative z-10 mx-auto w-full max-w-[96rem] rounded-[32px] border border-white/12 bg-white/10 px-4 sm:px-8 lg:px-10 xl:px-12 py-8 lg:py-12 xl:py-16 text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl max-md:flex max-md:h-full max-md:flex-col max-md:justify-between max-md:rounded-none max-md:border-none max-md:bg-transparent max-md:px-4 max-md:py-20 max-md:shadow-none"
       >
         {/* Заголовок */}
-        <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+        <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left max-md:flex-none max-md:gap-1">
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">Кейсы</span>
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Опыт для B2B и B2G</h2>
+            <h2 className="text-3xl font-semibold text-white sm:text-4xl max-md:text-2xl">Опыт для B2B и B2G</h2>
           </div>
-          <p className="max-w-xl text-sm text-white/70">
+          <p className="max-w-xl text-sm text-white/70 max-md:text-xs">
             Реализуем проекты различного масштаба: инженерные сети, энергообъекты и модернизация инфраструктуры по всей стране.
           </p>
         </header>
         {/* Сетка карточек */}
-        <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5">
+        <div className="mt-8 lg:mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:gap-5 max-md:mt-5 max-md:flex-1 max-md:grid-cols-2 max-md:grid-rows-2 max-md:gap-4">
           {cases.map((clientCase) => (
             <button
               key={clientCase.id}
               type="button"
               onClick={() => handleOpenCase(clientCase)}
               aria-label={`Подробнее о кейсе ${clientCase.name}`}
-              className="group relative flex items-center justify-center overflow-hidden rounded-3xl border border-white/20 bg-white/5 transition hover:-translate-y-1 hover:border-white/45 aspect-[16/9]"
+              className="group relative flex items-center justify-center overflow-hidden rounded-3xl border border-white/20 bg-white/5 transition hover:-translate-y-1 hover:border-white/45 aspect-[16/9] max-md:h-full max-md:w-[180px] max-md:rounded-2xl max-md:border-white/15 max-md:bg-white/10"
             >
               <Image
                 src={clientCase.image}
@@ -91,10 +91,10 @@ export default function Clients({
               />
               <div className="absolute inset-0 bg-slate-950/55 transition group-hover:bg-slate-950/35" />
               <div className="relative z-10 flex flex-col items-center gap-2 px-4 text-center">
-                <span className="text-xl font-bold uppercase tracking-[0.18em] text-white drop-shadow-lg sm:text-3xl">
+                <span className="text-xl font-bold uppercase tracking-[0.18em] text-white drop-shadow-lg sm:text-3xl max-md:text-xs max-md:tracking-[0.10em]">
                   {clientCase.name}
                 </span>
-                <span className="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/85">
+                <span className="rounded-full border border-white/40 bg-white/20 px-1 py-0 text-[9px] font-semibold uppercase tracking-[0.10em] text-white/85">
                   {clientCase.sector}
                 </span>
               </div>
@@ -119,7 +119,7 @@ export default function Clients({
               rel="noreferrer"
               className="inline-flex items-center gap-2 pt-4 text-sm font-semibold text-blue-700 transition hover:text-blue-600"
             >
-              Visit client website
+              Посетить
             </a>
           )}
         </Modal>

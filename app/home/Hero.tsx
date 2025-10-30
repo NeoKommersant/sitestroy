@@ -107,7 +107,7 @@ export default function Hero({
     <section
       id="hero"
       ref={sectionRef}
-      className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none -mt-[60px] pt-[60px] md:-mt-[96px] md:pt-[96px]"
+      className="relative isolate flex h-[100dvh] w-screen min-h-[640px] flex-col overflow-hidden select-none -mt-[60px] pt-[60px] md:-mt-[96px] md:pt-[96px] max-md:mt-0 max-md:h-dvh max-md:min-h-dvh max-md:w-full max-md:flex-none max-md:items-center max-md:justify-center max-md:pt-0 max-md:snap-start"
     >
       <div
         className="relative h-full w-full touch-pan-y"
@@ -142,23 +142,23 @@ export default function Hero({
                 <div className="absolute inset-0 bg-slate-950/40" />
                 <div className="absolute inset-0 bg-gradient-to-b from-slate-950/10 via-slate-950/20 to-slate-950/70" />
               </div>
-              <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-center gap-6 px-6 py-24 text-white sm:px-10 lg:px-16">
+              <div className="relative z-10 mx-auto flex h-full w-full max-w-6xl flex-col justify-center gap-6 px-6 py-24 text-white sm:px-10 lg:px-16 max-md:mx-0 max-md:max-w-none max-md:gap-5 max-md:px-4 max-md:py-16">
                 <div className="flex flex-col items-center gap-4 text-center sm:items-start sm:text-left">
                   <span className="text-xs font-semibold uppercase tracking-[0.4em] text-white/80">Строительная организация</span>
-                  <h1 className="text-4xl font-bold leading-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl lg:text-6xl">
+                  <h1 className="text-4xl font-bold leading-tight text-white drop-shadow-[0_10px_30px_rgba(0,0,0,0.35)] sm:text-5xl lg:text-6xl max-md:text-3xl">
                     {slide.title}
                   </h1>
-                  <p className="max-w-2xl text-lg text-white/85 sm:text-xl">{slide.subtitle}</p>
+                  <p className="max-w-2xl text-lg text-white/85 sm:text-xl max-md:text-base">{slide.subtitle}</p>
                 </div>
-                <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/75 sm:mx-0 sm:text-lg">
+                <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/75 sm:mx-0 sm:text-lg max-md:text-sm">
                   {slide.description}
                 </p>
-                <div className="flex flex-col items-center gap-3 pt-2 sm:flex-row sm:items-center">
+                <div className="flex flex-col items-center gap-3 pt-2 sm:flex-row sm:items-center max-md:w-full max-md:gap-4 max-md:pt-0">
                   {primaryCta && (
                     <Link
                       href={primaryCta.href}
                       onClick={(event) => handleAnchorNavigation(event, primaryCta.href)}
-                      className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-white/90 px-8 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 hover:shadow-slate-900/20"
+                      className="inline-flex min-w-[180px] items-center justify-center rounded-full bg-white/90 px-8 py-3 text-sm font-semibold text-slate-900 shadow-lg shadow-slate-900/10 transition hover:-translate-y-0.5 hover:bg-white hover:text-slate-950 hover:shadow-slate-900/20 max-md:w-full"
                     >
                       {primaryCta.label}
                     </Link>
@@ -167,7 +167,7 @@ export default function Hero({
                     <Link
                       href={secondaryCta.href}
                       onClick={(event) => handleAnchorNavigation(event, secondaryCta.href)}
-                      className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 hover:text-white"
+                      className="inline-flex min-w-[180px] items-center justify-center rounded-full border border-white/40 bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/20 hover:text-white max-md:w-full"
                     >
                       {secondaryCta.label}
                     </Link>

@@ -61,32 +61,31 @@ export default function Certificates({
     <section
       ref={sectionRef}
       id="certificates"
-      className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950"
+      className="relative flex min-h-[100vh] w-full scroll-mt-32 items-center justify-center overflow-hidden bg-slate-950 max-md:h-dvh max-md:min-h-dvh max-md:flex-none max-md:scroll-mt-0 max-md:snap-start"
     >
       {/* Фон градиент */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
       {/* Каркас блока */}
-      <div className="relative z-10 mx-auto flex h-[85vh] w-[85vw] max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-12 text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10 lg:py-16">
+      <div className="relative z-10 mx-auto flex h-[85vh] w-[85vw] max-w-6xl flex-col rounded-[32px] border border-white/12 bg-white/10 px-6 py-12 text-white shadow-[0_30px_90px_rgba(10,20,45,0.45)] backdrop-blur-xl sm:px-10 lg:py-16 max-md:h-full max-md:w-full max-md:gap-6 max-md:rounded-none max-md:border-none max-md:bg-transparent max-md:px-4 max-md:py-6 max-md:shadow-none">
         {/* Заголовок */}
-        <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+        <header className="flex flex-col items-center gap-4 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left max-md:flex-none max-md:gap-3">
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.4em] text-blue-200/80">Компетенции</span>
-            <h2 className="text-3xl font-semibold text-white sm:text-4xl">Допуски и Сертификаты</h2>
+            <h2 className="text-3xl font-semibold text-white sm:text-4xl max-md:text-2xl">Допуски и Сертификаты</h2>
           </div>
-          <p className="max-w-xl text-sm text-white/70">
+          <p className="max-w-xl text-sm text-white/70 max-md:text-xs">
             Сертификаты ISO, Ростехнадзора и СРО подтверждают компетенции команды и допуск к работам на сложных объектах.
           </p>
         </header>
         {/* Сетка карточек */}
-        <div className="mt-10 grid flex-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 flex flex-1 snap-x snap-mandatory gap-4 overflow-x-auto px-1 sm:gap-5 md:grid md:gap-6 md:overflow-visible md:px-0 md:snap-none md:grid-cols-2 lg:grid-cols-3">
           {certificates.map((certificate, index) => (
             <button
               key={certificate.id}
               type="button"
               onClick={() => handleOpen(certificate)}
               aria-label={`Подробнее о сертификате ${certificate.title}`}
-              className="group relative flex h-full items-center justify-center overflow-hidden rounded-3xl border border-white/20 bg-white/5 transition hover:-translate-y-1 hover:border-white/45"
-              style={{ aspectRatio: "4 / 3" }}
+              className="group relative flex h-full items-center justify-center overflow-hidden rounded-3xl border border-white/20 bg-white/5 transition hover:-translate-y-1 hover:border-white/45 max-md:h-auto max-md:w-[80%] max-md:shrink-0 max-md:snap-start max-md:aspect-[3/4] md:aspect-[4/3]"
             >
               <Image
                 src={certificate.image}
@@ -100,7 +99,7 @@ export default function Certificates({
                 <span className="rounded-full border border-white/40 bg-white/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.25em] text-white/85">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <span className="text-lg font-semibold uppercase tracking-[0.18em] text-white drop-shadow-lg sm:text-xl">
+                <span className="text-lg font-semibold uppercase tracking-[0.18em] text-white drop-shadow-lg sm:text-xl max-md:text-base">
                   {certificate.title}
                 </span>
               </div>

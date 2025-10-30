@@ -9,7 +9,6 @@ import Certificates from "./home/Certificates";
 import Contacts from "./home/Contacts";
 
 // К модальным компонентам относятся внутренние модальные окна секций.
-
 // Список идентификаторов секций. Используется для расчёта индексов и навигации.
 const PAGE_SECTIONS = [
   "hero",
@@ -22,8 +21,6 @@ const PAGE_SECTIONS = [
 type SectionId = (typeof PAGE_SECTIONS)[number];
 
 export default function Page() {
-  // В этом компоненте не хранится состояние сертификатов. Состояние и модальные окна
-  // управления сертификатами реализованы внутри секции Certificates.
 
   // Рефы для секций, чтобы плавно скроллить между ними
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -202,23 +199,21 @@ export default function Page() {
     return () => window.removeEventListener("scroll", updateActiveSection);
   }, []);
 
-  // Обработчики открытия и закрытия модальных окон сертификатов удалены, поскольку
-  // логика управления модалями реализована в компоненте Certificates.
-
   const peekStyle = peekOffset !== 0 ? { transform: `translateY(${peekOffset}px)` } : undefined;
 
   return (
     <>
-      <main className="flex flex-col pb-24 transition-transform duration-300 ease-out" style={peekStyle}>
+      <main
+        className="flex flex-col pb-24 transition-transform duration-300 ease-out max-md:h-dvh max-md:overflow-y-scroll max-md:snap-y max-md:snap-mandatory max-md:pb-0"
+        style={peekStyle}
+      >
         <Hero sectionRef={sectionCallbacks[0]} />
         <Products sectionRef={sectionCallbacks[1]} />
         <Services sectionRef={sectionCallbacks[2]} />
         <Clients sectionRef={sectionCallbacks[3]} />
-        {/* Секция сертификатов реализована отдельным компонентом */}
         <Certificates sectionRef={sectionCallbacks[4]} />
         <Contacts sectionRef={sectionCallbacks[5]} />
       </main>
-      {/* Модальное окно для сертификатов удалено, оно находится внутри компонента Certificates */}
     </>
   );
 }

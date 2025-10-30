@@ -352,7 +352,7 @@ export const CERTIFICATES: CertificateCard[] = [
     number: "№ 77-Д-985/2025",
     issuedBy: "Ростехнадзор",
     validTill: "до 14.02.2027",
-    image: "/img/certificates/rostekhnadzор.svg",
+    image: "/img/certificates/rostekhnadzor.svg",
     alt: "Допуск Ростехнадзора на опасные производственные объекты",
     scope: [
       "Работы на опасных производственных объектах нефтегазовой отрасли.",
