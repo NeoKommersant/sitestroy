@@ -300,7 +300,7 @@ export const CERTIFICATES: CertificateCard[] = [
     number: "№ СРО-С-123-2025",
     issuedBy: "СРО «ИнжСтройАльянс»",
     validTill: "до 12.05.2026",
-    image: "/img/certificates/sro-stroy.svg",
+    image: "/img/certificates/sro-stroy.webp",
     alt: "СРО на строительно-монтажные работы",
     scope: [
       "Объекты капитального строительства, включая особо опасные и технически сложные.",
@@ -313,7 +313,7 @@ export const CERTIFICATES: CertificateCard[] = [
     number: "№ СРО-П-078-2025",
     issuedBy: "СРО «ПроектИнжиниринг»",
     validTill: "до 18.09.2026",
-    image: "/img/certificates/sro-proekt.svg",
+    image: "/img/certificates/sro-proekt.webp",
     alt: "СРО на проектные работы",
     scope: [
       "Проектирование инженерных коммуникаций и систем водоподготовки.",
@@ -326,7 +326,7 @@ export const CERTIFICATES: CertificateCard[] = [
     number: "RU-ISO-9001-4580",
     issuedBy: "Bureau Veritas Certification",
     validTill: "до 01.03.2027",
-    image: "/img/certificates/iso-9001.svg",
+    image: "/img/certificates/iso-9001.webp",
     alt: "Сертификат системы менеджмента качества ISO 9001",
     scope: [
       "Менеджмент качества поставок строительных материалов и оборудования.",
@@ -339,7 +339,7 @@ export const CERTIFICATES: CertificateCard[] = [
     number: "RU-ISO-14001-1120",
     issuedBy: "TÜV Rheinland",
     validTill: "до 30.11.2026",
-    image: "/img/certificates/iso-14001.svg",
+    image: "/img/certificates/iso-14001.webp",
     alt: "Сертификат системы экологического менеджмента ISO 14001",
     scope: [
       "Экологическое сопровождение строительства и эксплуатации объектов.",
@@ -352,7 +352,7 @@ export const CERTIFICATES: CertificateCard[] = [
     number: "№ 77-Д-985/2025",
     issuedBy: "Ростехнадзор",
     validTill: "до 14.02.2027",
-    image: "/img/certificates/rostekhnadzor.svg",
+    image: "/img/certificates/rostekhnadzor.webp",
     alt: "Допуск Ростехнадзора на опасные производственные объекты",
     scope: [
       "Работы на опасных производственных объектах нефтегазовой отрасли.",
