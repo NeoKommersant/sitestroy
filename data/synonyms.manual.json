@@ -1,0 +1,17 @@
+{
+  "круг": [
+    { "field": "product_type", "value": "armatura", "weight": 5, "score": 1 }
+  ],
+  "кругляк": [
+    { "field": "product_type", "value": "armatura", "weight": 4, "score": 0.9 }
+  ],
+  "пруток": [
+    { "field": "product_type", "value": "armatura", "weight": 4, "score": 0.9 }
+  ],
+  "krug": [
+    { "field": "product_type", "value": "armatura", "weight": 3, "score": 0.8 }
+  ],
+  "prutok": [
+    { "field": "product_type", "value": "armatura", "weight": 3, "score": 0.8 }
+  ]
+}

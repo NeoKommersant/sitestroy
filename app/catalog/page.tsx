@@ -1,7 +1,8 @@
-import { Suspense } from "react";
+﻿import { Suspense } from "react";
 import type { Metadata } from "next";
 import { getCategories } from "@/lib/catalog";
 import CatalogExplorer from "./CatalogExplorer";
+import CatalogSearchPanel from "./CatalogSearchPanel";
 
 const BASE_TITLE = "Каталог строительных материалов";
 const BASE_DESCRIPTION =
@@ -52,17 +53,23 @@ export default function CatalogPage() {
           <div className="absolute bottom-[-160px] right-0 h-96 w-96 rounded-full bg-teal-500/20 blur-3xl" />
           <div className="absolute left-[-120px] top-1/3 h-80 w-80 rounded-full bg-slate-900/60 blur-3xl" />
         </div>
-        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-5">
+        <div className="relative z-10 mx-auto flex max-w-7xl flex-col gap-6">
           <header className="space-y-2 rounded-3xl border border-white/15 bg-white/10 p-5 shadow-[0_20px_60px_rgba(10,20,45,0.45)] backdrop-blur-2xl">
             <h1 className="text-3xl font-semibold text-white sm:text-4xl">{BASE_TITLE}</h1>
             <p className="max-w-3xl text-base text-white/75">{BASE_DESCRIPTION}</p>
           </header>
-          <section className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-xl sm:p-8">
+          <CatalogSearchPanel />
+
+
+          <section
+            id="catalog-explorer"
+            className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_20px_60px_rgba(10,20,45,0.35)] backdrop-blur-xl sm:p-8"
+          >
             {/* Suspense скрывает клиентский `useSearchParams` до гидратации, чтобы статический экспорт не падал */}
             <Suspense
               fallback={
                 <div className="rounded-3xl border border-white/10 bg-white/10 p-6 text-sm text-white/70 shadow-[0_20px_50px_rgba(10,20,45,0.35)]">
-                  Загрузка каталога…
+                  Загрузка каталога...
                 </div>
               }
             >

@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { RequestProvider } from "@/components/providers/RequestProvider";
+import { SearchUIProvider } from "@/components/providers/SearchUIProvider";
 import { RequestFab } from "@/components/RequestFab";
 
 export const metadata: Metadata = {
@@ -27,10 +28,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ru">
       <body className="bg-white text-slate-900 antialiased">
         <RequestProvider>
-          <Header />
-          <RequestFab />
-          <main className="pt-0 md:pt-[60px]">{children}</main>
-          <Footer />
+          <SearchUIProvider>
+            <Header />
+            <RequestFab />
+            <main className="pt-0 md:pt-[60px]">{children}</main>
+            <Footer />
+          </SearchUIProvider>
         </RequestProvider>
       </body>
     </html>
