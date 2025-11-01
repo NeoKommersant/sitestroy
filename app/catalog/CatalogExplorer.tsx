@@ -307,15 +307,10 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
         </div>
       </aside>
 
-      <section
-        className={`${baseColumnClass} ${subcategoryColumnClass} origin-left rounded-3xl border border-slate-100 bg-white/90 p-5 shadow-sm backdrop-blur-sm`}
-        aria-hidden={!hasCategory}
-      >
-        {!selectedCategory ? (
-          <div className="flex h-full items-center justify-center text-center text-sm text-slate-500">
-            Выберите категорию, чтобы увидеть подкатегории и номенклатуру.
-          </div>
-        ) : (
+      {selectedCategory && (
+        <section
+          className={`${baseColumnClass} ${subcategoryColumnClass} origin-left rounded-3xl border border-slate-100 bg-white/90 p-5 shadow-sm backdrop-blur-sm`}
+        >
           <div className="flex flex-col gap-3">
             <h2 className="text-base font-semibold text-slate-900">{selectedCategory.title}</h2>
             <div className="mt-2 flex gap-3 overflow-x-auto pb-2 lg:grid lg:grid-cols-1 lg:gap-2.5 lg:overflow-visible">
@@ -351,25 +346,27 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
               })}
             </div>
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {/* Колонка номенклатуры появляется только после выбора подкатегории */}
-      <section
-        className={`${baseColumnClass} ${itemsColumnClass} origin-left rounded-3xl border border-slate-100 bg-white p-5 shadow-sm backdrop-blur-sm`}
-        aria-hidden={!hasSubcategory}
-      >
-        {!selectedSubcategory ? (
-          <div className="flex h-full items-center justify-center text-center text-sm text-slate-500">
-            Выберите подкатегорию, чтобы увидеть позиции номенклатуры.
-          </div>
-        ) : (
+      {selectedSubcategory && (
+        <section
+          className={`${baseColumnClass} ${itemsColumnClass} origin-left rounded-3xl border border-slate-100 bg-white p-5 shadow-sm backdrop-blur-sm`}
+        >
           <div className="flex h-full flex-col">
-            <h2 className="text-base font-semibold text-slate-900">{selectedSubcategory.title}</h2>
-            {/* Intro убран, чтобы колонка товаров оставалась компактной */}
-            <div className="mt-2 flex-1 space-y-1 overflow-y-auto pr-1">
-              {selectedSubcategory.items.map((itm) => {
+            <div className="flex flex-col gap-1">
+              <span className="text-xs font-semibold uppercase tracking-[0.3em] text-teal-600">
+                Количество позиций: {selectedSubcategory.items.length}
+              </span>
+              <h2 className="text-base font-semibold text-slate-900">{selectedSubcategory.title}</h2>
+            </div>
+            {/* Intro �?�+�?���?, �ؑ'�?�+�< ��?�>�?�?��� �'�?�?���?�?�? �?�?�'���?���>���?�? ��?�?������'�?�?�� */}
+            <div className="mt-3 flex-1 space-y-1 overflow-y-auto pr-1">
+              {selectedSubcategory.items.map((itm, index) => {
                 const isActive = selection.item === itm.slug;
+                const itemNumber = index + 1;
+                const itemBadge = itemNumber.toString().padStart(2, "0");
                 return (
                   <button
                     key={itm.slug}
@@ -382,7 +379,7 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
                     }`}
                     aria-pressed={isActive}
                   >
-                    <div className={ITEM_PLACEHOLDER}>{itm.title.slice(0, 2).toUpperCase()}</div>
+                    <div className={ITEM_PLACEHOLDER}>{itemBadge}</div>
                     <div className="space-y-1">
                       <div className="text-sm font-semibold text-slate-900">{itm.title}</div>
                     </div>
@@ -394,8 +391,8 @@ export default function CatalogExplorer({ categories }: CatalogExplorerProps) {
               })}
             </div>
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {modalContent && portalTarget ? createPortal(modalContent, portalTarget) : modalContent}
     </div>
